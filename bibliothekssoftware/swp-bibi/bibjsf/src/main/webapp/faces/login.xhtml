@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.library}</title>
+	<script type="text/javascript">
+		function start(){
+			#{changeReaderForm.setEmailForPassword('')};
+			#{changeReaderForm.setUserNameForPassword('')};
+		}
+	</script>
+</h:head>
+<h:body onload="start()">
+<ui:include src="/mainmenu.xhtml" />
+  <form method="post" action="j_security_check">
+  <p:panel header="#{messages.login}"
+  style="width: 1200px;margin: 0 auto;">
+  
+    <h:panelGrid columns="2" cellpadding="5">
+      <p:outputLabel for="j_username" value="#{messages.username}: " 
+      	style="font-weight:bold"/>
+      <p:inputText id="j_username" 
+      	style="width:800px" maxlength="50"/>
+
+      <p:outputLabel for="j_password" value="#{messages.password}: "
+      	style="font-weight:bold" />
+      <p:password type="password" id="j_password" 
+      	style="width:800px" maxlength="50"/>
+	</h:panelGrid>
+	
+	  <f:facet name="footer">
+      <h:panelGroup>
+        <p:commandButton id="submitButton" onclick="index" type="submit" 
+        name="submit" action="index" value="#{messages.login}" icon="ui-icon-check"/>
+        
+        <p:commandButton id="cancelButton" onclick="window.location.href = '/bibjsf/index.xhtml';" 
+        value="#{messages.cancel}" icon="ui-icon-closethick"/>
+        
+        <p:commandButton id="passwordButton" onclick="PF('dlg1').show();" 
+        type="button" name="password" action="index" value="#{messages.demandNewPassword}" 
+        icon="ui-icon-help"/>
+      </h:panelGroup>
+      </f:facet>
+      </p:panel>
+  </form>
+    
+    <!-- neues Password anfordern -->
+      <p:growl id="messages" showDetail="true" />
+      <p:dialog id="modalDialog" header="#{messages.demandNewPassword}" widgetVar="dlg1"  resizable="false"
+      modal="true" height="215" closable="false">  
+      <h:form>
+      	<h:outputText value="#{messages.emailForNewPassword}"/>
+      	<br/>
+      	<h:outputText value="#{messages.emailForNewPassword2}"/>
+      	<br/>
+      	<br/>
+      	<h:panelGrid columns="2" cellpadding="5">
+			<p:outputLabel for="username" value="#{messages.username}: "
+      			style="font-weight:bold" />
+      		<p:inputText id="username" required="true"
+      			value="#{changeReaderForm.userNameForPassword}"
+      			style="width:500px" maxlength="50"/>
+      			
+      		<p:outputLabel for="email" value="#{messages.email}: "
+      			style="font-weight:bold" />
+      		<p:inputText id="email" required="true" 
+				value="#{changeReaderForm.emailForPassword}"
+				validatorMessage="#{messages.invalidEmail}"  
+				style="width:500px" maxlength="50">
+				<f:validateRegex pattern="(.+@.+\..+)|" />
+			</p:inputText>
+      	</h:panelGrid>
+      	<br/>
+      	<p:commandButton id="sendPassword" value="#{messages.submit}"
+      	ajax="false"
+      	action="#{changeReaderForm.sendNewPassword()}" 
+        icon="ui-icon-mail-closed"/>
+        
+        <p:commandButton value="#{messages.cancel}" icon="ui-icon-closethick"
+		onclick="window.location.href = '/bibjsf/faces/login.xhtml';" />
+	  </h:form>
+	  </p:dialog> 
+  
+</h:body>
+</html>

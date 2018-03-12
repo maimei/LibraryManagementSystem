@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<title>#{messages.lendings}</title>
+</h:head>
+<h:body
+	onload="#{showReaderForm.setReader(addLendingForm.getReader())}; #{showExemplarForm.setExemplar(addLendingForm.getExemplar())}">
+	<h:outputStylesheet name="css/bib.css" />
+	<f:view>
+		<p:growl id="messages" showDetail="true" />
+		<ui:include src="/mainmenu.xhtml" />
+		<h:form id="form">
+
+
+			<p:panel id="panel" header="#{messages.addlending}"
+				style="width: 1200px;margin: 0 auto;">
+				<!-- buttons in footer  -->
+				<p:accordionPanel activeIndex="-1">
+					<p:tab title="Leser">
+						<h:panelGrid columns="2" cellpadding="5">
+							<ui:include src="../user/userInfoAttributes.xhtml" />
+						</h:panelGrid>
+					</p:tab>
+					<p:tab title="Exemplar">
+						<h:panelGrid columns="3" cellpadding="5">
+							<ui:include
+								src="../media/exemplar/exemplarDetailAttributes.xhtml">
+								<ui:param name="exemplarForm" value="#{showExemplarForm}" />
+							</ui:include>
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+
+				<br />
+
+				<!--  Enddatum -->
+				<h:outputLabel for="popupButtonCal" value="#{messages.till}: "
+					style="font-weight:bold" />
+				<p:calendar value="#{addLendingForm.till}" id="popupButtonCal"
+					locale="de" showOn="button">
+
+				</p:calendar>
+
+				<f:facet name="footer">
+					<h:panelGroup>
+						<p:commandButton id="saveButton" value="#{messages.save}"
+							action="#{addLendingForm.save()}" ajax="false"
+							icon="ui-icon-check" validateClient="true"
+							title="#{messages.save_help}" />
+						<p:commandButton id="cancelButton" value="#{messages.cancel}"
+							action="#{addLendingForm.cancel}" immediate="true"
+							title="#{messages.cancel_help} " icon="ui-icon-closethick" />
+					</h:panelGroup>
+				</f:facet>
+
+			</p:panel>
+
+
+			<p:defaultCommand target="saveButton" />
+		</h:form>
+	</f:view>
+</h:body>
+</html>

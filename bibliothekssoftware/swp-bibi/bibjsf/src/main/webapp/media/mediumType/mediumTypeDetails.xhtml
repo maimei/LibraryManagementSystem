@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.mediaTypeDetails}</title>
+</h:head>
+<h:body>
+	<h:outputStylesheet name="css/bib.css" />
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" />
+			<p:panel id="panel" header="#{messages.showMediumTypeDetails}"
+				style="margin: 0 auto; width:1200px">
+				<h:panelGrid columns="2" cellpadding="5">
+
+					<ui:include src="mediumTypeDetailAttributes.xhtml" />
+				</h:panelGrid>
+					<f:facet name="footer">				
+					<h:panelGroup>
+						<p:commandButton value="#{messages.edit}"
+							action="#{changeMediumTypeForm.edit(showMediumTypeForm.getMediumType())}"
+							icon="ui-icon-wrench" ajax="false" rendered="#{authBackingBean.isRole('BIB')}" />
+						<p:commandButton value="#{messages.back}"
+							icon="ui-icon-arrowreturnthick-1-w"
+							onclick="window.location.href = '/bibjsf/media/mediumType/mediumType.xhtml';" />
+					</h:panelGroup>
+					</f:facet>
+			</p:panel>
+
+		</h:form>
+	</f:view>
+</h:body>
+</html>

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<!-- Form for file upload -->
+<!-- http://www.primefaces.org/showcase/ui/datatableCellEditing.jsf -->
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<title>#{messages.reservationlisttitle}</title>
+</h:head>
+<h:body onload="#{reservationTable.reset()}">
+	<h:outputStylesheet name="css/bib.css" />
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.manageReservations}"
+			style="margin: 0 auto; width:1200px">
+			<h:form id="form">
+
+				<p:panel>
+					<p:commandButton value="#{messages.back}"
+						icon="ui-icon-arrowreturnthick-1-w"
+						onclick="window.location.href = '/bibjsf/lendings/lendings.xhtml';" />
+				</p:panel>
+				<br/>
+				<p:dataTable id="reservationTable" value="#{reservationTable.model}"
+					var="reservation" lazy="true" sortMode="multiple"
+					editable="#{reservationTable.modifiable}" style="text-align:center"
+					filteredValue="#{reservationTable.filteredElements}"
+					emptyMessage="#{messages.noReservationsFound}"
+					selection="#{reservationTable.selectedElements}"
+					resizableColumns="true" liveResize="true" paginator="true"
+					rows="25" rowsPerPageTemplate="10,25,50,100">
+
+					<p:column selectionMode="multiple" style="width:20px"
+						resizable="false" />
+
+					<!-- Reader ID -->
+					<p:column id="readerIDColumn" sortBy="#{reservation.readerID}"
+						resizable="false" style="width: 200px;"
+						filterBy="#{reservation.readerID}"
+						headerText="#{messages.readerid}" filterMatchMode="contains"
+						filterStyle="width: 60px">
+						<h:outputText value="#{reservation.readerID}" />
+					</p:column>
+
+					<!-- Title -->
+					<p:column id="mediumIDColumn" style="width: auto;"
+						resizable="false" headerText="Titel">
+						<h:outputText
+							value="#{reservationTable.getTitle(reservation.getMediumID())}"
+							style="width:auto; white-space: pre-wrap" />
+					</p:column>
+
+					<!-- date -->
+					<p:column id="date" sortBy="#{reservation.reservationDate}"
+						resizable="false" style="width: 110px"
+						headerText="#{messages.date}">
+						<h:outputText value="#{reservation.reservationDate}">
+							<f:convertDateTime pattern="dd.MM.yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<f:facet name="footer">
+						<p:growl id="messages" showDetail="true" />
+
+
+						<p:commandButton value="#{messages.delete}"
+							title="#{messages.clickToDeleteReservations}"
+							action="#{reservationTable.deleteSelected}"
+							update="reservationTable messages" icon="ui-icon-circle-minus">
+							<p:confirm header="#{messages.confirmation}"
+								message="#{messages.reallyDeleteSelectedReservations}"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					</f:facet>
+
+				</p:dataTable>
+
+				<p:confirmDialog global="true">
+
+					<p:commandButton value="#{messages.yes}" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="#{messages.no}" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+				</p:confirmDialog>
+
+			</h:form>
+		</p:panel>
+	</f:view>
+</h:body>
+</html>

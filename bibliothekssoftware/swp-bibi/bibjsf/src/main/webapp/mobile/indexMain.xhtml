@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+	
+	<f:view renderKitId="PRIMEFACES_MOBILE">
+	<head>
+  
+	</head>
+	<pm:page title="Mainmenu" >
+		<pm:view id="main">
+			<pm:header title="Login">
+		<!--	 <link rel="canonical" href="https://plus.google.com/+fcbayern/" />
+			
+			 	<script type="text/javascript"
+   					src="https://apis.google.com/js/plusone.js">
+					{"lang": "en-GB", "parsetags": "explicit"} 
+				</script> -->
+				<f:facet name="left">
+					<p:button value="Main" icon="home" href="indexMain.xhtml"></p:button>
+				</f:facet>
+				
+				<f:facet name="right">
+					<p:button value="Einstellungen" icon="gear" href="settings/settingsTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"></p:button>
+				</f:facet>
+			</pm:header>
+				<pm:content>
+				<form>
+						<p:button value="News"  href="news/news.xhtml"/>
+     					<p:button value="Mein Profil"  href="user/profileTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"/> 
+     					<p:button value="Medien"  href="media/mediumTemp.xhtml"/> 
+     					<p:button value="Einstellungen"  href="settings/settingsTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}" />
+     					<p:button value="Kontakt"  href="contact/contact.xhtml"/>
+     					<p:commandButton action="#{authBackingBean.logout}" value="Logout"  rendered="#{authBackingBean.isRole('USER')}" />	
+     					<p:button value="Einloggen"  href="indexMobile.xhtml" rendered="#{authBackingBean.isNotRole('USER')}" />
+     					
+      						
+      			</form>	
+					<!-- <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;width&amp;layout=button&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:35px;"></iframe> 
+				<br></br>
+					<span id="plusone"></span>
+					<script type="text/javascript">
+						gapi.plusone.render("plusone",
+  	 					{"size": "medium", "count": "true" }); 
+  	 					</script> -->
+				<!--  	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> -->
+  						<a href="https://twitter.com/rockwinkel" class="twitter-follow-button">Follow @rockwinkel</a> 
+  			</pm:content>
+		</pm:view>
+	</pm:page>
+	</f:view>
+</html>

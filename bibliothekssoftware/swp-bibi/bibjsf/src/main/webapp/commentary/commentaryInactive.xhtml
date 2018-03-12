@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.commentarylisttitle}</title>
+
+</h:head>
+<h:body
+	onload="#{commentaryTable.reset()}; #{commentaryTable.getModel().addInitiallyFilter('active','false','=')}">
+	<h:outputStylesheet name="css/bib.css" />
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.manageCommentaries}"
+			style="margin: 0 auto; width:1200px">
+			<p:panel>
+				<p:commandButton value="#{messages.back}"
+					onclick="window.location.href = '/bibjsf/media/medium/bib_admin/mediumIndex.xhtml';"
+					icon="ui-icon-arrowreturnthick-1-w" />
+			</p:panel>
+			<br />
+
+
+			<h:form id="form">
+				
+				<p:dataTable id="commentaryTable" value="#{commentaryTable.model}"
+					var="commentary" lazy="true" sortMode="multiple"
+					editable="#{commentaryTable.modifiable}"
+					filteredValue="#{commentaryTable.filteredElements}"
+					emptyMessage="#{messages.noCommentsFound}"
+					selection="#{commentaryTable.selectedElements}"
+					resizableColumns="true" liveResize="true" paginator="true"
+					rows="25" rowsPerPageTemplate="10,25,50,100">
+
+
+					<p:column selectionMode="multiple" style="width:20px" />
+
+					<p:column style="width:20px">
+						<p:rowToggler />
+					</p:column>
+
+					<!-- readerID -->
+					<p:column id="readerIDColumn" sortBy="#{commentary.readerID}"
+						style="width: 30%;" filterBy="#{commentary.readerID}"
+						headerText="#{messages.readerid}" filterMatchMode="contains"
+						filterStyle="width: 60px" resizable="false">
+						<h:outputText value="#{commentary.readerID}" id="readerID" />
+					</p:column>
+
+					<!-- medium title-->
+					<p:column id="mediumTitleColumn" style="width: 30%;"
+						headerText="#{messages.title_help}" filterMatchMode="contains">
+						<h:outputText value="#{commentaryTable.getMedium(commentary).getTitle()}" />
+					</p:column>
+
+					<!-- dateOfPublication -->
+					<p:column id="dateOfPublicationColumn"
+						sortBy="#{commentary.dateOfPublication}"
+						headerText="#{messages.dateOfPublication}">
+						<p:outputLabel value="#{commentary.dateOfPublication}">
+							<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+								timeZone="CET" />
+						</p:outputLabel>
+					</p:column>
+
+					<f:facet name="footer">
+						<p:growl id="messages" showDetail="true" />
+
+						<p:commandButton value="#{messages.delete}"
+							title="#{messages.clickToDeleteComments}" 
+							action="#{commentaryTable.deleteSelected}" update="commentaryTable messages"
+							icon="ui-icon-circle-minus">
+							<p:confirm header="#{messages.confirmation}"
+								message="#{messages.reallyDeleteSelectedComments}"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+						<p:commandButton value="#{messages.activate}"
+							action="#{commentaryTable.activateSelected()}" 
+							update="commentaryTable messages" icon="ui-icon-power" title="#{messages.clickToActivateComments}">
+							<p:confirm header="#{messages.confirmation}"
+								message="Möchten sie die ausgewählten Rezensionen wirklich aktivieren ?"
+								icon="ui-icon-alert" />
+							</p:commandButton>
+					</f:facet>
+
+					<p:rowExpansion>
+
+						<p
+							style="font-family: Verdana, Arial, sans-serif; font-size: 86%; white-space: pre-wrap">#{commentary.commentary}</p>
+					</p:rowExpansion>
+
+				</p:dataTable>
+
+
+
+				<p:confirmDialog global="true">
+					<p:commandButton value="#{messages.yes}" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="#{messages.no}" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+		</p:panel>
+	</f:view>
+</h:body>
+</html>

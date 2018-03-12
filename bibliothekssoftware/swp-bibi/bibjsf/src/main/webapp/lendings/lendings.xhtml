@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.lendinglisttitle}</title>
+	<script type="text/javascript">
+		function start(){
+			#{lendingTable.reset()};
+			#{lendingTable.getModel().addInitiallyFilter('returned','false','=')};
+		}
+	</script>
+</h:head>
+<h:body onload="start()">
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.manageLendings}"
+			style="width: 1200px;margin: 0 auto;">
+			<h:form id="form">
+				<p:growl id="messages" showDetail="true" />
+
+
+				<p:panel style="text-align:center">
+					<h:panelGrid columns="3" style="width:100%">
+						<p:commandButton id="newLending" value="#{messages.newLending}"
+							icon="ui-icon-circle-plus"
+							onclick="window.location.href = '/bibjsf/lendings/lendingAdd.xhtml';" />
+						<p:commandButton value="#{messages.extensionRequests}"
+							onclick="window.location.href = '/bibjsf/extension/extension.xhtml';" 
+							title="#{messages.extensionRequests_help}"/>
+						<p:commandButton value="#{messages.reservations}"
+							onclick="window.location.href = '/bibjsf/reservation/reservation.xhtml';" 
+							title="#{messages.reservations_help}"/>
+					</h:panelGrid>
+					<br/>
+					<h:panelGrid columns="2" style="width:75%; margin:0 auto">
+						<p:commandButton value="#{messages.nonpaid}"
+							onclick="window.location.href = '/bibjsf/lendings/lendingNonPaid.xhtml';" 
+							title="#{messages.nonpaid_help}"/>
+						<p:commandButton value="#{messages.overdrawnLendings}"
+							onclick="window.location.href = '/bibjsf/lendings/lendingOverdrawn.xhtml';"
+							title="#{messages.overdrawnLendings_help}"/>
+					</h:panelGrid>
+				</p:panel>
+				<br />
+
+				<p:dataTable id="lendingTable" value="#{lendingTable.model}"
+					var="lending" lazy="true" sortMode="multiple"
+					editable="#{lendingTable.modifiable}" style="text-align:center"
+					filteredValue="#{lendingTable.filteredElements}"
+					emptyMessage="#{messages.noLendingsFound}"
+					resizableColumns="true" liveResize="true" paginator="true"
+					rows="25" rowsPerPageTemplate="10,25,50,100,200,500,1000">
+
+					<!-- Reader ID -->
+					<p:column resizable="false" id="readerIDColumn"
+						sortBy="#{lending.readerID}" filterBy="#{lending.readerID}"
+						headerText="#{messages.readerid}" width="20%"
+						filterMatchMode="contains" filterStyle="width: 60px">
+						<h:outputText value="#{lending.readerID}" />
+					</p:column>
+
+					<!-- Exemplar ID -->
+					<p:column resizable="false" id="exemplarIDColumn"
+						sortBy="#{lending.exemplarID}" filterBy="#{lending.exemplarID}"
+						headerText="#{messages.exemplarid}" width="20%"
+						filterMatchMode="startsWith" filterStyle="width: 60px">
+						<h:outputText value="#{lending.exemplarID}" />
+					</p:column>
+
+					<!-- Start -->
+					<p:column id="from" sortBy="#{lending.start}" resizable="false"
+						headerText="#{messages.start}" width="15%">
+						<h:outputText value="#{lending.start}">
+							<f:convertDateTime pattern="dd.MM.yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<!-- Till -->
+					<p:column id="till" sortBy="#{lending.till}" resizable="false"
+						headerText="#{messages.till}" width="15%">
+						<h:outputText value="#{lending.till}">
+							<f:convertDateTime pattern="dd.MM.yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<!-- Rückgabe-->
+					<p:column id="button" headerText="#{messages.return}" width="15%"
+						resizable="false">
+						<p:commandButton action="#{returnLendingForm.setLending(lending)}"
+							ajax="false" icon="ui-icon-check" style="height:30px; width:30px" />
+					</p:column>
+
+					<!-- Verlängerung -->
+					<p:column id="button2" headerText="#{messages.extension}" width="15%"
+						resizable="false">
+						<p:commandButton action="#{changeLendingForm.edit(lending)}"
+							ajax="false" icon="ui-icon-plusthick"
+							style="height:30px; width:30px" />
+					</p:column>
+
+				</p:dataTable>
+
+			</h:form>
+		</p:panel>
+	</f:view>
+</h:body>
+</html>

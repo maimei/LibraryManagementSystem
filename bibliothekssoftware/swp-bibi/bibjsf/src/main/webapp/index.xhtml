@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="./resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="./resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.bib}</title>
+	<script type="text/javascript">
+			if (screen.width &lt; 1025) {
+				
+				if((#{authBackingBean.isRole("USER")}) || (#{authBackingBean.isRole("BIB")}) || (#{authBackingBean.isRole("ADMIN")})){
+					document.location = "mobile/indexMain.xhtml";	
+				} else {
+					document.location = "mobile/indexMobile.xhtml";
+				}
+			}
+		</script>
+
+</h:head>
+<body onload="#{commentaryTable.reset()};">
+	<f:view>
+		<p:growl id="messages" showDetail="true" />
+
+		<ui:include src="/mainmenu.xhtml" />
+
+		<br />
+		
+		
+		<p:panel style="width:1200px;padding:10px; margin: 0 auto; font-weight:bold" rendered="#{authBackingBean.isRole('NEW') and authBackingBean.isNotRole('USER')}">
+			<p
+				style="font-family: Verdana, Arial, sans-serif; white-space: pre-wrap">Sie wurden noch nicht freigeschaltet und haben somit lediglich eingeschränkten Zugriff auf den gesicherten Bereich.</p>
+		</p:panel>
+
+		<ui:include src="/commentary/commentaryNewest.xhtml" />
+
+		<br />
+
+		<ui:include src="/news/news.xhtml" />
+
+
+	</f:view>
+</body>
+</html>

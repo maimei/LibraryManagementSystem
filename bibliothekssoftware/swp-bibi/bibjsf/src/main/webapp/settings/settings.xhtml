@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<title>#{messages.settings}</title>
+	<script>
+	 function start(){
+		 #{changePropertyForm.edit(0)};
+		 #{changePropertyForm.edit(1)}; 
+		 #{changePropertyForm.edit(2)};
+	 }
+	</script>
+</h:head>
+<h:body onload="start()">
+	<h:outputStylesheet name="css/bib.css" />
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.manageSettings}"
+			style="margin: 0 auto; width:1200px">
+			<div style="height: 60px;" />
+			<h:form id="form">
+				<p:growl id="messages" showDetail="true" />
+				<p:tabView id="tabView">
+
+					<p:tab id="tab1" title="#{messages.openingTimes}">
+						<!-- Öffnungszeiten -->
+
+						<p:dataTable id="openingTimeTable"
+							value="#{openingTimeTable.model}" var="time" lazy="true"
+							sortMode="multiple" editable="#{openingTimeTable.modifiable}"
+							emptyMessage="#{messages.noOpeningTimesFound}"
+							resizableColumns="true" liveResize="true" rows="7">
+							<f:facet name="header">  
+            				#{messages.openingTimes}  
+       						</f:facet>
+							<p:columnGroup type="header">
+								<p:row>
+									<p:column rowspan="2" headerText="#{messages.weekday}" resizable="false"
+										style="width:25.4%">
+										<h:outputText value="#{time.day}" />
+									</p:column>
+									<p:column colspan="2" headerText="#{messages.morning}" resizable="false"
+										style="width:32%" />
+									<p:column colspan="2" headerText="#{messages.afternoon}" resizable="false"
+										style="width:32%" />
+									<p:column rowspan="2" />
+								</p:row>
+								<p:row>
+									<p:column headerText="#{messages.from2}" resizable="false"/>
+									<p:column headerText="#{messages.to}" resizable="false"/>
+									<p:column headerText="#{messages.from2}" resizable="false"/>
+									<p:column headerText="#{messages.to}" resizable="false"/>
+								</p:row>
+							</p:columnGroup>
+
+
+							<p:column resizable="false">
+								<h:outputText value="#{time.day}" />
+							</p:column>
+							<p:column style="text-align:center" resizable="false" >
+								<h:outputText value="#{time.morningStart}" />
+							</p:column>
+							<p:column style="text-align:center" resizable="false">
+								<h:outputText value="#{time.morningEnd}" />
+							</p:column>
+							<p:column style="text-align:center" resizable="false"> 
+								<h:outputText value="#{time.afternoonStart}" />
+							</p:column>
+							<p:column style="text-align:center" resizable="false">
+								<h:outputText value="#{time.afternoonEnd}" />
+							</p:column>
+
+							<!-- Bearbeiten -->
+							<p:column id="button" style="width:6%">
+								<p:commandButton action="#{changeOpeningTimeForm.edit(time)}"
+									ajax="false" icon="ui-icon-wrench"
+									title="#{messages.clickToEdit}" style="height:30px; width:30px" />
+							</p:column>
+
+							<f:facet name="footer">
+								<div />
+							</f:facet>
+						</p:dataTable>
+					</p:tab>
+
+					<p:tab id="tab2" title="#{messages.closedTimes}">
+						<!-- Geschlossene Zeiträume -->
+
+						<p:dataTable id="closedTimeTable" value="#{closedTimeTable.model}"
+							var="closedTime" lazy="true" sortMode="multiple"
+							editable="#{closedTimeTable.modifiable}" style="text-align:center"
+							emptyMessage="#{messages.noClosedTimesFound}"
+							selection="#{closedTimeTable.selectedElements}"
+							resizableColumns="true" liveResize="true" paginator="true"
+							rows="25" rowsPerPageTemplate="10,25,50,100">
+
+							<f:facet name="header">  
+            				#{messages.closedTimes}  
+       						</f:facet>
+
+							<!-- Multiselection  -->
+							<p:column selectionMode="multiple" resizable="false" 
+						style="width: 20px"  />
+
+							<!-- Startdatum -->
+							<p:column id="titleColumn" headerText="#{messages.from}" resizable="false"
+								style="width:100px">
+								<h:outputText value="#{closedTime.start}">
+									<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+										timeZone="CET" />
+								</h:outputText>
+							</p:column>
+
+							<!-- Enddatum -->
+							<p:column headerText="#{messages.till}" style="width:100px" resizable="false">
+								<h:outputText value="#{closedTime.till}">
+									<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+										timeZone="CET" />
+								</h:outputText>
+							</p:column>
+
+							<!-- Anlass -->
+							<p:column headerText="#{messages.occasion}" style="width:auto" resizable="false">
+								<h:outputText value="#{closedTime.occasion}" style="width:auto; white-space: pre-wrap" />
+							</p:column>
+
+							<f:facet name="footer">
+								<p:growl id="messages" showDetail="true" />
+								<p:commandButton id="add" value="#{messages.add}"
+									icon="ui-icon-circle-plus"
+									onclick="window.location.href = '/bibjsf/settings/closedTimeAdd.xhtml';" />
+								<p:commandButton id="delete" value="#{messages.delete}"
+									action="#{closedTimeTable.deleteSelected}"
+									update="closedTimeTable messages" icon="ui-icon-circle-minus">
+									<p:confirm header="#{messages.confirmation}"
+										message="#{messages.reallyDeleteSelectedClosedTimes}"
+										icon="ui-icon-alert" />
+								</p:commandButton>
+							</f:facet>
+						</p:dataTable>
+
+						<p:confirmDialog global="true">
+							<p:commandButton value="#{messages.yes}" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="#{messages.no}" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</p:tab>
+
+					<p:tab id="tab3" title="#{messages.commonSettings}">
+						<!-- Allgemeine Einstellungen -->
+						<h:panelGrid columns="2" cellpadding="5">
+							<p:outputLabel for="inactiveReader"
+								value="#{messages.inactiveReaderSetting}: "
+								style="font-weight:bold" />
+							<p:inputText style="width:80px" id="inactiveReader"
+								value="#{changePropertyForm.get(0).value}" />
+
+							<p:outputLabel for="overdrawingTolerance"
+								value="#{messages.overdrawingTolerance}: "
+								style="font-weight:bold" />
+							<p:inputText style="width:80px" id="overdrawingTolerance"
+								value="#{changePropertyForm.get(1).value}" />
+
+							<p:outputLabel for="suggestDeleteReader"
+								value="#{messages.suggestDeleteReader}: "
+								style="font-weight:bold" />
+							<p:inputText style="width:80px" id="suggestDeleteReader"
+								value="#{changePropertyForm.get(2).value}" />
+						</h:panelGrid>
+						<p:growl id="messages" showDetail="true" />
+
+						<p:commandButton value="#{messages.save}"
+							action="#{changePropertyForm.save()}" icon="ui-icon-check"
+							validateClient="true" update="messages">
+							<p:confirm header="#{messages.confirmation}"
+								message="#{messages.reallySaveSelectedSettings}" />
+						</p:commandButton>
+
+						<p:confirmDialog global="true">
+							<p:commandButton value="#{messages.yes}" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="#{messages.no}" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</p:tab>
+
+					<!-- Database -->
+					<p:tab title="Datenbank" id="tab4" rendered="#{authBackingBean.isRole('ADMIN')}">
+
+						<p:panel header="Sichern und Wiederherstellen" id="dbpanel">
+
+							<p:panel style="text-align:center">
+								<p:growl id="dbmessage1" showDetail="true" />
+								<h:panelGrid width="100%" columns="2">
+
+									<p:commandButton action="#{administration.backupDB()}"
+										value="#{messages.saveDatabase}"
+										update="@parent:@parent:@parent dbmessage1"
+										onstart="PF('statusDialog').show();"
+										onsuccess="PF('statusDialog').hide();">
+									</p:commandButton>
+
+									<p:commandButton action="#{administration.resetDB()}"
+										onstart="PF('statusDialog').show();"
+										onsuccess="PF('statusDialog').hide();"
+										value="Datenbank zurücksetzen" update="@parent:@parent:@parent:@parent:@parent dbmessage1">
+										<p:confirm header="#{messages.confirmation}"
+											message="#{messages.reallyResetDatabase}"
+											icon="ui-icon-alert" />
+									</p:commandButton>
+
+
+
+								</h:panelGrid>
+
+							</p:panel>
+
+							<br />
+
+							<p:dataTable id="backuptable" style="text-align:center"
+								widgetVar="backuptable" value="#{administration.getBackups()}"
+								var="backup">
+
+
+								<p:growl id="dbmessage2" showDetail="true" />
+								<p:column headerText="Version">
+									<h:outputText value="#{backup.name}" style="width:auto" />
+								</p:column>
+
+								<p:column headerText="Wiederherstellen">
+									<p:commandButton
+										action="#{administration.restoreDB(backup.name)}"
+										onstart="PF('statusDialog').show();"
+										onsuccess="PF('statusDialog').hide();"
+										icon="ui-icon-play"
+										update="@parent:@parent:@parent:@parent:@parent dbmessage2">
+										<p:confirm header="#{messages.confirmation}"
+											message="Möchten sie die Datenbank wirklich wiederherstellen? Dabei werden sämtliche Daten ersetzt."
+											icon="ui-icon-alert" />
+									</p:commandButton>
+								</p:column>
+
+								<p:column headerText="#{messages.delete}">
+									<p:commandButton action="#{administration.delete(backup)}"
+										icon="ui-icon-circle-minus" update="backuptable dbmessage2">
+										<p:confirm header="#{messages.confirmation}"
+											message="Möchten sie dieses Backup wirklich vom Server löschen? Es steht ihnen danach nicht mehr zur Verfügung."
+											icon="ui-icon-alert" />
+									</p:commandButton>
+								</p:column>
+
+								<p:column headerText="Download">
+									<p:commandButton update="backuptable dbmessage2" ajax="false"
+										icon="ui-icon-folder-open">
+										<p:fileDownload
+											value="#{administration.backupDownload(backup)}" />
+									</p:commandButton>
+								</p:column>
+
+								<f:facet name="header">
+									<h:outputText value="Auf dem Server liegende Sicherungen"
+										style="weight:bold" />
+								</f:facet>
+
+
+								<f:facet name="footer">
+									<div />
+								</f:facet>
+
+							</p:dataTable>
+
+
+
+
+
+							<br />
+
+							<p:accordionPanel activeIndex="-1">
+								<p:tab title="Sicherung Hochladen">
+
+									<p:growl id="dbmessage3" showDetail="true" />
+									<p:fileUpload
+										fileUploadListener="#{administration.backupUpload}"
+										update="@parent:@parent:@parent dbmessage3"
+										uploadLabel="Hochladen" cancelLabel="Abbruch"
+										label="Auswählen" allowTypes="/(\.|\/)(backup)$/" />
+								</p:tab>
+							</p:accordionPanel>
+
+
+
+						</p:panel>
+						<p:confirmDialog global="true">
+							<p:commandButton value="#{messages.yes}" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="#{messages.no}" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</p:tab>
+					<p:tab title="Import/Export">
+						<p:panel header="Leser">
+							<p:growl id="messages2" showDetail="true" />
+							<p:commandButton id="csvExportReader"
+								value="#{messages.csvexport}" title="#{messages.csvexport_help}"
+								update="@parent" ajax="false" icon="ui-icon-folder-open">
+								<p:fileDownload value="#{readerTable.cSV}" />
+							</p:commandButton>
+							<div style="height:20px" />
+							<p:accordionPanel activeIndex="-1">
+								<p:tab title="CSV-Import">
+								<p:growl id="messages3" showDetail="true" />
+							<p:fileUpload
+								fileUploadListener="#{readerTable.handleFileUpload}"
+								update="messages3" uploadLabel="Importieren"
+								onstart="PF('statusDialog').show();"
+								oncomplete="PF('statusDialog').hide();" cancelLabel="Abbruch"
+								label="Auswählen" allowTypes="/(\.)(csv)$/" />
+								</p:tab>
+								</p:accordionPanel>
+
+						</p:panel>
+						<br/>
+						<br/>
+						<p:panel header="Bücher">
+							<p:commandButton id="csvExportBook" value="#{messages.csvexport}"
+								title="#{messages.csvexport_help}" update="@parent" ajax="false"
+								icon="ui-icon-folder-open">
+								<p:fileDownload value="#{mediumTable.cSV}" />
+							</p:commandButton>
+							<div style="height:20px" />
+							<p:accordionPanel activeIndex="-1">
+								<p:tab title="CSV-Import">
+								<p:growl id="messages4" showDetail="true" />
+								<p:fileUpload
+								fileUploadListener="#{mediumTable.handleFileUpload}"
+								 uploadLabel="CSV-Import"
+								onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+								 cancelLabel="Abbruch"
+								label="Auswählen" allowTypes="/(\.)(csv)$/" />
+								</p:tab>
+								</p:accordionPanel>
+							
+							
+							
+
+						</p:panel>
+					</p:tab>
+
+				</p:tabView>
+
+			
+			
+
+			</h:form>
+		</p:panel>
+	</f:view>
+</h:body>
+</html>

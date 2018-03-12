@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+</h:head>
+
+<body onload="#{changeReaderForm.edit(authBackingBean.getReaderByID(authBackingBean.getUserID()))};">
+<f:view>
+	<ui:include src="/mainmenu.xhtml" />
+	<h:form>	
+	<p:panel header="#{messages.mydata}" style="margin: 0 auto; width:1200px">
+		<h:panelGrid columns="2" cellpadding="5">	
+			<!-- first name -->
+            <p:outputLabel style="font-weight:bold" for="firstname" value="#{messages.firstname}: " />
+            <p:inputText style="width:800px" maxlength="250"
+            id="firstname" value="#{changeReaderForm.firstName}" required="true"
+            requiredMessage="#{messages.firstname} #{messages.required}"/>
+            
+            <!--  last name -->
+            <p:outputLabel style="font-weight:bold" for="lastname" value="#{messages.lastname}: "  />
+            <p:inputText style="width:800px" maxlength="250"
+            id="lastname" value="#{changeReaderForm.lastName}" required="true"
+            requiredMessage="#{messages.lastname} #{messages.required}" />
+                        
+            <!--  birthday -->
+            <p:outputLabel style="font-weight:bold" for="birthday" value="#{messages.birthday}: "  />
+             <p:inputMask id="birthday" value="#{changeReaderForm.birthday}"
+			mask="99.99.9999"
+			requiredMessage="#{messages.birthdayreq}"
+			style="width:800px" required="true">
+			<f:convertDateTime type="date" pattern="dd.MM.yyyy" timeZone="CET" />
+			</p:inputMask>
+            
+            <!-- street -->
+            <p:outputLabel style="font-weight:bold" for="street" value="#{messages.street}:"  />
+            <p:inputText style="width:800px"  id="street" value="#{changeReaderForm.street}" maxlength="250" 
+            required="true" requiredMessage="#{messages.street} #{messages.required}" />
+            
+            <!-- zipcode -->
+            <p:outputLabel style="font-weight:bold" for="zipcode" value="#{messages.zipcode}:"  />
+            <p:inputText style="width:800px"  id="zipcode" value="#{changeReaderForm.zipcode}" maxlength="250"
+            required="true" requiredMessage="#{messages.zipcode} #{messages.required}" />
+             
+            <!-- city -->
+            <p:outputLabel style="font-weight:bold" for="city" value="#{messages.city}:"  />
+             <p:inputText style="width:800px"  id="city" value="#{changeReaderForm.city}" maxlength="250"
+             required="true" requiredMessage="#{messages.city} #{messages.required}"/>
+            
+            <!-- phone -->
+            <p:outputLabel style="font-weight:bold" for="phone" value="#{messages.phone}:"  />
+             <p:inputText style="width:800px" maxlength="250" 
+             id="phone" value="#{changeReaderForm.phone}" 
+             required="true" requiredMessage="#{messages.phone} #{messages.required}"/>
+            
+            <!-- user name -->
+            <p:outputLabel style="font-weight:bold" for="username" value="#{messages.username}:"  />
+          	  <p:inputText style="width:800px" maxlength="250"
+          	  id="username" value="#{changeReaderForm.userName}" 
+          	  required="true" requiredMessage="#{messages.username} #{messages.required}"/>
+            
+            <!--  email -->
+            <p:outputLabel style="font-weight:bold" for="email" value="#{messages.email}:"  />
+          	  <p:inputText style="width:800px" maxlength="250"
+          	  id="email" value="#{changeReaderForm.email}" required="true"
+          	  requiredMessage="#{messages.email} #{messages.required}"/>
+
+		</h:panelGrid>
+		
+			<f:facet name="footer">
+			<h:panelGroup>
+			<p:growl id="message" showDetail="true" />
+			<p:commandButton value="#{messages.save}"
+				title="#{messages.save_help}"
+				action="#{changeReaderForm.save()}" ajax="false"
+				icon="ui-icon-check" />
+			<p:commandButton value="#{messages.back}" icon="ui-icon-arrowreturnthick-1-w"
+               	onclick="window.location.href = '/bibjsf/account/account.xhtml';" />
+			</h:panelGroup>
+			</f:facet>
+		
+		</p:panel>
+	</h:form>
+</f:view>
+</body>
+</html>

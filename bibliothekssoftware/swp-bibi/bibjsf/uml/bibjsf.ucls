@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.4" icons="true" automaticImage="JPEG" always-add-relationships="false" 
+  generalizations="false" realizations="false" associations="false" dependencies="false" nesting-relationships="false">  
+  <package id="1" language="java" name="swp.bibjsf" project="bibjsf" file="/bibjsf/src/test/java/swp/bibjsf" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="356" width="381" x="90" y="80"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="swp.bibjsf.businesslogic" project="bibjsf" 
+    file="/bibjsf/src/main/java/swp/bibjsf/businesslogic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="189" y="169"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <class id="3" language="java" name="swp.bibjsf.Config" project="bibjsf" 
+    file="/bibjsf/src/main/java/swp/bibjsf/Config.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="284" y="376"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <package id="4" language="java" name="swp.bibjsf.exception" project="bibjsf" 
+    file="/bibjsf/src/main/java/swp/bibjsf/exception" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="178" y="232"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="swp.bibjsf.persistence" project="bibjsf" 
+    file="/bibjsf/src/main/java/swp/bibjsf/persistence" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="183" y="291"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="swp.bibjsf.presentation" project="bibjsf" 
+    file="/bibjsf/src/main/java/swp/bibjsf/presentation" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="372" y="169"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="swp.bibjsf.renderer" project="bibjsf" 
+    file="/bibjsf/src/main/java/swp/bibjsf/renderer" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="362" y="231"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="swp.bibjsf.utils" project="bibjsf" file="/bibjsf/src/main/java/swp/bibjsf/utils" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="349" y="291"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false" static="false"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="false" multiplicity="false"/>
+</class-diagram>

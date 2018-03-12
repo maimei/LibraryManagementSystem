@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.addLending}</title>
+</h:head>
+<h:body>
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" />
+
+			<p:panel id="panel" header="Rückgabeformular"
+				style="width: 1200px;margin: 0 auto;">
+				<h:panelGrid columns="2" cellpadding="5">
+
+					<h:outputLabel for="days" value="überzogene Tage:"
+						style="font-weight:bold" title="#{messages.note_help}" />
+					<p:inputText readonly="true" id="days"
+						value="#{returnLendingForm.days}" style="width: 100px" />
+
+					<h:outputLabel for="feedays" value="davon angerechnete Tage:"
+						style="font-weight:bold" title="#{messages.note_help}" />
+					<p:inputText readonly="true" id="feedays"
+						value="#{returnLendingForm.feedays}" style="width: 100px" />
+
+
+					<h:outputLabel for="tolerance" value="Toleranz:"
+						style="font-weight:bold" title="#{messages.note_help}" />
+					<p:inputText readonly="true" id="tolerance"
+						value="#{returnLendingForm.tolerance}" style="width: 100px" />
+
+					<p:separator />
+					<p:separator />
+
+					<p:outputLabel value="Mahngebühren: " style="font-weight:bold" />
+					<p:inputText value="#{returnLendingForm.fee}" style="width:100px"
+						required="true" />
+				</h:panelGrid>
+				<f:facet name="footer">
+					<h:panelGroup>
+						<p:commandButton id="saveButton" value="#{messages.save}"
+							action="#{returnLendingForm.save()}" ajax="false"
+							icon="ui-icon-check" validateClient="true"
+							title="#{messages.save_help}" />
+						<p:commandButton id="cancelButton" value="#{messages.cancel}"
+							icon="ui-icon-closethick" action="#{returnLendingForm.cancel}"
+							immediate="true" title="#{messages.cancel_help} " />
+					</h:panelGroup>
+				</f:facet>
+
+			</p:panel>
+
+
+		</h:form>
+	</f:view>
+</h:body>
+</html>

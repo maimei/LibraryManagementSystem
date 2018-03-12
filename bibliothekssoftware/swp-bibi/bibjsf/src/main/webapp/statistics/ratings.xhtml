@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.statistics}</title>
+</h:head>
+<h:body onload="#{mediumTable.setNumber(0)}, #{mediumTable.resetMediumList()}, #{mediumTable.setPopularity(true)}">
+	<h:outputStylesheet name="css/bib.css" />
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.ratings}"
+		style="margin: 0 auto; width:1200px">
+		<div style="height: 60px;" />
+		<h:form id="form">
+		<p:growl id="messages" showDetail="true"/>
+
+		<p:dataTable id="mediumTable" value="#{mediumTable.mediumList}" var="medium"
+		    lazy="true" sortMode="multiple"
+			editable="#{mediumTable.modifiable}"
+			emptyMessage="#{messages.noMediaRatingsFound}"
+			resizableColumns="true" liveResize="true" rows="50000">
+
+			<!-- Medientyp -->
+			<p:column id="mediaType" headerText="#{messages.mediaType}">
+				<h:outputText value="#{mediumTable.getType(medium)}" />
+			</p:column>
+
+			<!-- Titel -->
+			<p:column id="title" headerText="Titel">
+				<h:outputText value="#{medium.title}" />
+			</p:column>
+
+			<!-- Bewertung -->
+			<p:column id="rating" headerText="#{messages.rating}">
+				<h:outputText value="#{medium.rating}" />
+			</p:column>
+			
+			<!-- Bewertungsanzahl -->
+			<p:column id="ratingCount" headerText="#{messages.ratingCount}">
+				<h:outputText value="#{medium.ratingCount}" /> 
+			</p:column>
+
+			<f:facet name="header">
+				<p:outputLabel value="#{messages.number}:" />
+				<p:inputText style="width:3%"  value="#{mediumTable.number}" />
+				<h:selectOneMenu id="popularity" value="#{mediumTable.popularity}" required="true"> 
+					<f:selectItem itemLabel="beliebt" itemValue="true"/>
+					<f:selectItem itemLabel="unbeliebt" itemValue="false" />   
+            	</h:selectOneMenu>  
+            	<p:growl id="messages" showDetail="true"/>
+				<p:commandButton id="search" value="#{messages.go}" action="#{mediumTable.getRatedMedia()}" update="messages mediumTable"/>
+				<p:commandButton value="#{messages.reset}" action="#{mediumTable.setNumber(0)}" ajax="false"/>
+				<p:defaultCommand target="search"/>
+			</f:facet>
+			
+			<f:facet name="footer">
+				<div />
+			</f:facet>
+			</p:dataTable>
+		
+		</h:form>
+	</p:panel>
+	</f:view>
+</h:body>
+</html>

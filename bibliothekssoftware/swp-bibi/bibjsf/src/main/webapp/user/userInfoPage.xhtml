@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<!-- Addition of a reader -->
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<title>#{messages.users}</title>
+</h:head>
+<h:body>
+	<h:outputStylesheet name="css/bib.css" />
+	<f:view>
+
+		<ui:include src="/mainmenu.xhtml" />
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" />
+			<p:panel id="panel" header="#{messages.showUserDetails}"
+				style="margin: 0 auto; width:1200px">
+				<h:panelGrid columns="2" cellpadding="5">
+
+
+
+					<ui:include src="userInfoAttributes.xhtml" />
+					<p:commandButton value="#{messages.edit}"
+						action="#{changeReaderForm.edit(showReaderForm.getElement())}"
+						ajax="false" icon="ui-icon-wrench" />
+					<p:commandButton value="#{messages.back}"
+						icon="ui-icon-arrowreturnthick-1-w"
+						onclick="window.location.href = '/bibjsf/user/reader/readerIndex.xhtml';"
+						rendered="#{(showReaderForm.getGroupid() == 'USER') and (showReaderForm.getLastUse() &gt; readerTable.getDeletable()) and (showReaderForm.getStatus() != 'gesperrt')}" />
+					<p:commandButton value="#{messages.back}"
+						icon="ui-icon-arrowreturnthick-1-w"
+						onclick="window.location.href = '/bibjsf/user/bib/bibIndex.xhtml';"
+						rendered="#{showReaderForm.getGroupid() == 'BIB'}" />
+					<p:commandButton value="#{messages.back}"
+						icon="ui-icon-arrowreturnthick-1-w"
+						onclick="window.location.href = '/bibjsf/user/new/newIndex.xhtml';"
+						rendered="#{showReaderForm.getGroupid() == 'NEW'}" />
+					<p:commandButton value="#{messages.back}"
+						icon="ui-icon-arrowreturnthick-1-w"
+						onclick="window.location.href = '/bibjsf/user/reader/inactive.xhtml';"
+						rendered="#{(showReaderForm.getGroupid() == 'USER') and (showReaderForm.getLastUse() &lt;= readerTable.getDeletable()) and (showReaderForm.getStatus() != 'gesperrt')}" />
+					<p:commandButton value="#{messages.back}"
+						icon="ui-icon-arrowreturnthick-1-w"
+						onclick="window.location.href = '/bibjsf/user/reader/blocked.xhtml';"
+						rendered="#{(showReaderForm.getGroupid() == 'USER') and (showReaderForm.getStatus() == 'gesperrt')}" />
+
+
+				</h:panelGrid>
+			</p:panel>
+
+
+		</h:form>
+	</f:view>
+</h:body>
+</html>

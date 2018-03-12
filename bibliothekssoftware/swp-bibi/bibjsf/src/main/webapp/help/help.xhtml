@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.bib}</title>
+</h:head>
+<body>
+	<f:view>
+		<p:growl id="messages" showDetail="true" />
+
+		<ui:include src="/mainmenu.xhtml" />
+
+		<h:form>
+			<p:panel header="#{messages.help}"
+				style="width: 1200px; margin: 0 auto; text-align:center">
+				<p:outputPanel style="width:100%; padding:10px;">
+					<p
+						style="font-family: Verdana, Arial, sans-serif; font-size: 86%; white-space: pre-wrap">#{messages.helpText}</p>
+				</p:outputPanel>
+				<h:panelGrid width="100%" columns="2">
+						<p:commandButton value="#{messages.viewManual}"
+						icon="ui-icon-search"
+						onclick="window.location.href = '/bibjsf/help/help.pdf';" />
+					<p:commandButton id="downloadLink" value="#{messages.downloadManual}"
+						action="#{downloadBean.downloadFile}" ajax="false"
+						icon="ui-icon-disk" style="text-align: center" />
+				
+				
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</f:view>
+</body>
+</html>

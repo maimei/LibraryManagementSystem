@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../../resources/favicons/favicon.ico" type="image/x-icon"/>
+</h:head>
+<body>
+	<ui:composition>
+
+		<!-- title -->
+		<h:outputLabel for="title" value="#{messages.title}:"
+			style="font-weight:bold" title="#{messages.title_help}" />
+		<p:inputText id="title" value="#{mediumForm.title}"
+			style="width: 800px" maxlength="250" title="#{messages.title_help}"
+			required="true" requiredMessage="#{messages.title} #{messages.required}"/>
+
+		<!-- subtitle -->
+		<h:outputLabel for="subtitle" value="#{messages.subtitle}:"
+			style="font-weight:bold" title="#{messages.subtitle_help}" />
+		<p:inputText id="subtitle" value="#{mediumForm.subtitle}"
+			style="width:800px" maxlength="250"/>
+
+		<!-- location -->
+		<h:outputLabel for="location" value="#{messages.location}:"
+			style="font-weight:bold" title="#{messages.location_help}" />
+		<p:inputText id="location" value="#{mediumForm.location}"
+			style="width: 800px" maxlength="250"
+			requiredMessage="#{messages.location} #{messages.required}"/>
+
+		<!-- categories -->
+		<h:outputLabel  for="categories"
+			value="#{messages.categories}:" style="font-weight:bold" 
+			title="#{messages.categories_help}" />
+		<h:panelGroup style="width: 800px">
+	    <p:selectManyCheckbox id="categories"  value="#{mediumForm.cat}" layout="grid" columns="4"
+	     requiredMessage="#{messages.categories} #{messages.required}">
+	    	<f:selectItems value="#{categoryTable.getCategorysAsSelectItem()}" />
+	    </p:selectManyCheckbox>
+		</h:panelGroup>
+		<!-- language -->
+		<h:outputLabel for="language" value="#{messages.language}:"
+			title="#{messages.language_help}" style="font-weight:bold" />
+		 <p:selectOneMenu id="suburbs" value="#{mediumForm.language}" editable="true" maxlength="2" 
+		 required="true" requiredMessage="#{messages.language} #{messages.required}">  
+                
+                <f:selectItems value="#{mediumForm.getLanguages()}" />  
+            </p:selectOneMenu>  
+		<!-- description -->
+		<h:outputLabel for="description" value="#{messages.description}:"
+			style="font-weight:bold" title="#{messages.description_help}" />
+		<p:inputTextarea id="description" value="#{mediumForm.description}"
+			rows="3" cols="#{mediumForm.textWidth}"
+			style="width: 800px" maxlength="2000"/>
+
+		<!-- price -->
+		<h:outputLabel for="price" value="#{messages.price} (in €) :"
+			style="font-weight:bold" title="#{messages.price_help}" />
+		<p:inputText id="price" value="#{mediumForm.price}"
+			requiredMessage="#{messages.price} #{messages.required}"
+			style="width: 800px" maxlength="250">
+			<f:convertNumber type="number" pattern="#0.00" locale="de" />
+		</p:inputText>
+
+		<!--  dateOfPublication -->
+		<h:outputLabel for="dateOfPublication"
+			value="#{messages.dateOfPublication}:" style="font-weight:bold"
+			title="#{messages.dateOfPublication_help}" />
+		<p:inputMask id="dateOfPublication"
+			value="#{mediumForm.dateOfPublication}" mask="99.99.9999"
+			requiredMessage="#{messages.dateOfPublication} #{messages.required}"
+			style="width: 800px" maxlength="250">
+			<f:convertDateTime type="date" pattern="dd.MM.yyyy" timeZone="CET" />
+		</p:inputMask>
+
+		<!-- imageURL -->
+		<h:outputLabel for="imageURL" value="#{messages.imageURL}:"
+			style="font-weight:bold" title="#{messages.imageURL_help}" />
+		<p:inputText id="imageURL" value="#{mediumForm.imageURL}"
+			requiredMessage="#{messages.imageURL} #{messages.required}" 
+			style="width: 800px" maxlength="250"/>
+
+		<!-- attribute0 -->
+		<h:outputLabel for="attribute0"
+			value="#{showMediumTypeForm.attribute0}:"
+			style="font-weight:bold" rendered="#{showMediumTypeForm.checkAttribute(0)}"/>
+		<p:inputTextarea id="attribute0" value="#{mediumForm.attribute0}"
+			style="width:800px" maxlength="1000"
+			rows="1"
+			rendered="#{showMediumTypeForm.checkAttribute(0)}"
+			requiredMessage="#{messages.attribute0} #{messages.required}"/>
+
+		<!-- attribute1 -->
+		<h:outputLabel for="attribute1"
+			value="#{showMediumTypeForm.attribute1}:"
+			style="font-weight:bold" rendered="#{showMediumTypeForm.checkAttribute(1)}"/>
+		<p:inputTextarea id="attribute1" value="#{mediumForm.attribute1}"
+			style="width: 800px" maxlength="1000"
+			rows="1"
+			rendered="#{showMediumTypeForm.checkAttribute(1)}"
+			requiredMessage="#{messages.attribute1} #{messages.required}" />
+
+		<!-- attribute2 -->
+		<h:outputLabel for="attribute2"
+			value="#{showMediumTypeForm.attribute2}:"
+			style="font-weight:bold" rendered="#{showMediumTypeForm.checkAttribute(2)}"/>
+		<p:inputTextarea id="attribute2" value="#{mediumForm.attribute2}"
+			style="width:800px" maxlength="1000"
+			rows="1"
+			rendered="#{showMediumTypeForm.checkAttribute(2)}"
+			requiredMessage="#{messages.attribute2} #{messages.required}"/>
+
+		<!-- attribute3 -->
+		<h:outputLabel for="attribute3"
+			value="#{showMediumTypeForm.attribute3}:"
+			style="font-weight:bold" rendered="#{showMediumTypeForm.checkAttribute(3)}"/>
+		<p:inputTextarea id="attribute3" value="#{mediumForm.attribute3}"
+			style="width:800px" maxlength="1000"
+			rows="1"
+			rendered="#{showMediumTypeForm.checkAttribute(3)}"
+			requiredMessage="#{messages.attribute3} #{messages.required}"/>
+			
+		<!-- attribute4 -->
+		<h:outputLabel for="attribute4"
+			value="#{showMediumTypeForm.attribute4}:"
+			style="font-weight:bold" rendered="#{showMediumTypeForm.checkAttribute(4)}"/>
+		<p:inputTextarea id="attribute4" value="#{mediumForm.attribute4}"
+			style="width:800px" maxlength="1000"
+			rows="1"
+			rendered="#{showMediumTypeForm.checkAttribute(4)}"
+			requiredMessage="#{messages.attribute4} #{messages.required}"/>
+
+		<!-- attribute5 -->
+		<h:outputLabel for="attribute5"
+			value="#{showMediumTypeForm.attribute5}:"
+			style="font-weight:bold" rendered="#{showMediumTypeForm.checkAttribute(5)}"/>
+		<p:inputTextarea id="attribute5" value="#{mediumForm.attribute5}"
+			style="width:800px" maxlength="1000"
+			rows="1"
+			rendered="#{showMediumTypeForm.checkAttribute(5)}"
+			requiredMessage="#{messages.attribute5} #{messages.required}"/>
+			
+		<!-- attribute6 -->
+		<h:outputLabel for="attribute6"
+			value="#{showMediumTypeForm.attribute6}:"
+			style="font-weight:bold" rendered="#{showMediumTypeForm.checkAttribute(6)}"/>
+		<p:inputTextarea id="attribute6" value="#{mediumForm.attribute6}"
+			style="width:800px" maxlength="1000"
+			rows="1"
+			rendered="#{showMediumTypeForm.checkAttribute(6)}"
+			requiredMessage="#{messages.attribute6} #{messages.required}"/>
+
+		<!-- attribute7 -->
+		<h:outputLabel for="attribute7"
+			value="#{showMediumTypeForm.attribute7}:"
+			style="font-weight:bold" rendered="#{showMediumTypeForm.checkAttribute(7)}"/>
+		<p:inputTextarea id="attribute7" value="#{mediumForm.attribute7}"
+			style="width:800px" maxlength="1000"
+			rows="1"
+			rendered="#{showMediumTypeForm.checkAttribute(7)}"
+			requiredMessage="#{messages.attribute7} #{messages.required}"/>
+
+		<!-- attribute8 -->
+		<h:outputLabel for="attribute8"
+			value="#{showMediumTypeForm.attribute8}:"
+			style="font-weight:bold" rendered="#{showMediumTypeForm.checkAttribute(8)}"/>
+		<p:inputTextarea id="attribute8" value="#{mediumForm.attribute8}"
+			style="width:800px" maxlength="1000"
+			rows="1"
+			rendered="#{showMediumTypeForm.checkAttribute(8)}"
+			requiredMessage="#{messages.attribute8} #{messages.required}"/>
+			
+		<!-- attribute9 -->
+		<h:outputLabel for="attribute9"
+			value="#{showMediumTypeForm.attribute9}:"
+			style="font-weight:bold" rendered="#{showMediumTypeForm.checkAttribute(9)}"/>
+		<p:inputTextarea id="attribute9" value="#{mediumForm.attribute9}"
+			style="width:800px" maxlength="1000"
+			rows="1"
+			rendered="#{showMediumTypeForm.checkAttribute(9)}"
+			requiredMessage="#{messages.attribute9} #{messages.required}"/>
+
+	</ui:composition>
+</body>
+</html>

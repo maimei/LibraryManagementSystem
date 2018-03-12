@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+</h:head>
+<body>
+	<ui:composition>
+
+        <!-- Weekday -->
+        <p:outputLabel for="weekday" value="#{messages.weekday}: " style="font-weight:bold" />
+        <p:inputText readonly="true" size="#{changeOpeningTimeForm.textWidth}"  
+        id="weekday" value="#{changeOpeningTimeForm.day}"/>
+		
+		<p:outputLabel value="#{messages.morning}" style="font-weight:bold"/>
+		<div/>
+
+		<!-- morningStart -->
+		<p:outputLabel for="morningStart" value="#{messages.from2}:"/>
+		<p:inputMask id="morningStart" 
+		value="#{changeOpeningTimeForm.morningStart}" mask="99:99"
+			size="#{changeOpeningTimeForm.textWidth}">
+		</p:inputMask>	
+
+		<!-- morningEnd -->
+		<p:outputLabel for="morningEnd" value="#{messages.to}:" />
+		<p:inputMask id="morningEnd" 
+		value="#{changeOpeningTimeForm.morningEnd}" mask="99:99"
+			size="#{changeOpeningTimeForm.textWidth}">
+		</p:inputMask>	
+
+		<p:outputLabel value="#{messages.afternoon}" style="font-weight:bold"/>
+		<div/>
+
+		<!-- afternoonStart -->
+		<p:outputLabel for="afternoonStart" value="#{messages.from2}:"/>
+		<p:inputMask id="afternoonStart" 
+		value="#{changeOpeningTimeForm.afternoonStart}" mask="99:99"
+			size="#{changeOpeningTimeForm.textWidth}">
+		</p:inputMask>	
+
+		<!-- afternoonEnd -->
+		<p:outputLabel for="afternoonEnd" value="#{messages.to}:" />
+		<p:inputMask id="afternoonEnd" 
+		value="#{changeOpeningTimeForm.afternoonEnd}" mask="99:99"
+			size="#{changeOpeningTimeForm.textWidth}">
+		</p:inputMask>	
+
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<script type="text/javascript">
+		if (screen.width &lt; 1025) {
+			document.location = "../mobile/indexMobile.xhtml";
+		}
+	</script>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.library}</title>
+</h:head>
+<h:body onload="PF('dlg2').show()">
+<ui:include src="/mainmenu.xhtml" />
+  <form>
+  <p:panel header="#{messages.login}"
+  style="width: 1200px;margin: 0 auto;">
+  
+    <h:panelGrid columns="2" cellpadding="5">
+      <p:outputLabel value="#{messages.username}: " 
+      	style="font-weight:bold"/>
+      <p:inputText style="width:800px" value="" readonly="true"/>
+
+      <p:outputLabel value="#{messages.password}: "
+      	style="font-weight:bold" />
+      <p:password style="width:800px" value="" readonly="true"/>
+	</h:panelGrid>
+	
+	  <f:facet name="footer">
+      <h:panelGroup>
+        <p:commandButton value="#{messages.login}" icon="ui-icon-check"/>
+        
+        <p:commandButton value="#{messages.cancel}" icon="ui-icon-closethick"/>
+        
+        <p:commandButton id="passwordButton" value="#{messages.demandNewPassword}" 
+        icon="ui-icon-help"/>
+      </h:panelGroup>
+      </f:facet>
+       </p:panel>
+  </form>
+      
+      <p:dialog id="modalDialog" header="#{messages.error}" widgetVar="dlg2" 
+      modal="true" closable="false"  resizable="false">  
+         <h:panelGrid style="text-align: center;" columns="1" >
+         	<p:outputLabel  value="#{messages.wrongLoginData}" />
+         	<p:commandButton value="OK" 
+				onclick="window.location.href = '/bibjsf/faces/login.xhtml';" />
+	     </h:panelGrid>
+	  </p:dialog>  
+    
+ 
+</h:body>
+</html>

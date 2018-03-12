@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.statistics}</title>
+</h:head>
+<h:body>
+	<h:outputStylesheet name="css/bib.css" />
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.reservationTimes}"
+		style="margin: 0 auto; width:1200px">
+		<div style="height: 60px;" />
+		<h:form id="form">
+		
+		<p:tabView id="tabView">  
+    		<p:tab id="tab1" title="#{messages.reservationTimesPerWeek}">  
+ 				<!-- Vormerkzeiten pro Woche -->
+				<p:pieChart id="pie" value="#{reservationTimesChart.pieModel}" legendPosition="w" animate="true"
+        		title="#{messages.reservationTimesPerWeek}" style="width:400px;height:300px" showDataLabels="true"
+        		seriesColors="EF0101, 298A08, 01DFD7, FF8000, 08088A, FFFF00, 8A0868" /> 
+    		</p:tab>  
+  
+    		<p:tab id="tab2" title="#{messages.reservationTimesPerMonth}">  
+				<!-- Vormerkzeiten pro Monat -->
+        		<p:barChart id="bar" value="#{reservationTimesChart.barModel}" legendPosition="en" animate="true"
+        		title="#{messages.reservationTimesPerMonth}" min="0" max="#{reservationTimesChart.barMax}" style="height:300px"/>  
+    		</p:tab>  
+		</p:tabView>  
+		
+		</h:form>
+	</p:panel>
+	</f:view>
+</h:body>
+</html>

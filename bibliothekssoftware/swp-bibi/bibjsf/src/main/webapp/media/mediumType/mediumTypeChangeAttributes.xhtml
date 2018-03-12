@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+</h:head>
+<body>
+	<ui:composition>
+		<!-- name -->
+		<h:outputLabel for="name" value="#{messages.name}:"
+			style="font-weight:bold" name="#{messages.name_help}" />
+		<p:inputText required="true" id="name"
+			value="#{changeMediumTypeForm.name}" style="width:800px"
+			name="#{messages.name_help}" 
+			requiredMessage="#{messages.name} #{messages.required}"/>
+
+		<!-- lendingTime -->
+		<h:outputLabel for="lendingTime"
+			value="#{messages.lendingTime} (in Tagen):" style="font-weight:bold" />
+		<p:inputText required="true" id="lendingTime"
+			value="#{changeMediumTypeForm.lendingTime}" style="width:800px" 
+			requiredMessage="#{messages.lendingTime} #{messages.required}"/>
+
+		<!-- fee -->
+		<h:outputLabel for="fee" value="#{messages.fee} (in €):"
+			style="font-weight:bold" />
+		<p:inputText required="true" id="fee"
+			value="#{changeMediumTypeForm.fee}" style="width:800px" 
+			requiredMessage="#{messages.fee} #{messages.required}"/>
+
+		<!-- extensions -->
+		<h:outputLabel id="hallo" for="extensions"
+			value="#{messages.extensions}" style="font-weight:bold" />
+		<p:inputText required="true" id="extensions"
+			value="#{changeMediumTypeForm.extensions}" style="width:800px" 
+			requiredMessage="#{messages.extensions} #{messages.required}"/>
+
+
+		<!-- extensionTime -->
+		<h:outputLabel for="extensionTime"
+			value="#{messages.extensionTime} (in Tagen):"
+			style="font-weight:bold" />
+		<p:inputText required="true" id="extensionTime"
+			value="#{changeMediumTypeForm.extensionTime}" style="width:800px" 
+			requiredMessage="#{messages.extensionTime} #{messages.required}"/>
+
+
+		<!-- attribute0 -->
+		<h:outputLabel for="attribute0" value="Attribut 1: "
+			style="font-weight:bold;" />
+		<p:inputText required="#{showMediumTypeForm.checkAttribute(0)}"
+			id="attribute0" value="#{changeMediumTypeForm.attribute0}"
+			style="width:800px" 
+			requiredMessage="Attribut 1 #{messages.required}"/>
+
+		<!-- attribute1 -->
+		<h:outputLabel for="attribute1" value="Attribut 2: "
+			style="font-weight:bold;" />
+		<p:inputText required="#{showMediumTypeForm.checkAttribute(1)}"
+			id="attribute1" value="#{changeMediumTypeForm.attribute1}"
+			style="width:800px" 
+			requiredMessage="Attribut 2 #{messages.required}"/>
+
+		<!-- attribute2 -->
+		<h:outputLabel for="attribute2" value="Attribut 3: "
+			style="font-weight:bold;" />
+		<p:inputText required="#{showMediumTypeForm.checkAttribute(2)}"
+			id="attribute2" value="#{changeMediumTypeForm.attribute2}"
+			style="width:800px" 
+			requiredMessage="Attribut 3 #{messages.required}"/>
+
+		<!-- attribute3 -->
+		<h:outputLabel for="attribute3" value="Attribut 4: "
+			style="font-weight:bold;" />
+		<p:inputText required="#{showMediumTypeForm.checkAttribute(3)}"
+			id="attribute3" value="#{changeMediumTypeForm.attribute3}"
+			style="width:800px" 
+			requiredMessage="Attribut 4 #{messages.required}"/>
+
+		<!-- attribute4 -->
+		<h:outputLabel for="attribute4" value="Attribut 5: "
+			style="font-weight:bold;" />
+		<p:inputText required="#{showMediumTypeForm.checkAttribute(4)}"
+			id="attribute4" value="#{changeMediumTypeForm.attribute4}"
+			style="width:800px"
+			requiredMessage="Attribut 5 #{messages.required}" />
+
+		<!-- attribute5 -->
+		<h:outputLabel for="attribute5" value="Attribut 6: "
+			style="font-weight:bold;" />
+		<p:inputText required="#{showMediumTypeForm.checkAttribute(5)}"
+			id="attribute5" value="#{changeMediumTypeForm.attribute5}"
+			style="width:800px" 
+			requiredMessage="Attribut 6 #{messages.required}"/>
+
+		<!-- attribute6 -->
+		<h:outputLabel for="attribute6" value="Attribut 7: "
+			style="font-weight:bold;" />
+		<p:inputText required="#{showMediumTypeForm.checkAttribute(6)}"
+			id="attribute6" value="#{changeMediumTypeForm.attribute6}"
+			style="width:800px" 
+			requiredMessage="Attribut 7 #{messages.required}"/>
+
+		<!-- attribute7 -->
+		<h:outputLabel for="attribute7" value="Attribut 8: "
+			style="font-weight:bold;" />
+		<p:inputText required="#{showMediumTypeForm.checkAttribute(7)}"
+			id="attribute7" value="#{changeMediumTypeForm.attribute7}"
+			style="width:800px"
+			requiredMessage="Attribut 8 #{messages.required}" />
+
+		<!-- attribute8 -->
+		<h:outputLabel for="attribute8" value="Attribut 9: "
+			style="font-weight:bold;" />
+		<p:inputText required="#{showMediumTypeForm.checkAttribute(8)}"
+			id="attribute8" value="#{changeMediumTypeForm.attribute8}"
+			style="width:800px" 
+			requiredMessage="Attribut 9 #{messages.required}"/>
+
+		<!-- attribute9 -->
+		<h:outputLabel for="attribute9" value="Attribut 10: "
+			style="font-weight:bold;" />
+		<p:inputText required="#{showMediumTypeForm.checkAttribute(9)}"
+			id="attribute9" value="#{changeMediumTypeForm.attribute9}"
+			style="width:800px" requiredMessage="Attribut 10 #{messages.required}"/>
+
+	</ui:composition>
+</body>
+</html>

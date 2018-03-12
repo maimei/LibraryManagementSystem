@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+	
+	<f:view renderKitId="PRIMEFACES_MOBILE">
+	<head>
+	<script type="text/javascript">
+		
+			#{addReaderForm.setGroupid('NEW')};
+		
+	</script>
+
+	</head>
+	<pm:page title="Registrierung">
+		<pm:view id="regestration">
+			<pm:header title="Registrierung">
+			
+			</pm:header>
+				<pm:content>
+					  <h:form>
+   								 
+                				<!-- first name -->
+		<h:outputLabel for="firstname" value="#{messages.firstname}:* "
+			style="font-weight:bold" />
+		<p:inputText maxlength="50" id="firstname"
+			value="#{addReaderForm.firstName}" required="true"
+			requiredMessage="#{messages.firstnamereq}" style="width:800px" />
+
+		<!--  last name -->
+		<h:outputLabel for="lastname" value="#{messages.lastname}:* "
+			style="font-weight:bold" />
+		<p:inputText maxlength="50" id="lastname"
+			value="#{addReaderForm.lastName}" required="true"
+			requiredMessage="#{messages.lastnamereq}" style="width:800px" />
+
+
+		<!--  birthday -->
+		<h:outputLabel for="birthday" value="#{messages.birthday}:* "
+			style="font-weight:bold" />
+		<p:inputMask id="birthday" value="#{addReaderForm.birthday}"
+			mask="99.99.9999" required="true"
+			requiredMessage="#{messages.birthdayreq}" style="width:800px">
+			<f:convertDateTime type="date" pattern="dd.MM.yyyy" timeZone="CET" />
+		</p:inputMask>
+
+		<!-- street -->
+		<h:outputLabel for="street" value="#{messages.street}:*"
+			style="font-weight:bold" />
+		<p:inputText maxlength="50" id="street" required="true"
+			value="#{addReaderForm.street}" style="width:800px" />
+
+		<!-- zipcode -->
+		<h:outputLabel for="zipcode" value="#{messages.zipcode}:*"
+			style="font-weight:bold" />
+		<p:inputText maxlength="50" id="zipcode" required="true"
+			value="#{addReaderForm.zipcode}" style="width:800px" />
+
+		<!-- city -->
+		<h:outputLabel for="city" value="#{messages.city}:*"
+			style="font-weight:bold" />
+		<p:inputText maxlength="50" id="city" required="true"
+			value="#{addReaderForm.city}" style="width:800px" />
+
+		<!-- phone -->
+		<h:outputLabel for="phone" value="#{messages.phone}:*"
+			style="font-weight:bold" />
+		<p:inputText maxlength="50" id="phone" required="true"
+			value="#{addReaderForm.phone}" style="width:800px" />
+
+		<!--  email -->
+		<h:outputLabel for="email" value="#{messages.email}:*"
+			style="font-weight:bold" />
+		<p:inputText maxlength="50" id="email" required="true"
+			value="#{addReaderForm.email}"
+			validatorMessage="#{messages.invalidEmail}" style="width:800px">
+			<!-- <f:validator validatorId="custom.emailValidator" /> -->
+			<f:validateRegex pattern="(.+@.+\..+)|" />
+		</p:inputText>
+		
+		 <!-- password 1 -->
+            <h:outputLabel for="password" value="#{messages.password}:* " style="font-weight:bold" />
+            <p:password maxlength="50"  id="password" value="#{addReaderForm.password}" match="passwordCheck" 
+                validatorMessage="#{messages.passwordsMustMatch}"
+              	required="true"
+                title="#{messages.passwordreq}" style="width:800px" />
+          
+            
+            <!-- password 2 -->
+            <h:outputLabel for="passwordCheck" value="#{messages.password} wiederholen:*" style="font-weight:bold" />
+            <p:password maxlength="50" id="passwordCheck" value="#{addReaderForm.passwordCheck}" 
+               validatorMessage="#{messages.passwordsMustMatch}"
+                title="#{messages.passwordreq2}" style="width:800px" required="true"/>	
+                			
+			 				 <p:commandButton id="saveButton" value="Registrieren" action="#{addReaderForm.save()}" 
+			    			  icon="ui-icon-check"  title="#{messages.save_help}" />
+							  <p:commandButton id="cancelButton" value="#{messages.cancel}" icon="ui-icon-closethick"
+           				       action="#{addReaderForm.cancel}" immediate="true"  title="#{messages.cancel_help}" />
+						</h:form>		
+  		</pm:content>
+		</pm:view>
+	</pm:page>
+	</f:view>
+</html>

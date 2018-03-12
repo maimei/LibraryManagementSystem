@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+</h:head>
+<body>
+<ui:composition>
+
+		<h:outputLabel for="status" value="#{messages.status}:"
+			style="font-weight:bold" />
+		<p:inputText readonly="true" id="status" value="#{exemplarForm.status}" style="width:800px"/>
+		<p:message for="status" display="both" />
+		
+		<h:outputLabel for="note" value="#{messages.note}:"
+			style="font-weight:bold" title="#{messages.note_help}" />
+		<p:inputText readonly="true" id="note" value="#{exemplarForm.note}" style="width:800px" title="#{messages.note_help}"/>
+		<p:message for="note" display="both" />
+		
+	    <h:outputLabel for="place" value="#{messages.place}:"
+			style="font-weight:bold" title="#{messages.place_help}" />
+		<p:inputText readonly="true" id="place" value="#{exemplarForm.place}" style="width:800px" />
+		<p:message for="place" display="both" />
+		
+		<h:outputLabel for="dateOfAddition" value="#{messages.dateOfAddition}:"
+			style="font-weight:bold" title="#{messages.dateOfAddition_help}" />
+		<p:inputMask readonly="true" id="dateOfAddition" value="#{exemplarForm.dateOfAddition}"
+			mask="99.99.9999" style="width:800px" required="true">
+			<f:convertDateTime type="date" pattern="dd.MM.yyyy" timeZone="CET" />
+		</p:inputMask>				
+		<p:message for="dateOfAddition" display="both" />
+		
+		<h:outputLabel for="latestReader" value="#{messages.latestReader}:"
+			style="font-weight:bold" title="#{messages.latestReader_help}" />
+		<p:inputText readonly="true" id="latestReader" value="#{exemplarForm.latestReader}" style="width:800px" />
+		<p:message for="latestReader" display="both" />
+		
+		<h:outputLabel for="lendingCount" value="#{messages.lendingCount}:"
+			style="font-weight:bold" title="#{messages.lendingCount_help}" />
+		<p:inputText readonly="true" id="lendingCount" value="#{exemplarForm.lendingCount}" style="width:800px" />
+		<p:message for="lendingCount" display="both" />
+		
+	</ui:composition>
+</body>
+</html> 

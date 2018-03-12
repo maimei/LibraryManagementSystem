@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+<body onload="#{changeReaderForm.edit(authBackingBean.getReaderByID(authBackingBean.getUserID()))}; #{changeReaderForm.editPassword(authBackingBean.getReaderByID(authBackingBean.getUserID()))};">
+	<f:view renderKitId="PRIMEFACES_MOBILE">
+	
+	<pm:page title="Einstellungen">
+		
+		
+		<pm:view id="settings">
+			<pm:header title="Ausleihhistorie">
+			
+				<f:facet name="left">
+					<p:button value="Main" icon="home" href="../indexMain.xhtml"></p:button>
+				</f:facet>
+				
+				<pm:navBar>
+						<p:button value="Ausleihhistorie" icon="info" href="#settings" styleClass="ui-btn-active ui-state-persist"> </p:button>
+						<p:button value="Passwort ändern" icon="home" href="#passwordChange"> </p:button>
+				</pm:navBar>
+				
+			</pm:header>
+				<pm:content>
+				<h:form>
+						Soll die Ausleihhistorie gespeichert werden? <br> </br>
+     					<pm:switch value ="#{changeReaderForm.isSettingsOn}" onLabel="Ja" offLabel="Nein" /> <br> </br>
+     					Möchtest du Erinnerungs-E-Mails bei überfälligen Ausleihen erhalten? <br> </br>
+     					<pm:switch value ="#{changeReaderForm.returnMailOn}" onLabel="Ja" offLabel="Nein" /> <br> </br>
+     					Möchtest du E-Mails zu deinen Mahngebühren erhalten? <br> </br>
+     					<pm:switch value ="#{changeReaderForm.reminderMailOn}" onLabel="Ja" offLabel="Nein" /> <br> </br>
+     					Möchtest du E-Mails zu vorgemerkten Medien erhalten? <br> </br> 
+     					<pm:switch value ="#{changeReaderForm.reservationMailOn}" onLabel="Ja" offLabel="Nein" /> <br> </br>
+     					<p:commandButton value="Speichern" action="#{changeReaderForm.save()}"/>
+     					
+      			</h:form>	
+  			</pm:content>
+		</pm:view>
+		
+		<pm:view id="passwordChange">
+			<pm:header title="Passwort ändern">
+				<f:facet name="left">
+					<p:button value="Main" icon="home" href="../indexMain.xhtml"></p:button>
+				</f:facet>
+				
+					<pm:navBar>
+						<p:button value="Ausleihhistorie" icon="info" href="#settings" > </p:button>
+						<p:button value="Passwort ändern" icon="home" href="#passwordChange" styleClass="ui-btn-active ui-state-persist"> </p:button>
+				</pm:navBar>
+			</pm:header>
+				<pm:content>
+				<h:form>
+						<!-- new password 1 -->
+     				    <h:outputLabel for="newpassword1" value="#{messages.newPassword}: * " style="font-weight:bold" />
+       					<p:password maxlength="50" id="newpassword1" value="#{changeReaderForm.password}" match="passwordCheck" 
+         					validatorMessage="#{messages.passwordsMustMatch}"
+           					 required="true" title="#{messages.passwordreq}"/>
+            
+       				    <!-- new password 2 -->
+        			 	<h:outputLabel for="passwordCheck" value="#{messages.newPassword} wiederholen: * " style="font-weight:bold" />
+        				 <p:password maxlength="50" id="passwordCheck" value="#{changeReaderForm.passwordCheck}" 
+         					validatorMessage="#{messages.passwordsMustMatch}"
+          					  title="#{messages.passwordreq2}" required="true"/>
+          					  
+          				<p:commandButton id="saveButton" value="#{messages.save}" 
+              				action="#{changeReaderForm.savePassword}" 
+                  			 icon="ui-icon-check" validateClient="true" 
+                  			title="#{messages.save_help}" />
+              			<p:commandButton id="cancelButton" value="#{messages.cancel}" 
+              				icon="ui-icon-closethick"
+                  			action="#{changeReaderForm.cancel}" immediate="true"  
+                  			title="#{messages.cancel_help} "/>
+      							
+      			</h:form>	
+  			</pm:content>
+		</pm:view>
+	</pm:page>
+	</f:view>
+</body>
+		
+</html>

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+	
+	<f:view renderKitId="PRIMEFACES_MOBILE">
+	<head>
+	</head>
+	<pm:page title="Mainmenu">
+
+			<pm:view id="exemplars">
+				<pm:header title="Exemplare">
+				<f:facet name="left">
+					<p:button value="Zurück" icon="home" href="../media/mediumDetails.xhtml"></p:button>
+				</f:facet>
+				
+				<f:facet name="right">
+					<p:button value="Einstellungen" icon="gear" href="../settings/settingsTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"></p:button>
+				</f:facet>
+				
+				<pm:navBar>
+				
+						<p:button value="Startseite" icon="home" href="../indexMain.xhtml"> </p:button>
+						<p:button value="Medien" icon="search" href="../media/mediumTemp.xhtml" styleClass="ui-btn-active" > </p:button>
+						<p:button value="Mein Profil" icon="info" href="../user/profileTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"> </p:button>
+				
+					</pm:navBar>
+			</pm:header>
+			<form>
+				<pm:content>
+			
+				<p:dataList value="#{exemplarTable.model}" var="exemplar">
+				<f:attribute name="filter" value="true"></f:attribute>
+				<h:panelGrid columns="2" cellpadding="5">
+			
+					<!-- id -->
+					<h:outputLabel for="status" value="#{messages.id}:"
+							style="font-weight:bold" title="#{messages.id_help}" />
+					<h:outputText  id="id"
+								value="#{exemplar.id}" style="width:800px"
+								title="#{messages.id_help}" />
+			
+					<!-- status -->
+					<h:outputLabel for="status" value="#{messages.status}:"
+							style="font-weight:bold" title="#{messages.status_help}" />
+					<h:outputText  id="status"
+								value="#{exemplar.status}" style="width:800px"
+								title="#{messages.title_help}" />
+				
+					<!-- place -->
+					<h:outputLabel for="place" value="#{messages.place}:"
+							style="font-weight:bold" title="#{messages.place_help}" />
+					<h:outputText  id="place"
+							value="#{exemplar.place}" style="width:800px" />
+							
+					
+					
+				</h:panelGrid>													
+				
+				</p:dataList>
+							
+			
+			
+  				</pm:content>
+  			</form>
+		</pm:view>
+		</pm:page>
+		</f:view>
+		</html>

@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<!-- Form for file upload -->
+<!-- http://www.primefaces.org/showcase/ui/datatableCellEditing.jsf -->
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<title>#{messages.extensionlisttitle}</title>
+</h:head>
+<h:body onload="#{extensionTable.reset()}">
+
+
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.manageExtensionRequests}"
+			style="margin: 0 auto; width:1200px">
+			<h:form id="form">
+
+				<p:panel>
+					<p:commandButton value="#{messages.back}"
+						icon="ui-icon-arrowreturnthick-1-w"
+						onclick="window.location.href = '/bibjsf/lendings/lendings.xhtml';" />
+				</p:panel>
+				<br />
+				<p:dataTable id="extensionTable" value="#{extensionTable.model}"
+					var="extension" lazy="true" sortMode="multiple"
+					editable="#{extensionTable.modifiable}"
+					filteredValue="#{extensionTable.filteredElements}"
+					emptyMessage="#{messages.noExtensionsFound}"
+					selection="#{extensionTable.selectedElements}"
+					resizableColumns="true" liveResize="true" paginator="true"
+					rows="25" rowsPerPageTemplate="10,25,50,100">
+
+
+					<p:column selectionMode="multiple" style="width:20px"
+						resizable="false" />
+
+					<!-- Reader ID -->
+					<p:column id="readerIDColumn" sortBy="#{extension.readerID}"
+						style="width: auto;" resizable="false"
+						filterBy="#{extension.readerID}" headerText="#{messages.readerid}"
+						filterMatchMode="contains" filterStyle="width: 60px">
+						<h:outputText value="#{extension.readerID}" />
+					</p:column>
+
+					<!-- Exemplar ID -->
+					<p:column id="exemplarIDColumn" sortBy="#{extension.exemplarID}"
+						style="width: auto;" resizable="false"
+						filterBy="#{extension.exemplarID}"
+						headerText="#{messages.mediumid}" filterMatchMode="startsWith"
+						filterStyle="width: 60px">
+						<h:outputText value="#{extension.exemplarID}" />
+					</p:column>
+
+					<!-- ExtensionDate -->
+					<p:column id="ExtensionDate" sortBy="#{extension.extensionDate}"
+						style="width: 110px" resizable="false"
+						headerText="#{messages.date}">
+						<h:outputText value="#{extension.extensionDate}">
+							<f:convertDateTime pattern="dd.MM.yyyy" />
+						</h:outputText>
+					</p:column>
+
+
+
+					<!-- Detailseite -->
+					<p:column style="width:40px" id="button" resizable="false">
+						<p:commandButton
+							action="#{changeLendingForm.getByExtension(extension)}"
+							ajax="false" icon="ui-icon-circle-triangle-e"
+							style="height:30px; width:30px" title="#{messages.clickToView}" />
+					</p:column>
+
+					<f:facet name="footer">
+						<p:growl id="messages" showDetail="true" />
+
+						<p:commandButton value="#{messages.delete}"
+							title="#{messages.clickToDeleteExtensions}"
+							action="#{extensionTable.deleteSelected}"
+							update="extensionTable messages" icon="ui-icon-circle-minus">
+							<p:confirm header="#{messages.confirmation}"
+								message="#{messages.reallyDeleteSelectedExtensions}"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					</f:facet>
+
+				</p:dataTable>
+
+				<p:confirmDialog global="true">
+					<p:commandButton value="#{messages.yes}" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="#{messages.no}" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+			</h:form>
+		</p:panel>
+	</f:view>
+</h:body>
+</html>

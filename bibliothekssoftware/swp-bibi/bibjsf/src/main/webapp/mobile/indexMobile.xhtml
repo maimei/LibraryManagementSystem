@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+	
+	<f:view renderKitId="PRIMEFACES_MOBILE">
+	<head>
+		<script type="text/javascript">
+			
+				if((#{authBackingBean.isRole("USER")}) || (#{authBackingBean.isRole("BIB")}) || (#{authBackingBean.isRole("ADMIN")})){
+					document.location = "indexMain.xhtml";	
+				}
+			
+		</script>
+
+	</head>
+	<pm:page title="loginPage">
+		<pm:view id="login">
+			<pm:header title="Login">
+			
+			</pm:header>
+				<pm:content>
+					  <form method="post" action="j_security_check">
+   							
+   								
+   								 	<h:outputLabel for="j_username" value="#{messages.username}" />
+      								<h:inputText type="text" id="j_username" placeholder="Benutzername" />
+      								
+      								<h:outputLabel for="j_password" value="#{messages.password}" />
+      								<h:inputSecret type="password" id="j_password"/>
+      							
+      								
+       								<p:commandButton id="submitButton" onclick="mobilemain" type="submit" name="mobilemain" action="mobilemain" value="#{messages.login}" />
+        
+      								<p:button id="recoverPass" value="Passwort vergessen?" href="user/recoverPassword.xhtml"/>
+     								 
+     								<p:button id="registration" value="Registrierung" href="registration.xhtml"/>
+     								
+     								<p:button id="guestlogin" value="Gastbesuch" href="indexMain.xhtml"/>
+     						
+      							
+  				</form>
+  		</pm:content>
+		</pm:view>
+	</pm:page>
+	</f:view>
+</html>

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+    <title>Leihe verlängern</title>
+</h:head>
+<h:body onload="#{changeLendingForm.setExtension()}">
+    <h:outputStylesheet name="css/bib.css" />
+    <f:view>
+    <ui:include src="/mainmenu.xhtml" />
+    <h:form id="form" >
+    <p:growl id="messages" showDetail="true" />
+    
+    <p:panel id="panel" header="Verlängerung" style="width: 1200px;margin: 0 auto;">  
+        <h:panelGrid columns="3" cellpadding="5">  
+           <p:outputLabel value="Neues Enddatum: "  />
+           <p:calendar value="#{changeLendingForm.till}" id="popupButtonCal" locale="de" showOn="button" >  
+           	
+           </p:calendar>      
+        </h:panelGrid>
+        <f:facet name="footer">
+			  <h:panelGroup>
+			  <p:commandButton id="saveButton" value="#{messages.save}" action="#{changeLendingForm.save()}" 
+			      ajax="false" icon="ui-icon-check" validateClient="true" title="#{messages.save_help}" />
+			  <p:commandButton id="cancelButton" value="#{messages.cancel}" icon="ui-icon-closethick"
+                  action="#{changeLendingForm.cancel}" immediate="true"  title="#{messages.cancel_help} "/>
+              </h:panelGroup>
+             </f:facet>  
+    </p:panel>  
+    
+
+ </h:form>
+</f:view>
+</h:body>
+</html>

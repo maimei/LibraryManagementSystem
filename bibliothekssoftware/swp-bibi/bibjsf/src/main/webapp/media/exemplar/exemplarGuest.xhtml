@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+</h:head>
+<ui:composition>
+	<h:form>
+		<p:growl id="messages" showDetail="true" />
+		<p:dataTable id="exemplarTable" value="#{exemplarTable.model}"
+			var="exemplar" lazy="true" sortMode="multiple"
+			editable="#{exemplarTable.modifiable}" style="text-align:center"
+			filteredValue="#{exemplarTable.filteredElements}"
+			emptyMessage="#{messages.noExemplarsFound}" resizableColumns="true"
+			liveResize="true" rows="#{exemplarTable.rowMax}">
+
+
+			<!-- ID -->
+			<p:column id="idColumn" headerText="#{messages.id}"
+				sortBy="#{exemplar.id}">
+				<h:outputText id="id" value="#{exemplar.id}" />
+			</p:column>
+
+			<!-- Status  -->
+			<p:column id="statusColumn" headerText="#{messages.status}"
+				sortBy="#{exemplar.status}">
+				<h:outputText id="status" value="#{exemplar.status}" />
+			</p:column>
+
+			<!--  Place -->
+			<p:column id="placeColumn" headerText="#{messages.place}"
+				sortBy="#{exemplar.place}">
+				<h:outputText id="place" value="#{exemplar.place}" />
+			</p:column>
+
+			
+
+
+
+			<f:facet name="header">
+				<p:outputLabel value="#{messages.exemplars}"></p:outputLabel>
+			</f:facet>
+
+			<f:facet name="footer">
+				<div />
+			</f:facet>
+		</p:dataTable>
+
+
+	</h:form>
+</ui:composition>
+
+</html>
+

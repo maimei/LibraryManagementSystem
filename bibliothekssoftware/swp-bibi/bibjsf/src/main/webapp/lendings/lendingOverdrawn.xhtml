@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<!-- http://www.primefaces.org/showcase/ui/datatableCellEditing.jsf -->
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.lendinglisttitle}</title>
+	<script type="text/javascript">
+	 function start(){
+	#{lendingTable.reset()};
+	#{lendingTable.getModel().addInitiallyFilter('returned','false','=')}; 
+	#{lendingTable.getModel().addInitiallyFilter('paid','false','=')};
+	#{lendingTable.getModel().addInitiallyFilter('till', lendingTable.getToday(), '&lt;')};
+	 }
+	</script>
+
+</h:head>
+<h:body onload="start();">
+
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.manageFees}"
+			style="margin: 0 auto; width:1200px">
+			<p:panel>
+				<p:commandButton value="#{messages.back}"
+					icon="ui-icon-arrowreturnthick-1-w"
+					onclick="window.location.href = '/bibjsf/lendings/lendings.xhtml';" />
+			</p:panel>
+			<br />
+			<h:form id="form">
+
+				<p:dataTable id="lendingTable" value="#{lendingTable.model}"
+					var="lending" lazy="true" sortMode="multiple"
+					editable="#{lendingTable.modifiable}" style="text-align:center"
+					filteredValue="#{lendingTable.filteredElements}"
+					emptyMessage="#{messages.noFeeLendingsFound}"
+					resizableColumns="true" liveResize="true" paginator="true"
+					rows="25" rowsPerPageTemplate="10,25,50,100">
+
+					<!-- Reader ID -->
+					<p:column id="readerIDColumn" sortBy="#{lending.readerID}" resizable="false"
+						width="25%" filterBy="#{lending.readerID}"
+						headerText="#{messages.readerid}" filterMatchMode="contains"
+						filterStyle="width: 60px">
+						<h:outputText value="#{lending.readerID}" />
+					</p:column>
+
+					<!-- Exemplar ID -->
+					<p:column id="exemplarIDColumn" sortBy="#{lending.exemplarID}" resizable="false"
+						width="25%" filterBy="#{lending.exemplarID}"
+						headerText="#{messages.exemplarid}" filterMatchMode="startsWith"
+						filterStyle="width: 60px">
+						<h:outputText value="#{lending.exemplarID}" />
+					</p:column>
+
+					<!-- Fee -->
+					<p:column id="fee" sortBy="#{lending.fee}" width="25%" resizable="false"
+						headerText="#{messages.fee}">
+						<h:outputText value="#{lendingTable.getFee(lending)}" />
+					</p:column>
+
+					<!-- overdrawn days -->
+					<p:column id="overdrawn" width="25%" resizable="false"
+						headerText="#{messages.overdrawnDays}">
+						<h:outputText value="#{lendingTable.getOverdrawnDays(lending)}"/>
+					</p:column>
+					
+				</p:dataTable>
+
+			</h:form>
+		</p:panel>
+	</f:view>
+</h:body>
+</html>

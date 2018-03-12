@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+	
+	<f:view renderKitId="PRIMEFACES_MOBILE">
+	<head>
+		<link rel="stylesheet" type="text/css" href="../mobile.css"/>
+	</head>
+		
+	<pm:page title="News">
+		<pm:view id="news">
+			<pm:header title="News">
+				
+				
+				<f:facet name="right">
+					<p:button value="Einstellungen" icon="gear" href="../settings/settingsTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"></p:button>
+				</f:facet>
+				
+					<pm:navBar>
+						<p:button value="Startseite" icon="home" href="../indexMain.xhtml"> </p:button>
+						<p:button value="Medien" icon="search" href="../media/mediumTemp.xhtml" styleClass="ui-btn-active"> </p:button>
+						<p:button value="Mein Profil" icon="info" href="../user/profileTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"> </p:button>
+					</pm:navBar>
+					
+			</pm:header>
+			<h:form>
+				<pm:content>
+			
+				<p:dataList value="#{newsTable.model}" var="news">
+					<p:accordionPanel>
+						<p:tab title="#{news.title}  #{news.dateOfPublication}">
+							<p:outputPanel
+								style="width: auto; padding:10px; max-width:1100px">
+								<p
+									style="font-family: Verdana, Arial, sans-serif; font-size: 86%; white-space: pre-wrap">#{news.content}</p>
+							</p:outputPanel>
+							 
+						</p:tab>
+						
+					</p:accordionPanel>
+				</p:dataList>
+				
+				</pm:content>
+				</h:form>
+		</pm:view>
+
+	</pm:page>
+	</f:view>
+</html>

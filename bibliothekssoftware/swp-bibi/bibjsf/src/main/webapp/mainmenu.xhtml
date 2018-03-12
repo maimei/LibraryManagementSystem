@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<body>
+
+
+	<ui:composition>
+
+		<div align="center">
+			<p:graphicImage url="/resources/images/header.png" border="0"
+				style="width:1200px" />
+		</div>
+		<h:form>
+			<p:menubar id="mainmenubar" style="width: 1200px;margin: 0 auto;">
+				<p:menuitem value="#{messages.start}" icon="ui-icon-home"
+					url="/index.xhtml" />
+
+				<p:menuitem value="#{messages.search}" icon="ui-icon-search"
+					rendered="#{authBackingBean.isNotRole('BIB')}"
+					url="/media/medium/guest_new_user/mediumIndex.xhtml" />
+
+
+				<p:submenu label="#{messages.management}" icon="ui-icon-folder-open"
+					rendered="#{authBackingBean.isRole('BIB')}">
+					<p:menuitem value="#{messages.media}"
+						url="/media/medium/bib_admin/mediumIndex.xhtml" />
+					<p:menuitem value="#{messages.mediaTypes}"
+						url="/media/mediumType/mediumType.xhtml" />
+					<p:menuitem value="#{messages.borrower}"
+						url="/user/reader/readerIndex.xhtml" />
+					<p:menuitem value="#{messages.lendings}"
+						url="/lendings/lendings.xhtml" />
+					<p:menuitem value="#{messages.bibs}" url="/user/bib/bibIndex.xhtml"
+						rendered="#{authBackingBean.isRole('ADMIN')}" />
+				</p:submenu>
+
+				<p:menuitem value="#{messages.myaccount}" icon="ui-icon-person"
+					url="/account/account.xhtml"
+					rendered="#{authBackingBean.isRole('USER')}" />
+
+				<p:menuitem value="#{messages.settings}" icon="ui-icon-gear"
+					url="/settings/settings.xhtml"
+					rendered="#{authBackingBean.isRole('BIB')}" />
+
+				<p:menuitem value="#{messages.register}" icon="ui-icon-clipboard"
+					url="/user/new/newAdd.xhtml"
+					rendered="#{authBackingBean.isNotRole('NEW')}" />
+
+				<p:submenu label="#{messages.statistics}" icon="ui-icon-image"
+					rendered="#{authBackingBean.isRole('BIB')}">
+					<p:menuitem value="#{messages.libraryInNumbers}"
+						url="/statistics/commonStats.xhtml" />
+					<p:menuitem value="#{messages.lendingTimes}"
+						url="/statistics/lendingTimes.xhtml" />
+					<p:menuitem value="#{messages.reservationTimes}"
+						url="/statistics/reservationTimes.xhtml" />
+					<p:menuitem value="#{messages.ratings}"
+						url="/statistics/ratings.xhtml" />
+					<p:menuitem value="#{messages.lendingFrequency}"
+						url="/statistics/xLentMedia.xhtml" />
+					<p:menuitem value="#{messages.journal}"
+						url="/statistics/journal.xhtml" />
+				</p:submenu>
+
+
+				<p:menuitem value="Hilfe" url="/help/help.xhtml" icon="ui-icon-help"
+					rendered="#{authBackingBean.isRole('BIB')}" />
+
+				<p:menuitem value="Öffnungszeiten"
+					url="/openingTimes/openingTimes.xhtml" icon="ui-icon-clock"
+					rendered="#{authBackingBean.isNotRole('BIB')}" />
+
+
+				<f:facet name="options">
+
+					<p:button href="/faces/login.xhtml" value="#{messages.login}"
+						icon="ui-icon-unlocked"
+						rendered="#{authBackingBean.isNotRole('NEW')}"
+						style="font-size: 10pt;" />
+					<h:form>
+						<p:commandButton action="#{authBackingBean.logout}"
+							value="#{messages.logout}"
+							rendered="#{authBackingBean.isRole('NEW')}" icon="ui-icon-locked"
+							style="font-size: 10pt;" />
+					</h:form>
+				</f:facet>
+
+
+
+			</p:menubar>
+
+		</h:form>
+		<script type="text/javascript">
+		PrimeFaces.locales['de'] = {
+			    closeText: 'Schließen',
+			    prevText: 'Zurück',
+			    nextText: 'Weiter',
+			    monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+			    monthNamesShort: ['Jan', 'Feb', 'MÃ¤r', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+			    dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+			    dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+			    dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
+			    weekHeader: 'Woche',
+			    firstDay: 1,
+			    isRTL: false,
+			    showMonthAfterYear: false,
+			    yearSuffix: '',
+			    timeOnlyTitle: 'Nur Zeit',
+			    timeText: 'Zeit',
+			    hourText: 'Stunde',
+			    minuteText: 'Minute',
+			    secondText: 'Sekunde',
+			    currentText: 'Aktuelles Datum',
+			    ampm: false,
+			    month: 'Monat',
+			    week: 'Woche',
+			    day: 'Tag',
+			    allDayText: 'Ganzer Tag'
+			};
+		</script> 
+
+		<!-- loading status -->
+		<p:dialog modal="true" widgetVar="statusDialog"
+			style="text-align:center" header="#{messages.workInProgress}"
+			draggable="false" closable="false" resizable="false">
+			<p:graphicImage value="../resources/images/ajax-loading.gif" />
+		</p:dialog>
+	</ui:composition>
+</body>
+</html>

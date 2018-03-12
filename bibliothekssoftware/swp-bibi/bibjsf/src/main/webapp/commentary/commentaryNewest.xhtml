@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.bib}</title>
+</h:head>
+<body>
+	<ui:composition >
+		<h:form>
+			<p:accordionPanel style="width: 1200px; margin: 0 auto" activeIndex="-1" rendered="#{authBackingBean.isRole('USER')}">
+				<p:tab title="#{messages.newestComments}">
+				<p:dataTable id="newCommantaries" var="commentary"
+					value="#{commentaryTable.getNewest(100)}" 
+					emptyMessage="#{messages.noCommentsFound}" rows="1"
+					paginator="true" paginatorPosition="top">
+					<p:subTable value="#{commentary}" var="com">
+
+
+						<f:facet name="header">
+							<p:panel style="height:20px;line-height:5px; width:auto">
+								<p:outputLabel value="#{commentary.dateOfPublication}">
+									<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+										timeZone="CET" />
+								</p:outputLabel>
+								<p:outputLabel
+									value=" | #{commentaryTable.getMedium(commentary).title}" />
+							</p:panel>
+						</f:facet>
+
+
+						<p:column>
+							
+						<p:outputPanel style="width: auto; padding:10px; max-width:1000px">
+							 <p style="font-family: Verdana, Arial, sans-serif; font-size: 86%; white-space:pre-wrap">#{com.commentary}</p>
+							</p:outputPanel>
+						</p:column>
+
+
+					</p:subTable>
+
+					<f:facet name="footer">
+						<div />
+					</f:facet>
+
+
+				</p:dataTable>
+				</p:tab>
+			</p:accordionPanel>
+		</h:form>
+
+	</ui:composition>
+</body>
+</html>

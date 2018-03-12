@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	
+     <display-name>Schulbibliothek Rockwinkel</display-name>
+    <!-- Welcome page -->
+    <!-- This facelet is the one opened if no more specific URL is used --> 
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+
+	<servlet>
+		<servlet-name>BibConfig</servlet-name>
+		<servlet-class>swp.bibjsf.Config</servlet-class>
+		<init-param>
+			<param-name>log4j-properties-location</param-name>
+			<param-value>WEB-INF/log4j.properties</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Jersey Web Application</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Jersey Web Application</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+	<resource-ref>
+		<description>Database</description>
+		<res-ref-name>jdbc/libraryDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+	<!-- PrimeFaces extensions filter: responsible for handling multipart/form-data 
+		requests -->
+	<!-- which is required to be able to send files over HTTP. -->
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>security</realm-name>
+		<form-login-config>
+			<form-login-page>/faces/login.xhtml</form-login-page>
+			<form-error-page>/faces/loginError.xhtml</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Admin</web-resource-name>
+			<url-pattern>/user/bib/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ADMIN</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Bib</web-resource-name>
+			
+			<url-pattern>/help/*</url-pattern>
+			<url-pattern>/category/*</url-pattern>
+			<url-pattern>/extension/*</url-pattern>
+			<url-pattern>/exemplar/*</url-pattern>
+			<url-pattern>/lendings/*</url-pattern>
+			<url-pattern>/news/*</url-pattern>
+			<url-pattern>/rating/*</url-pattern>
+			<url-pattern>/reservation/*</url-pattern>
+			<url-pattern>/settings/*</url-pattern>
+			<url-pattern>/statistics/*</url-pattern>
+			<url-pattern>/mediumType/*</url-pattern>
+			<url-pattern>/user/new/newIndex.xhtml</url-pattern>
+			<url-pattern>/user/reader/*</url-pattern>
+			<url-pattern>/user/userChange.xhtml</url-pattern>
+			<url-pattern>/user/userInfoPage.xhtml</url-pattern>
+			<url-pattern>/settings/*</url-pattern>
+			<url-pattern>/media/medium/bib_admin/*</url-pattern>
+			<url-pattern>/media/exemplar/*</url-pattern>
+			<url-pattern>/media/mediumType/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>BIB</role-name>
+			<role-name>ADMIN</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>User</web-resource-name>
+            <url-pattern>/media/user/new/newAdd.xhtml</url-pattern>
+            <url-pattern>/account/*</url-pattern>
+            <url-pattern>/commentary/*</url-pattern>
+            <url-pattern>/mobile/commentary/*</url-pattern>
+            <url-pattern>/mobile/settings/*</url-pattern>
+            <url-pattern>/mobile/user/profile.xhtml</url-pattern>
+             <url-pattern>/mobile/user/profileTemp.xhtml</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>USER</role-name>
+            <role-name>ADMIN</role-name> 
+            <role-name>BIB</role-name>             
+        </auth-constraint>
+         
+    </security-constraint>
+    
+    
+    	
+    <!-- JSF defaults to UTC timezone for date/time converters. To override this,
+     you need to set the timeZone attribute in every date/time converter. Or,
+     if you want to override the default UTC timezone to be the operating platform 
+     default timezone, then you need to add the following context param:
+     -->
+    <context-param>
+	 <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+	 <param-value>true</param-value>
+    </context-param>
+		
+    <!-- Project stage Development causes more detailed logging and automatic validation
+    and conversion errors messages; for production use Production (the default). -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    
+    <!-- Comments are not sent in HTML rendering. This avoid also the problem of
+       comments in panelgrids, which consume a line. -->
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <!-- all string inputs that are empty should be treated as null -->
+	<context-param>
+		<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<context-param>
+				<param-name>primefaces.THEME</param-name>
+				<param-value>blitzer</param-value>
+			</context-param>
+		
+
+</web-app>

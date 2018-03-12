@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.exemplars}</title>
+</h:head>
+<h:body onload="#{addExemplarForm.setMediumID(addMediumForm.getId())}">
+	<h:outputStylesheet name="css/bib.css" />
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<h:form id="form">
+		<p:panel id="panel" header="#{messages.addfirstexemplar}"
+		style="margin: 0 auto; width:1200px">
+			<p:growl id="messages" showDetail="true" />
+			
+
+				<h:panelGrid columns="2" cellpadding="5">
+
+					<ui:include src="exemplarAttributes.xhtml">
+						<ui:param name="exemplarForm" value="#{addExemplarForm}" />
+					</ui:include>
+					</h:panelGrid>
+					<f:facet name="footer">
+						<h:panelGroup>
+							<p:commandButton id="saveButton" value="#{messages.save}"
+								action="#{addExemplarForm.save}" ajax="false"
+								icon="ui-icon-check" validateClient="true"
+								title="#{messages.save_help}" />
+							<p:commandButton id="cancelButton" value="#{messages.cancel}"
+								action="#{addExemplarForm.cancel}" immediate="true"
+								title="#{messages.cancel_help} " icon="ui-icon-closethick"/>
+						</h:panelGroup>
+					</f:facet>
+				
+
+
+				<p:defaultCommand target="saveButton" />
+			
+		</p:panel>
+		</h:form>
+	</f:view>
+</h:body>
+</html>

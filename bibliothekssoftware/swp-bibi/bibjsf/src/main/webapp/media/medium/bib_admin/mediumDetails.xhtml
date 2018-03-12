@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.mediaInfo}</title>
+	<script type="text/javascript">
+		function start(){
+			#{exemplarTable.reset()};
+			#{showMediumTypeForm.setMediumTypeShow(showMediumForm.getMediumType())}; 
+			#{exemplarTable.getModel().addInitiallyFilter('mediumID', showMediumForm.getId(),'=')}; 
+			#{showMediumForm.reload()};
+		}
+		</script>
+</h:head>
+<h:body onload="start()">
+	<f:view>
+		<p:growl id="messages" showDetail="true" />
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel id="panel" header="#{messages.showMediaDetails}"
+			style="margin: 0 auto; width:1200px">
+
+			<h:form id="form">
+
+				<h:panelGrid columns="2" cellpadding="5">
+
+					<ui:include src="mediumDetailAttributes.xhtml" />
+
+					<ui:include src="../../../rating/rating.xhtml" />
+
+				</h:panelGrid>
+
+				<br />
+
+				<p:commandButton value="#{messages.back}"
+					icon="ui-icon-arrowreturnthick-1-w"
+					onclick="window.location.href = '/bibjsf/media/medium/bib_admin/mediumIndex.xhtml';" />
+				<p:commandButton value="#{messages.comments}" icon="ui-icon-comment"
+					onclick="window.location.href = '/bibjsf/commentary/commentary.xhtml';" />
+				<p:commandButton icon="ui-icon-wrench" value="#{messages.edit}"
+					action="#{changeMediumForm.edit(showMediumForm.getMedium())}"
+					ajax="false" />
+				<p:commandButton icon="ui-icon-pin-s"
+					action="#{addReservationForm.setExemplarSave(showMediumForm.id)}"
+					ajax="false" value="Vormerken"
+					disabled="#{authBackingBean.isBlocked(authBackingBean.getUserID()) or authBackingBean.hasReservated(showMediumForm.id) or  mediumTable.isAvailable(showMediumForm.id)}" />
+
+
+			</h:form>
+
+
+			<br />
+
+
+			<ui:include src="../../exemplar/exemplar.xhtml"></ui:include>
+		</p:panel>
+	</f:view>
+</h:body>
+</html>

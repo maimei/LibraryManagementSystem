@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.categorylisttitle}</title>
+</h:head>
+<h:body onload="#{categoryTable.reset()}">
+	<h:outputStylesheet name="css/bib.css" />
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.manageCategories}"
+			style="margin: 0 auto; width:1200px">
+			<p:panel>
+				<p:commandButton value="#{messages.back}"
+					icon="ui-icon-arrowreturnthick-1-w"
+					onclick="window.location.href = '/bibjsf/media/medium/bib_admin/mediumIndex.xhtml';" />
+			</p:panel>
+			<br />
+
+			<h:form id="form">
+
+				<p:dataTable id="categoryTable" value="#{categoryTable.model}"
+					var="category" widgetVar="category" lazy="true" sortMode="multiple"
+					editable="#{categoryTable.modifiable}"
+					filteredValue="#{categoryTable.filteredElements}"
+					emptyMessage="#{messages.noCategoriesFound}"
+					selection="#{categoryTable.selectedElements}"
+					resizableColumns="true" liveResize="true" paginator="true"
+					rows="25" rowsPerPageTemplate="10,25,50,100">
+
+					<!-- Multiselection  -->
+					<p:column selectionMode="multiple" style="width:2%" />
+
+					<!-- Name -->
+					<p:column id="titleColumn" sortBy="#{category.name}"
+						filterBy="#{category.name}" headerText="#{messages.title}"
+						filterMatchMode="contains" filterStyle="width: 400px"
+						style="width:50%">
+						<h:outputText value="#{category.name}" />
+					</p:column>
+
+					<!--  Buttons zum Hinzufügen und Löschen -->
+					<f:facet name="header">
+						<p:growl id="messages" showDetail="true" />
+						<p:inputText value="#{addCategoryForm.name}" style="width: 700px" />
+						<p:commandButton id="saveButton" value="#{messages.add}"
+							action="#{addCategoryForm.save}" ajax="false"
+							validateClient="true" icon="ui-icon-circle-plus"
+							title="#{messages.addcategory}" />
+						
+						<p:commandButton value="#{messages.delete}"
+							title="#{messages.clickToDeleteCategories}"
+							action="#{categoryTable.deleteSelected}"
+							update="categoryTable messages" icon="ui-icon-circle-minus">
+							<p:confirm header="#{messages.confirmation}"
+								message="#{messages.reallyDeleteSelectedCategories}"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					
+					</f:facet>
+
+				</p:dataTable>
+
+				<p:confirmDialog global="true" width="600px">
+
+					<p:commandButton value="#{messages.yes}" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="#{messages.no}" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+				</p:confirmDialog>
+
+			</h:form>
+		</p:panel>
+	</f:view>
+
+</h:body>
+
+</html>

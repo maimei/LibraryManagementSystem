@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+</h:head>
+<body>
+	<ui:composition>
+
+		<!-- name -->
+		<h:outputLabel for="name" value="#{messages.name}:"
+			style="font-weight:bold" name="#{messages.name_help}" />
+		<p:inputText readonly="true" id="name"
+			value="#{showMediumTypeForm.name}" style="width:800px"
+			name="#{messages.name_help}" />
+
+
+		<!-- lendingTime -->
+		<h:outputLabel for="lendingTime" value="#{messages.lendingTime}:"
+			style="font-weight:bold"  />
+		<p:inputText readonly="true" id="lendingTime"
+			value="#{showMediumTypeForm.lendingTime}" style="width:800px" />
+
+		<!-- fee -->
+		<h:outputLabel for="fee" value="#{messages.fee}:"
+			style="font-weight:bold" />
+		<p:inputText readonly="true" id="fee"
+			value="#{showMediumTypeForm.fee}" style="width:800px" />
+
+		<!-- extensions -->
+		<h:outputLabel id="hallo" for="extensions"
+			value="#{messages.extensions}" style="font-weight:bold"
+			 />
+		<p:inputText readonly="true" id="extensions"
+			value="#{showMediumTypeForm.extensions}" style="width:800px" />
+
+		<!-- extensionTime -->
+		<h:outputLabel for="extensionTime" value="#{messages.extensionTime}:"
+			 style="font-weight:bold" />
+		<p:inputText readonly="true" id="extensionTime"
+			value="#{showMediumTypeForm.extensionTime}" style="width:800px" />
+
+		<!-- attribute0 -->
+		<h:outputLabel for="attribute0" value="Attribut 1: "
+			style="font-weight:bold;" 
+			rendered="#{showMediumTypeForm.checkAttribute(0)}" />
+		<p:inputText readonly="true" id="attribute0"
+			value="#{showMediumTypeForm.attribute0}"
+			rendered="#{showMediumTypeForm.checkAttribute(0)}"
+			 style="width:800px" />
+
+		<!-- attribute1 -->
+		<h:outputLabel for="attribute1" value="Attribut 2: "
+			style="font-weight:bold;" 
+			rendered="#{showMediumTypeForm.checkAttribute(1)}" />
+		<p:inputText readonly="true" id="attribute1"
+			value="#{showMediumTypeForm.attribute1}"
+			rendered="#{showMediumTypeForm.checkAttribute(1)}"
+			 style="width:800px" />
+
+		<!-- attribute2 -->
+		<h:outputLabel for="attribute2" value="Attribut 3: "
+			style="font-weight:bold;" 
+			rendered="#{showMediumTypeForm.checkAttribute(2)}" />
+		<p:inputText readonly="true" id="attribute2"
+			value="#{showMediumTypeForm.attribute2}"
+			rendered="#{showMediumTypeForm.checkAttribute(2)}"
+		 style="width:800px" />
+
+		<!-- attribute3 -->
+		<h:outputLabel for="attribute3" value="Attribut 4: "
+			style="font-weight:bold;" 
+			rendered="#{showMediumTypeForm.checkAttribute(3)}" />
+		<p:inputText readonly="true" id="attribute3"
+			value="#{showMediumTypeForm.attribute3}"
+			rendered="#{showMediumTypeForm.checkAttribute(3)}"
+			 style="width:800px" />
+
+		<!-- attribute4 -->
+		<h:outputLabel for="attribute4" value="Attribut 5: "
+			style="font-weight:bold;" 
+			rendered="#{showMediumTypeForm.checkAttribute(4)}" />
+		<p:inputText readonly="true" id="attribute4"
+			value="#{showMediumTypeForm.attribute4}"
+			rendered="#{showMediumTypeForm.checkAttribute(4)}"
+		 style="width:800px" />
+
+		<!-- attribute5 -->
+		<h:outputLabel for="attribute5" value="Attribut 6: "
+			style="font-weight:bold;" 
+			rendered="#{showMediumTypeForm.checkAttribute(5)}" />
+		<p:inputText readonly="true" id="attribute5"
+			value="#{showMediumTypeForm.attribute5}"
+			rendered="#{showMediumTypeForm.checkAttribute(5)}"
+		 style="width:800px" />
+
+		<!-- attribute6 -->
+		<h:outputLabel for="attribute6" value="Attribut 7: "
+			style="font-weight:bold;" 
+			rendered="#{showMediumTypeForm.checkAttribute(6)}" />
+		<p:inputText readonly="true" id="attribute6"
+			value="#{showMediumTypeForm.attribute6}"
+			rendered="#{showMediumTypeForm.checkAttribute(6)}"
+			 style="width:800px" />
+
+		<!-- attribute7 -->
+		<h:outputLabel for="attribute7" value="Attribut 8: "
+			style="font-weight:bold;" 
+			rendered="#{showMediumTypeForm.checkAttribute(7)}" />
+		<p:inputText readonly="true" id="attribute7"
+			value="#{showMediumTypeForm.attribute7}"
+			rendered="#{showMediumTypeForm.checkAttribute(7)}"
+		 style="width:800px" />
+
+		<!-- attribute8 -->
+		<h:outputLabel for="attribute8" value="Attribut 9: "
+			style="font-weight:bold;" 
+			rendered="#{showMediumTypeForm.checkAttribute(8)}" />
+		<p:inputText readonly="true" id="attribute8"
+			value="#{showMediumTypeForm.attribute8}"
+			rendered="#{showMediumTypeForm.checkAttribute(8)}"
+			 style="width:800px" />
+
+		<!-- attribute9 -->
+		<h:outputLabel for="attribute9" value="Attribut 10: "
+			style="font-weight:bold;" 
+			rendered="#{showMediumTypeForm.checkAttribute(9)}" />
+		<p:inputText readonly="true" id="attribute9"
+			value="#{showMediumTypeForm.attribute9}"
+			rendered="#{showMediumTypeForm.checkAttribute(9)}"
+			style="width:800px" />
+
+
+
+
+
+
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<script type="text/javascript">
+			if (screen.width &lt; 1025) {
+					document.location = "../mobile/settings/mobileSettings.xhtml";
+	}
+	</script>
+</h:head>	
+<body onload="#{changeReaderForm.edit(authBackingBean.getReaderByID(authBackingBean.getUserID()))}">
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		
+	 
+	<h:form>
+	<p:panel header="#{messages.settings}" style="margin: 0 auto; width:1200px">
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel for="IsSettingsOn" value="#{messages.changeHistorySettings}"
+				style="font-weight:bold" />
+			<p:selectBooleanCheckbox value="#{changeReaderForm.isSettingsOn}"
+				id="IsSettingsOn" />		
+				
+			<h:outputLabel for="IsReturnMailOn" value="#{messages.receiveReturnMail}"
+				style="font-weight:bold" />
+			<p:selectBooleanCheckbox value="#{changeReaderForm.returnMailOn}"
+				id="IsReturnMailOn" />	
+				
+			<h:outputLabel for="IsReminderMailOn" value="#{messages.receiveReminderMail}"
+				style="font-weight:bold" />
+			<p:selectBooleanCheckbox value="#{changeReaderForm.reminderMailOn}"
+				id="IsReminderMailOn" />					
+				
+			<h:outputLabel for="IsReservationMailOn" value="#{messages.receiveReservationMail}"
+				style="font-weight:bold" />
+			<p:selectBooleanCheckbox value="#{changeReaderForm.reservationMailOn}"
+				id="IsReservationMailOn" />	
+			
+		</h:panelGrid>
+		<f:facet name="footer">
+		<h:panelGroup>
+			<p:growl id="message" showDetail="true" />
+			<p:commandButton value="#{messages.save}"
+				title="#{messages.save_help}"
+				action="#{changeReaderForm.save()}" ajax="false"
+				icon="ui-icon-check" />
+			  <p:commandButton value="#{messages.back}" icon="ui-icon-arrowreturnthick-1-w"
+               	onclick="window.location.href = '/bibjsf/account/account.xhtml';" />
+		</h:panelGroup>
+	</f:facet>
+
+
+
+	</p:panel>
+	</h:form>
+	</f:view>
+</body>
+</html>

@@ -1,0 +1,26 @@
+Bibi Bibliothekssoftware
+Copyright 2013 AG Softwaretechnik, University of Bremen, Germany
+
+Contributions by Karsten Hölscher, Rainer Koschke, and Dierk Lüdemann
+(in alphabetic order).
+
+The following software is used by Bibi Bibliothekssoftware:
+
+- Primefaces (Apache 2.0)
+- log4j (Apache 2.0)
+- commons-configuration (Apache 2.0)
+- commons-fileupload (Apache 2.0)
+- com.sun.jersey for RESTful Web Services in Java
+  (dual licenses: 
+    COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL - Version 1.1)
+    GNU General Public License (GPL - Version 2, June 1991) 
+        with the [“Classpath Exception”])
+- javax.el
+  (dual licenses: 
+   General Public License Version 2 only ("GPL") 
+   Common Development 008.* and Distribution License("CDDL"))
+- junit (Common Public License - v 1.0)
+- org.apache.pdfbox (Apache 2.0)
+- com.google.zxing (Apache 2.0)
+- com.google.apis (Apache 2.0)
+- com.google.http-client (Apache 2.0)

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.bib}</title>
+</h:head>
+
+<body>
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.chooseMediaType}"
+			style="margin: 0 auto; width:1200px">
+			<p:panel>
+				<p:commandButton value="#{messages.back}" icon="ui-icon-arrowreturnthick-1-w"
+					onclick="window.location.href = '/bibjsf/media/medium/bib_admin/mediumIndex.xhtml';" />
+			</p:panel>
+			<br />
+
+
+			<h:form>
+				<p:growl id="messages" showDetail="true" />
+
+
+				<p:dataGrid var="type" value="#{mediumTypeTable.getMediumTypes()}" columns="3"
+					rows="#{Integer.MAX_VALUE}" emptyMessage="#{messages.noMediaTypesFound}" style="text-align:center">
+					
+					<h:panelGroup style="text-align:center">
+						<h:panelGrid columns="1" style="width:100%">
+							<p:commandButton
+								action="#{showMediumTypeForm.setMediumType(type)}" style="max-width:350px"
+								value="#{type.name}" ajax="false" icon="ui-icon-circle-plus" />
+						</h:panelGrid>
+					</h:panelGroup>
+
+
+				</p:dataGrid>
+
+
+			</h:form>
+		</p:panel>
+	</f:view>
+
+
+</body>
+</html>

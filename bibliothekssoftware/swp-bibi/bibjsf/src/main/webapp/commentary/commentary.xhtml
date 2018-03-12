@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<script type="text/javascript">
+		if (screen.width &lt; 1025) {
+			document.location = "../mobile/commentary/commentary.xhtml";
+		}
+	</script>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<title>#{messages.medialisttitle}</title>
+</h:head>
+
+<body
+	onload="#{commentaryTable.reset()}; #{commentaryTable.getModel().addInitiallyFilter('active','true','=')}">
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.commentFor} #{showMediumForm.getTitle()}"
+			style="margin: 0 auto; width:1200px">
+
+
+			<p:panel style="text-align:center">
+				<h:panelGrid columns="2" width="100%">
+
+					<p:commandButton value="#{messages.back}"
+						icon="ui-icon-arrowreturnthick-1-w"
+						rendered="#{authBackingBean.isNotRole('BIB')}"
+						onclick="window.location.href = '/bibjsf/media/medium/guest_new_user/mediumDetails.xhtml';" />
+					<p:commandButton value="#{messages.back}"
+						icon="ui-icon-arrowreturnthick-1-w"
+						rendered="#{authBackingBean.isRole('BIB')}"
+						onclick="window.location.href = '/bibjsf/media/medium/bib_admin/mediumDetails.xhtml';" />
+					<p:commandButton value="#{messages.addcomment}"
+						icon="ui-icon-comment"
+						onclick="window.location.href = '/bibjsf/commentary/commentaryAdd.xhtml';"
+						rendered="#{authBackingBean.isRole('USER')}" />
+				</h:panelGrid>
+
+			</p:panel>
+			<br />
+			<h:form>
+				<p:growl id="messages" showDetail="true" />
+
+				<p:dataTable id="commentaryTable" value="#{commentaryTable.model}"
+					var="commentary" lazy="true" sortMode="multiple"
+					emptyMessage="#{messages.noCommentsFound}"
+					rows="#{commentaryTable.rowMax}">
+
+					<p:subTable var="commentary2" value="#{commentary}">
+						<f:facet name="header">
+							<p:panel style="height:20px;line-height:5px; width:auto">
+								<p:outputLabel value="#{commentary.dateOfPublication}">
+								<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+									timeZone="CET" />
+							</p:outputLabel>
+
+							</p:panel>
+						</f:facet>
+						
+						
+						<p:column>
+						<p:outputPanel style="width: auto; padding:10px; max-width:1100px">
+							<p
+								style="font-family: Verdana, Arial, sans-serif; font-size: 86%; white-space: pre-wrap">#{commentary2.commentary}</p>
+						</p:outputPanel>
+
+						<div align="center">
+
+							<p:commandButton title="#{messages.clickToDeleteComments}"
+								value="Löschen" update="commentaryTable messages"
+								rendered="#{authBackingBean.isRole('BIB')}"
+								action="#{commentaryTable.delete(commentary2)}" ajax="false"
+								icon="ui-icon-circle-minus">
+								<p:confirm header="#{messages.confirmation}"
+									message="#{messages.reallyDeleteSelectedComments}" />
+
+							</p:commandButton>
+						</div>
+						</p:column>
+
+					</p:subTable>
+
+
+				</p:dataTable>
+
+
+				<p:confirmDialog global="true">
+					<p:commandButton value="#{messages.yes}" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="#{messages.no}" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+
+
+
+			</h:form>
+		</p:panel>
+	</f:view>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+<!-- Addition of a reader -->
+<h:head>
+	<link rel="shortcut icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+    <title>#{messages.register}</title>
+<script type="text/javascript">
+		function start(){
+			#{addReaderForm.setGroupid('NEW')};
+		}
+	</script>
+</h:head>
+<h:body onload="start()">
+    <h:outputStylesheet name="css/bib.css" />
+    <f:view>
+    <ui:include src="/mainmenu.xhtml" />
+    <h:form id="form" >
+    <p:growl id="messages" showDetail="true" />
+    
+    <p:panel id="panel" header="#{messages.register}" style="margin: 0 auto; width:1200px">  
+        <h:panelGrid columns="2" cellpadding="5">  
+            
+            <ui:include src="/user/userAddAttributes.xhtml">
+                <ui:param name="readerForm" value="#{addReaderForm}"/>
+            </ui:include>
+            
+             <!-- password 1 -->
+            <h:outputLabel for="password" value="#{messages.password}:* " style="font-weight:bold" />
+            <p:password maxlength="50"  id="password" value="#{addReaderForm.password}" match="passwordCheck" 
+                validatorMessage="#{messages.passwordsMustMatch}"
+              	required="true"
+                title="#{messages.passwordreq}" style="width:800px" />
+          
+            
+            <!-- password 2 -->
+            <h:outputLabel for="passwordCheck" value="#{messages.password} wiederholen:*" style="font-weight:bold" />
+            <p:password maxlength="50" id="passwordCheck" value="#{addReaderForm.passwordCheck}" 
+               validatorMessage="#{messages.passwordsMustMatch}"
+                title="#{messages.passwordreq2}" style="width:800px" required="true"/>
+            
+		            
+            <!-- buttons in footer  -->
+			<f:facet name="footer">
+			  <h:panelGroup>
+			  <p:commandButton id="saveButton" value="Registrieren" action="#{addReaderForm.save()}" 
+			      ajax="false" icon="ui-icon-check" validateClient="true" title="#{messages.save_help}">
+			      <f:ajax event="click" onevent="PF('statusDialog').show();"></f:ajax>
+			      </p:commandButton>
+			  <p:commandButton id="cancelButton" value="#{messages.cancel}" icon="ui-icon-closethick"
+                  action="#{addReaderForm.cancel}" immediate="true"  title="#{messages.cancel_help} "/>
+              </h:panelGroup>
+             </f:facet>                
+        </h:panelGrid>  
+    </p:panel>  
+
+    <p:defaultCommand target="saveButton"/>
+ </h:form>
+</f:view>
+</h:body>
+</html>
+
+  

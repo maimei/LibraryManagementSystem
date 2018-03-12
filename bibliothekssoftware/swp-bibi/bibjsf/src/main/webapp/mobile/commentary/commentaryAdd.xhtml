@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+
+	<h:body onload="#{addCommentaryForm.setReaderID(authBackingBean.getUserID())}; #{addCommentaryForm.setMediumID(showMediumForm.getId())}">
+	<f:view renderKitId="PRIMEFACES_MOBILE">
+	
+	<pm:page title="Kommentar hinzufügen">
+		<pm:view id="commentaryAdd">
+			<pm:header title="Kommentare hinzufügen">
+				<f:facet name="left">
+					<p:button value="Zurück" icon="back" href="../media/mediumDetails.xhtml"></p:button>
+				</f:facet>
+				
+				<f:facet name="right">
+					<p:button value="Einstellungen" icon="gear" href="../settings/settingsTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"></p:button>
+				</f:facet>
+				
+					<pm:navBar>
+						<p:button value="Startseite" icon="home" href="../indexMain.xhtml"> </p:button>
+						<p:button value="Medien" icon="search" href="../media/mediumTemp.xhtml" styleClass="ui-btn-active"> </p:button>
+						<p:button value="Mein Profil" icon="info" href="../user/profile.xhtml" rendered="#{authBackingBean.isRole('USER')}"> </p:button>
+				
+				
+					</pm:navBar>
+					
+			</pm:header>
+			<h:form>
+				<pm:content>
+				
+					<p:inputTextarea rows="3" cols="#{addCommentaryForm.textWidth}" id="text" value="#{addCommentaryForm.text}" /> <br> </br>
+						<h:commandButton id="saveButton" value="#{messages.save}"
+								action="#{addCommentaryForm.save}" ajax="false"
+								icon="ui-icon-check" validateClient="true"
+								title="#{messages.save_help}" />
+						<h:commandButton id="cancelButton" value="#{messages.cancel}"
+								action="#{addCommentaryForm.cancel}" immediate="true"
+								title="#{messages.cancel_help} " />	
+							
+				
+  				</pm:content>
+  			</h:form>
+		</pm:view>
+		
+	</pm:page>
+	</f:view>
+	</h:body>
+</html>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+</h:head>
+
+<body>
+	<ui:composition>
+	
+		<h:outputLabel for="ownRating" value="#{messages.ownRating}:"
+			style="font-weight:bold"
+			rendered="#{authBackingBean.isRole('USER')}" />
+
+		<h:panelGroup id="ownRating"
+			rendered="#{authBackingBean.hasNotRated(showMediumForm.getId()) and authBackingBean.isRole('USER')}">
+
+			<h:form>
+				<p:rating value="#{addRatingForm.rating}" stars="5" cancel="false"
+					onRate="#{addRatingForm.setReaderID(authBackingBean.getUserID())}; #{addRatingForm.setMediumID(showMediumForm.getId())}">
+				<style type="text/css">
+		div.ui-rating-star {
+	height: 32px;
+	width: 32px;
+}
+
+div.ui-rating-star a {
+	background-size: 32px 160px;
+	height: 32px;
+	width: 32px;
+	background-position: 0 -64px;
+}
+
+div.ui-rating-star-on a {
+	background-position: 0 -96px;
+}
+</style>
+
+				</p:rating>
+					&nbsp; &nbsp; 
+					<p:commandButton value="Abschicken" id="submit" ajax="false"
+					action="#{addRatingForm.save()}" />
+			</h:form>
+		</h:panelGroup>
+
+		<p:rating
+			value="#{ratingTable.getRating(authBackingBean.getUserID(),showMediumForm.getId())}"
+			rendered="#{!authBackingBean.hasNotRated(showMediumForm.getId()) and authBackingBean.isRole('USER')}"
+			stars="5" cancel="false" id="showRating" disabled="true" >
+			 	<style type="text/css">
+		div.ui-rating-star {
+	height: 32px;
+	width: 32px;
+}
+
+div.ui-rating-star a {
+	background-size: 32px 160px;
+	height: 32px;
+	width: 32px;
+	background-position: 0 -64px;
+}
+
+div.ui-rating-star-on a {
+	background-position: 0 -96px;
+}
+</style>
+			
+			
+			</p:rating>
+		
+	</ui:composition>
+</body>
+</html>

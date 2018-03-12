@@ -1,0 +1,102 @@
+Dieses Dokument beschreibt, wie man Bibi auf einem Rechner
+installiert, startet und beendet.
+
+Anforderungen:
+--------------
+
+Java EE 6 SDK
+http://www.oracle.com/technetwork/java/javaee/downloads/java-ee-sdk-6u3-jdk-6u29-downloads-523388.html
+=> java_ee_sdk-6u4-jdk-windows-ml.exe (Windows - Multi-Language)
+    (enthält bereits Glassfish 3.1.2.2)
+
+Glassfish 3.1.2.2 (nur falls noch nicht mit der Installation von
+Java JDK 1.6 noch nicht installiert)
+
+http://glassfish.java.net/download-archive.html
+=> glassfish-3.1.2.2-windows.exe
+
+PATH-Variable setzen
+---------------------
+
+Linux (Entwicklungsumgebung mit Eclipse): 
+
+export PATH=<whereeveryouinstalledit>/eclipse/plugins/oracle.eclipse.runtime.glassfish_3.1.0.0/glassfish3/glassfish/bin:$PATH
+
+Windows (XP):
+
+Annahme: Glassfish wurde unter C:\glassfish3 installiert.
+
+System-Eigenschaften => Erweitert => Umgebungsvariablen:
+  Systemvariable Path ergänzen um: C:\glassfish3\bin\
+
+Einmaliges Einrichten der Datenbank für Bibi
+--------------------------------------------
+
+Konfigurieren von Glassfish über http://localhost:4848/, nachdem
+Glassfish gestartet wurde (siehe unten).
+
+Starten von Glassfish
+---------------------
+
+Starten des Datenbank-Servers Derby:
+
+  asadmin start-database
+
+Starten von Glassfish:
+
+  asadmin start-domain
+
+  asadmin enable-secure-admin
+
+Starten von Bibi mit Glassfish
+-----------------------------------
+
+(weitere Erläuterungen unter 
+http://docs.oracle.com/cd/E18930_01/html/821-2432/geyvr.html)
+
+Windows: 
+
+  Start=>Alle Programme=>Zubehör=>Eingabeaufforderung
+
+  Annahme: bibjsf-0.0.1-SNAPSHOT.war befindet sich auf dem Desktop
+ 
+  cd Desktop
+  asadmin deploy bibjsf-0.0.1-SNAPSHOT.war
+
+Linux: 
+
+  asadmin deploy bibjsf-0.0.1-SNAPSHOT.war
+
+Dann in Browser die URL http://localhost:8080/bibjsf-0.0.1-SNAPSHOT/ eingeben.
+
+Aktualisieren der App
+---------------------
+
+asadmin redeploy --name bibjsf-0.0.1-SNAPSHOT --keepstate=true bibjsf-0.0.1-SNAPSHOT.war
+
+Beenden von Bibi
+----------------
+
+asadmin undeploy bibjsf-0.0.1-SNAPHOT
+
+Installierte Applikationen auflisten
+------------------------------------
+
+asadmin list-applications
+
+Bei Problemen
+-------------
+
+Log-Datei des Servers:
+
+C:/glassfish3/glassfish/domains/[domainname]/logs/server.log where [domainname] 
+is the server domain name, which defaults to domain1
+
+Bei Problemen mit abgelaufenem Zertifikat von "GTE Cybertrust Solutions"
+(abgelaufen am 15. August 2013):
+
+cd C:\glassfish3\glassfish\domains\domain1\config
+c:\glassfish3\jdk\bin\keytool.exe -delete -v -alias gtecybertrust5ca -keystore cacerts.jks
+Passwort: changeit
+
+

@@ -1,0 +1,901 @@
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+
+	<!-- welcome page (index) -->
+	<navigation-rule>
+		<display-name>index.xhtml</display-name>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/faces/login.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/news/newsChange.xhtml</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<!-- new Password -->
+	<navigation-rule>
+		<display-name>/faces/login.xhtm</display-name>
+		<from-view-id>/faces/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{changeReaderForm.sendNewPassword()}</from-action>
+			<from-outcome>success</from-outcome>			
+			<to-view-id>/faces/login.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+		<from-action>#{changeReaderForm.sendNewPassword()}</from-action>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/faces/login.xhtml</to-view-id>
+		</navigation-case>	
+	</navigation-rule>
+
+    <navigation-rule>
+		<display-name>news/newsChange.xhtml</display-name>
+		<from-view-id>/news/newsChange.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/news/newsChange.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			
+		</navigation-case>		
+	</navigation-rule>
+	
+     <navigation-rule>
+		<display-name>mobile/registration.xhtml</display-name>
+		<from-view-id>/mobile/registration.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/mobile/indexMobile.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+<navigation-rule>
+		<display-name>news/newsAdd.xhtml</display-name>
+		<from-view-id>/news/newsAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/news/newsAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>reset</from-outcome>
+			<to-view-id>/news/newsAdd.xhtml</to-view-id>
+		</navigation-case>				
+	</navigation-rule>
+
+	<!-- login form -->
+	<navigation-rule>
+		<display-name>faces/login.xhtml</display-name>
+		<from-view-id>/faces/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+		<!-- login form -->
+	<navigation-rule>
+		<display-name>extension/extension.xhtml</display-name>
+		<from-view-id>/extension/extension.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/extension/extension.xhtml</to-view-id>
+		</navigation-case>
+				<navigation-case>
+			<from-outcome>extend</from-outcome>
+			<to-view-id>/lendings/lendingExtend.xhtml</to-view-id>
+		</navigation-case>
+		
+	</navigation-rule>
+
+	<!-- reader list form -->
+	<navigation-rule>
+		<display-name>user/reader/readerIndex.xhtml</display-name>
+		<from-view-id>/user/reader/readerIndex.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>add</from-outcome>
+			<to-view-id>/user/reader/readerAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/user/reader/readerIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>details</from-outcome>
+			<to-view-id>/user/userInfoPage.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- inactive reader list form -->
+	<navigation-rule>
+		<display-name>user/reader/readerIndex.xhtml</display-name>
+		<from-view-id>/user/reader/inactive.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/user/reader/inactive.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>details</from-outcome>
+			<to-view-id>/user/userInfoPage.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- blocked reader list form -->
+	<navigation-rule>
+		<display-name>user/reader/readerIndex.xhtml</display-name>
+		<from-view-id>/user/reader/blocked.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/user/reader/blocked.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>details</from-outcome>
+			<to-view-id>/user/userInfoPage.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- Lending list form -->
+	<navigation-rule>
+		<display-name>lendings/lendings.xhtml</display-name>
+		<from-view-id>/lendings/lendings.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>add</from-outcome>
+			<to-view-id>/lendings/lendingAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>return</from-outcome>
+			<to-view-id>/lendings/lendingReturn.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/lendings/lendings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/lendings/lendings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>returned</from-outcome>
+			<to-view-id>/lendings/lendingReturn.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/lendings/lendingExtend.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- Lending Return -->
+	<navigation-rule>
+		<from-view-id>/lendings/lendingReturn.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/lendings/lendingReturn.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/lendings/lendings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/lendings/lendings.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Lending Extend -->
+	<navigation-rule>
+		<from-view-id>/lendings/lendingExtend.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/lendings/lendingExtend.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/lendings/lendings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/lendings/lendings.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/lendings/lendingConfirm.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/lendings/lendingConfirm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/lendings/lendings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/lendings/lendings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>reset</from-outcome>
+			<to-view-id>/lendings/lendingConfirm.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+<navigation-rule>
+		<from-view-id>/lendings/lendingAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>passed</from-outcome>
+			<to-view-id>/lendings/lendingConfirm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>notpassed</from-outcome>
+			<to-view-id>/lendings/lendingAdd.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/account/account.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/account/account.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/account/account.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/account/changePassword.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/account/account.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/account/changePassword.xhtml</to-view-id>
+		</navigation-case>
+		</navigation-rule>
+		
+		<navigation-rule>
+		<from-view-id>/account/changeData.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/account/account.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/account/account.xhtml</to-view-id>
+		</navigation-case>
+		</navigation-rule>
+	
+		<navigation-rule>
+		<from-view-id>/account/accountSettings.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/account/account.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/account/accountSettings.xhtml</to-view-id>
+		</navigation-case>
+		</navigation-rule>
+	
+	<!-- Settings form -->
+	<navigation-rule>
+		<display-name>settings/settings.xhtml</display-name>
+		<from-view-id>/settings/settings.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/settings/settings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/settings/settings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/settings/openingTimeChange.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error2</from-outcome>
+			<to-view-id>/settings/settings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success2</from-outcome>
+			<to-view-id>/settings/settings.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<display-name>settings/settings.xhtml</display-name>
+			<from-view-id>/settings/openingTimeChange.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/settings/settings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/settings/settings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/settings/settings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>empty</from-outcome>
+			<to-view-id>/settings/settings.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>settings/settings.xhtml</display-name>
+			<from-view-id>/settings/closedTimeAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/settings/settings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/settings/settings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/settings/settings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>reset</from-outcome>
+			<to-view-id>/settings/closedTimeAdd.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+
+	<!-- bib list form -->
+	<navigation-rule>
+		<display-name>user/bib/bibIndex.xhtml</display-name>
+		<from-view-id>/user/bib/bibIndex.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>add</from-outcome>
+			<to-view-id>/user/bib/bibAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/user/bib/bibIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>details</from-outcome>
+			<to-view-id>/user/userInfoPage.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- bib add -->
+	<navigation-rule>
+		<display-name>user/bib/bibIndex.xhtml</display-name>
+		<from-view-id>/user/bib/bibAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/user/bib/bibIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/user/bib/bibIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/user/bib/bibIndex.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- new list form -->
+	<navigation-rule>
+		<display-name>user/new/newIndex.xhtml</display-name>
+		<from-view-id>/user/new/newIndex.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>add</from-outcome>
+			<to-view-id>/user/new/newAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/user/new/newIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>empty</from-outcome>
+			<to-view-id>/user/new/newIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>details</from-outcome>
+			<to-view-id>/user/userInfoPage.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+
+	<!-- reader addition form -->
+	<navigation-rule>
+		<display-name>user/reader/readerAdd.xhtml</display-name>
+		<from-view-id>/user/reader/readerAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/user/reader/readerIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/user/reader/readerIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>reset</from-outcome>
+			<to-view-id>/user/reader/readerAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/user/reader/readerAdd.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- user change form -->
+	<navigation-rule>
+		<display-name>user/userChange.xhtml</display-name>
+		<from-view-id>/user/userChange.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/user/userInfoPage.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/user/userInfoPage.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>reset</from-outcome>
+			<to-view-id>/user/userChange.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/user/userChange.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- user detail form -->
+	<navigation-rule>
+		<display-name>user/userInfoPage.xhtml</display-name>
+		<from-view-id>/user/userInfoPage.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/user/userChange.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>USER</from-outcome>
+			<to-view-id>/user/reader/readerIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>BIB</from-outcome>
+			<to-view-id>/user/bib/bibIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>NEW</from-outcome>
+			<to-view-id>/user/new/newIndex.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- new user -->
+	<navigation-rule>
+		<display-name>user/new/newAdd.xhtml</display-name>
+		<from-view-id>/user/new/newAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/user/new/newAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>reset</from-outcome>
+			<to-view-id>/user/new/newAdd.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>commentary/commentary.xhtml</display-name>
+		<from-view-id>/commentary/commentary.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/commentary/commentary.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/commentary/commentary.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<display-name>commentary/commentaryInactive.xhtml</display-name>
+		<from-view-id>/commentary/commentaryInactive.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/commentary/commentaryInactive.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/commentary/commentaryInactive.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>empty</from-outcome>
+			<to-view-id>/commentary/commentaryInactive.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>commentary/commentaryAdd.xhtml</display-name>
+		<from-view-id>/commentary/commentaryAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/commentary/commentary.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/commentary/commentary.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/commentary/commentaryAdd.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+
+	<!-- admin form -->
+	<navigation-rule>
+		<display-name>admin/admin.xhtml</display-name>
+		<from-view-id>/backup/backup.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/backup/backup.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/backup/backup.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>category/categoryList.xhtml</display-name>
+		<from-view-id>/category/category.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/category/category.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/category/category.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>empty</from-outcome>
+			<to-view-id>/category/category.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- medium index bib_admin -->
+	<navigation-rule>
+		<from-view-id>/media/medium/bib_admin/mediumIndex.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>show</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumDetails.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>addExemplar</from-outcome>
+			<to-view-id>/media/exemplar/exemplarAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>add</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumIndex.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- medium index guest_new_user -->
+	<navigation-rule>
+		<from-view-id>/media/medium/guest_new_user/mediumIndex.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>show</from-outcome>
+			<to-view-id>/media/medium/guest_new_user/mediumDetails.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- medium addition form -->
+	<navigation-rule>
+		<display-name>media/medium/mediumAdd.xhtml</display-name>
+		<from-view-id>/media/medium/bib_admin/mediumAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/media/exemplar/exemplarAddFirst.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumSelect.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- medium type selection -->
+	<navigation-rule>
+		<display-name>media/medium/mediumSelect.xhtml</display-name>
+		<from-view-id>/media/medium/bib_admin/mediumSelect.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>add</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumAdd.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- medium details bib_admin -->
+	<navigation-rule>
+		<display-name>media/medium/mediumDetails.xhtml</display-name>
+		<from-view-id>/media/medium/bib_admin/mediumDetails.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumChange.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>details</from-outcome>
+			<to-view-id>/media/exemplar/exemplarDetails.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumDetails.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumDetails.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- medium details guest_new_user -->
+	<navigation-rule>
+		<display-name>media/medium/mediumDetails.xhtml</display-name>
+		<from-view-id>/media/medium/guest_new_user/mediumDetails.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/media/medium/guest_new_user/mediumDetails.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/medium/guest_new_user/mediumDetails.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- medium change -->
+	<navigation-rule>
+		<display-name>media/medium/mediumChange.xhtml</display-name>
+		<from-view-id>/media/medium/bib_admin/mediumChange.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumDetails.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumDetails.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumChange.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- exemplar addition form -->
+	<navigation-rule>
+		<display-name>media/exemplar/exemplarAdd.xhtml</display-name>
+		<from-view-id>/media/exemplar/exemplarAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/exemplar/exemplarAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>reset</from-outcome>
+			<to-view-id>/media/exemplar/exemplarAdd.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<display-name>media/exemplar/exemplarAddFirst.xhtml</display-name>
+		<from-view-id>/media/exemplar/exemplarAddFirst.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumSelect.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumSelect.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/exemplar/exemplarAddFirst.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+
+		<from-view-id>/media/exemplar/exemplarDetails.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/media/exemplar/exemplarChange.xhtml</to-view-id>
+		</navigation-case>
+
+	</navigation-rule>
+
+	<navigation-rule>
+
+		<from-view-id>/media/exemplar/exemplarChange.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/media/exemplar/exemplarDetails.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>reset</from-outcome>
+			<to-view-id>/media/exemplar/exemplarChange.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/exemplar/exemplarChange.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/media/exemplar/exemplarDetails.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/media/mediumType/mediumType.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>show</from-outcome>
+			<to-view-id>/media/mediumType/mediumTypeDetails.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/mediumType/mediumType.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/media/mediumType/mediumTypeAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/media/mediumType/mediumType.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/mediumType/mediumTypeAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>reset</from-outcome>
+			<to-view-id>/media/mediumType/mediumTypeAdd.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/media/mediumType/mediumType.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	
+	<navigation-rule>
+		<from-view-id>/media/mediumType/mediumTypeDetails.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/media/mediumType/mediumTypeChange.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>back</from-outcome>
+			<to-view-id>/media/mediumType/mediumType.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/media/mediumType/mediumTypeChange.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/media/mediumType/mediumTypeDetails.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/mediumType/mediumTypeChange.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/media/mediumType/mediumTypeDetails.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule><navigation-rule>
+
+		<from-view-id>/mobile/media/mediaList.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>show</from-outcome>
+			<to-view-id>/mobile/media/mediumDetails.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumIndex.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/media/medium/bib_admin/mediumIndex.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+
+<!-- Statistics -->
+	<navigation-rule>
+		<display-name>/statistics/ratings.xhtml</display-name>
+			<from-view-id>/statistics/ratings.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/statistics/ratings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/statistics/ratings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/statistics/ratings.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>empty</from-outcome>
+			<to-view-id>/statistics/ratings.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- localization -->
+	<application>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>messages</var>
+		</resource-bundle>
+		<locale-config>
+			<default-locale>de</default-locale>
+			<supported-locale>de</supported-locale>
+		</locale-config>
+	</application>
+
+
+</faces-config>

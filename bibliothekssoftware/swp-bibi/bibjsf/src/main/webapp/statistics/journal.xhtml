@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<title>#{messages.bib}</title>
+</h:head>
+<body>
+	<f:view>
+		<p:growl id="messages" showDetail="true" />
+
+		<ui:include src="/mainmenu.xhtml" />
+
+		<h:form id="form">
+			<p:panel header="#{messages.journal}"
+				style="width: 1200px; margin: 0 auto;">
+				<div style="height: 60px;" />
+
+
+				<p:dataTable id="verlauf" var="journal"
+					value="#{journalForm.generatedJournal}"
+					filteredValue="#{journalForm.filteredJournalEntries}"
+					style="text-align:center" resizableColumns="true" liveResize="true"
+					paginator="true" rows="25" rowsPerPageTemplate="10,25,50,100"
+					emptyMessage="#{messages.noActivitiesFound}">
+
+
+					<p:column filterBy="date" headerText="Datum" sortBy="date">
+						<p:outputLabel value="#{journal.getDate()}"
+							style="white-space: pre-wrap" />
+
+					</p:column>
+
+					<p:column filterBy="time" headerText="Uhrzeit" sortBy="time">
+						<p:outputLabel value="#{journal.getTime()}"
+							style="white-space: pre-wrap" />
+					</p:column>
+					<p:column filterBy="action" headerText="Ereignis" sortBy="action">
+						<p:outputLabel value="#{journal.getAction()}"
+							style="white-space: pre-wrap" />
+					</p:column>
+					<p:column filterBy="additional" headerText="Zusatz"
+						sortBy="additional">
+						<p:outputLabel value="#{journal.getAdditional()}"
+							style="white-space: pre-wrap" />
+					</p:column>
+
+					<f:facet name="footer">
+						<p:growl id="messages2" showDetail="true" />
+						<p:commandButton action="#{journalForm.reload()}"
+							value="Aktivitätenprotokoll neu laden" update="verlauf messages2"
+							onstart="PF('statusDialog').show();"
+							onsuccess="PF('statusDialog').hide();" />
+						<p:commandButton action="#{journalForm.deleteLog()}"
+							value="Alte Aktivitäten löschen" update="verlauf messages2"
+							onstart="PF('statusDialog').show();"
+							onsuccess="PF('statusDialog').hide();">
+							<p:confirm header="#{messages.confirmation}"
+								message="Möchten sie die Aktivitäten wirklich löschen ?" icon="ui-icon-alert" />
+						</p:commandButton>
+					</f:facet>
+
+				</p:dataTable>
+				
+				<p:confirmDialog global="true">
+							<p:commandButton value="#{messages.yes}" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="#{messages.no}" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+
+
+			</p:panel>
+
+		</h:form>
+
+	</f:view>
+</body>
+</html>

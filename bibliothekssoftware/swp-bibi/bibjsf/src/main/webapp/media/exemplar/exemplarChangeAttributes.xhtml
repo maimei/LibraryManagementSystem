@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+</h:head>
+<body>
+<ui:composition>
+
+		<h:outputLabel for="exemplarID" value="#{messages.exemplarid}:"
+			style="font-weight:bold" />
+		<p:inputText readonly="true" id="exemplarID" value="#{exemplarForm.id}" style="width:800px" />
+
+		<h:outputLabel for="status" value="#{messages.status}:"
+			style="font-weight:bold" />
+		<p:selectOneMenu id="status" value="#{exemplarForm.status}" required="true">  
+            <f:selectItem itemLabel="leihbar" itemValue="leihbar" />
+            <f:selectItem itemLabel="verliehen" itemValue="verliehen" />
+            <f:selectItem itemLabel="blockiert" itemValue="blockiert" />
+        </p:selectOneMenu>
+		
+		<h:outputLabel for="note" value="#{messages.note}:"
+			style="font-weight:bold" title="#{messages.note_help}" />
+		<p:inputText id="note" value="#{exemplarForm.note}" style="width:800px" maxlength="250"/>
+		
+	    <h:outputLabel for="place" value="#{messages.place}:"
+			style="font-weight:bold" title="#{messages.place_help}" />
+		<p:inputText id="place" value="#{exemplarForm.place}" style="width:800px" maxlength="250"/>
+		
+	</ui:composition>
+</body>
+</html> 

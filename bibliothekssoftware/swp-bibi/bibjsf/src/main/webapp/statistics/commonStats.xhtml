@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.statistics}</title>
+</h:head>
+<h:body>
+	<h:outputStylesheet name="css/bib.css" />
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.libraryInNumbers}"
+		style="margin: 0 auto; width:1200px">
+		<div style="height: 20px;" />
+		<h:form id="form">
+		<h:panelGrid columns="2" cellpadding="7" cellspacing="3">
+		
+		<p:outputLabel value="#{messages.readers}" style="font-style:italic; font-size: 22px;"/>
+		<p/>
+        
+        <!-- Anzahl aller Nutzer -->
+        <p:outputLabel for="readerCount" value="#{messages.readercount}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="readerCount" value="#{commonStatsForm.getReaderCount()}"/>
+        
+        <!-- Anzahl aller aktiven Nutzer -->
+        <p:outputLabel for="activeReaderCount" value="#{messages.activereadercount}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="activeReaderCount" value="#{commonStatsForm.getActiveReaderCount()}"/>
+        
+        <!-- Anzahl aller inaktiven Nutzer -->
+        <p:outputLabel for="inactiveReaderCount" value="#{messages.inactivereadercount}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="inactiveReaderCount" value="#{commonStatsForm.getInactiveReaderCount()}"/>
+        
+        <!-- Anzahl aller blockierten Nutzer -->
+        <p:outputLabel for="blockedReaderCount" value="#{messages.blockedreadercount}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="blockedReaderCount" value="#{commonStatsForm.getBlockedReaderCount()}"/>
+		
+		<p:separator></p:separator>
+		<p:separator></p:separator>
+		
+		<p:outputLabel value="#{messages.lendings}" style="font-style:italic; font-size: 22px;"/>
+		<div/>
+
+		<!-- Ausleihen pro Leser -->
+        <p:outputLabel for="lendingsPerReader" value="#{messages.lendingsPerReader}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="lendingsPerReader" value="#{commonStatsForm.getLendingsPerReader()}"/>
+        
+        <!-- Anzahl an Ausleihen mit Mahngebühren -->
+        <p:outputLabel for="feeLendingCount" value="#{messages.feeLendingCount}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="feeLendingCount" value="#{commonStatsForm.getFeeLendingCount()}"/>
+        
+        <!-- Anzahl an aktuellen Ausleihen -->
+        <p:outputLabel for="activeLendingCount" value="#{messages.activeLendingCount}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="activeLendingCount" value="#{commonStatsForm.getActiveLendingCount()}"/>
+        
+        <p:separator></p:separator>
+		<p:separator></p:separator>
+        
+        <p:outputLabel value="#{messages.media} und #{messages.exemplars}" style="font-style:italic; font-size: 22px;"/>
+		<div/>
+        
+        <!-- Anzahl an Medien -->
+        <p:outputLabel for="mediaCount" value="#{messages.mediaCount}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="mediaCount" value="#{commonStatsForm.getMediaCount()}"/>
+        
+        <!-- Anzahl an Exemplaren -->
+        <p:outputLabel for="exemplarCount" value="#{messages.exemplarCount}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="exemplarCount" value="#{commonStatsForm.getExemplarCount()}"/>
+        
+        <!-- Anzahl verfügbar Medien -->
+        <p:outputLabel for="lendableMediaCount" value="#{messages.lendableExemplarCount}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="lendableMediaCount" value="#{commonStatsForm.getLendableExemplarCount()}"/>
+        
+        <!-- Anzahl verliehener Medien -->
+        <p:outputLabel for="lentMediaCount" value="#{messages.lentExemplarCount}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="lentMediaCount" value="#{commonStatsForm.getLentExemplarCount()}"/>
+        
+        <!-- Anzahl blockierter Medien -->
+        <p:outputLabel for="blockedMediaCount" value="#{messages.blockedExemplarCount}: " style="font-weight:bold" />
+        <p:inputText readonly="true" style="width:80px"
+        id="blockedMediaCount" value="#{commonStatsForm.getBlockedExemplarCount()}"/>
+        
+		</h:panelGrid>  
+		
+		</h:form>
+	</p:panel>
+	</f:view>
+</h:body>
+</html>

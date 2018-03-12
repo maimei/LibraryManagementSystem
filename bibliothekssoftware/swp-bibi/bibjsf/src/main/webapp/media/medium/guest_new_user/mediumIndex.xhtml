@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<script type="text/javascript">
+			if (screen.width &lt;  1025) {
+					document.location = "../../../mobile/media/mediaList.xhtml";
+			}
+		</script>
+	<title>#{messages.medialisttitle}</title>	
+</h:head>
+
+<body onload="#{mediumTable.reset()};">
+	<h:outputStylesheet library="css" name="bib.css" />
+
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.media}" style="margin: 0 auto; width:1200px">
+		
+			<h:form>
+				<p:growl id="messages" showDetail="true" />
+				<br/>
+
+				<p:dataTable id="mediumTable" value="#{mediumTable.model}"
+					var="medium" lazy="true" sortMode="multiple"
+					editable="#{mediumTable.modifiable}"
+					filteredValue="#{mediumTable.filteredElements}"
+					emptyMessage="#{messages.noMediaFound}" 
+					 resizableColumns="true"
+					liveResize="true" paginator="true" rows="25"
+					rowsPerPageTemplate="10,25,50,100">
+
+					<!-- Title -->
+					<p:column id="title" sortBy="#{medium.title}"
+						filterBy="#{medium.title}" headerText="#{messages.title}"
+						filterMatchMode="contains" style="text-align: center" >
+						<h:outputText value="#{medium.title}" style="width:auto; white-space: pre-wrap"/>
+					</p:column>
+
+					<p:column id="type" filterOptions="#{mediumTypeTable.getOptions()}"
+						filterBy="#{medium.mediumType}" headerText="#{messages.type}"
+						filterMatchMode="exact" style="text-align: center" >
+						<h:outputText value="#{mediumTable.getType(medium)}" style="width:auto; white-space: pre-wrap"/>
+					</p:column>
+
+					<p:column id="rating" headerText="#{messages.rating}" style="width:95px;text-align: center"
+						resizable="false" >
+						<h:outputText value="#{medium.rating}"  >
+						<f:convertNumber type="number" pattern="#0.00" locale="de" />
+						</h:outputText>
+					</p:column>
+
+					<p:column id="language" sortBy="#{medium.language}" filterMaxLength="2" filterStyle="width:35px"
+						resizable="false" style="width:90px; text-align: center" 
+						filterBy="#{medium.language}" headerText="#{messages.language}"
+						filterMatchMode="contains">
+						<h:outputText value="#{medium.language}" />
+					</p:column>
+
+					<p:column id="exemplars"  headerText="#{messages.availableExemplars}" 
+					style="width:190px;text-align: center" resizable="false" >
+						<h:outputText value="#{mediumTable.getAvailable(medium.id)}" />
+					</p:column>
+
+
+					<p:column style="width:40px" id="detailButton" resizable="false" >
+						<p:commandButton
+							action="#{showMediumForm.setMedium(medium.id)}"
+							ajax="false" icon="ui-icon-circle-triangle-e"
+							style="height:30px; width:30px" title="#{messages.clickToView}"/>
+					</p:column>
+
+
+					<f:facet name="header">
+						<p:outputLabel value="#{messages.search}:" />
+						<p:inputText style="width:50%"
+							value="#{mediumTable.getModel().globalFilter}" />					
+						<p:commandButton id="search" value="#{messages.go}"
+							action="#{mediumTable.getModel().activateGlobalFilter()}"
+							update="mediumTable" />
+						<p:commandButton value="#{messages.reset}"
+							action="#{mediumTable.getModel().resetGlobalFilter()}"
+							update="mediumTable" />
+						<p:defaultCommand target="search" />
+
+					</f:facet>
+
+						<f:facet name="footer">
+						<div />
+					</f:facet>
+				</p:dataTable>
+				
+			
+				<p:confirmDialog global="true" width="600px">
+					<p:commandButton value="#{messages.yes}" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="#{messages.no}" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+			</h:form>
+		</p:panel>
+	</f:view>
+
+
+</body>
+</html>

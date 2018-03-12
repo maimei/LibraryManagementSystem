@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.bib}</title>
+</h:head>
+<body>
+	<ui:composition>
+		<h:form>
+			<p:panel header="#{messages.currentNews}"
+				style="width: 1200px; margin: 0 auto">
+				<p:dataTable id="newsTable" value="#{newsTable.model}" var="news"
+					lazy="true" sortMode="multiple"
+					emptyMessage="#{messages.noNewsFound}" rows="#{newsTable.rowMax}">
+					<p:subTable var="news2" value="#{news}">
+
+
+						<f:facet name="header">
+							<p:panel style="height:20px;line-height:5px; width:auto">
+								<p:outputLabel value="#{news.dateOfPublication}">
+									<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+										timeZone="CET" />
+								</p:outputLabel>
+								<p:outputLabel value=" | #{news.title}" />
+
+							</p:panel>
+						</f:facet>
+
+
+						<p:column>
+							<p:outputPanel
+								style="width: auto; padding:10px; max-width:1100px">
+								<p
+									style="font-family: Verdana, Arial, sans-serif; font-size: 86%; white-space: pre-wrap">#{news2.content}</p>
+							</p:outputPanel>
+
+							<div align="center">
+								<h:panelGroup rendered="#{authBackingBean.isRole('BIB')}">
+									<p:commandButton action="#{changeNewsForm.edit(news2)}"
+										ajax="false" icon="ui-icon-wrench" value="Bearbeiten" />
+									<p:commandButton value="#{messages.delete}"
+										title="#{messages.clickToDeleteThisNews}"
+										action="#{newsTable.delete(news2)}" ajax="false"
+										icon="ui-icon-circle-minus">
+										<p:confirm header="#{messages.confirmation}"
+											message="#{messages.reallyDeleteSelctedNews}" />
+									</p:commandButton>
+								</h:panelGroup>
+							</div>
+						</p:column>
+
+
+
+					</p:subTable>
+
+					<f:facet name="footer">
+						<p:commandButton icon="ui-icon-circle-plus"
+							value="#{messages.add}"
+							rendered="#{authBackingBean.isRole('BIB')}"
+							onclick="window.location.href = '/bibjsf/news/newsAdd.xhtml';" />
+					</f:facet>
+
+
+				</p:dataTable>
+
+				<p:confirmDialog global="true">
+
+					<p:commandButton value="#{messages.yes}" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="#{messages.no}" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+				</p:confirmDialog>
+
+			</p:panel>
+		</h:form>
+
+
+	</ui:composition>
+</body>
+</html>

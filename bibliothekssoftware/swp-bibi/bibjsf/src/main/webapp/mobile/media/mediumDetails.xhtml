@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+	
+	<f:view renderKitId="PRIMEFACES_MOBILE">
+	<head>
+	
+	
+	<script type="text/javascript">
+		
+			#{exemplarTable.getModel().reset()};
+			#{exemplarTable.getModel().addInitiallyFilter('mediumID', showMediumForm.getId(),'=')}; 
+			#{addRatingForm.setReaderID(authBackingBean.getUserID())};
+			#{addRatingForm.setMediumID(showMediumForm.getId())};
+	</script>
+	
+	
+	</head>
+	<pm:page title="Mainmenu">
+		<pm:view id="details">
+			<pm:header title="Mediumdetails">
+				<f:facet name="left">
+					<p:button value="Zurück" icon="home" href="mediaList.xhtml"></p:button>
+				</f:facet>
+				
+				<f:facet name="right">
+					<p:button value="Einstellungen" icon="gear" href="../settings/settingsTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"></p:button>
+				</f:facet>
+				
+				<pm:navBar>
+				
+						<p:button value="Startseite" icon="home" href="../indexMain.xhtml"> </p:button>
+						<p:button value="Medien" icon="search" href="../media/mediaList.xhtml" styleClass="ui-btn-active" > </p:button>
+						<p:button value="Mein Profil" icon="info" href="../user/profileTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"> </p:button>
+				
+					</pm:navBar>
+			</pm:header>
+				<pm:content>
+			<h:form> 
+			
+			<h:panelGrid columns="2" cellpadding="5">
+			
+					<!-- title -->
+					<h:outputLabel for="title" value="#{messages.title}:"
+							style="font-weight:bold" title="#{messages.title_help}" />
+					<h:outputText  id="title"
+								value="#{showMediumForm.title}" style="width:800px"
+								title="#{messages.title_help}" />
+			
+					<!-- subtitle -->
+					<h:outputLabel for="subtitle" value="#{messages.subtitle}:"
+							style="font-weight:bold" title="#{messages.title_help}" />
+					<h:outputText  id="subtitle"
+								value="#{showMediumForm.subtitle}" style="width:800px"
+								title="#{messages.subtitle_help}" />
+				
+					<!-- location -->
+					<h:outputLabel for="location" value="#{messages.location}:"
+							style="font-weight:bold" title="#{messages.location_help}" />
+					<h:outputText  id="location"
+							value="#{showMediumForm.location}" style="width:800px" />
+							
+					<!-- category -->
+					<h:outputLabel for="category" value="#{messages.category}:"
+							style="font-weight:bold" title="#{messages.title_help}" />
+					<h:outputText id="category"
+								value="#{showMediumForm.category}" style="width:800px"
+								title="#{messages.title_help}" />
+								
+					<!-- language -->
+					<h:outputLabel for="language" value="#{messages.language}:"
+							title="#{messages.language_help}" style="font-weight:bold" />
+					<h:outputText id="language"
+							value="#{showMediumForm.language}" style="width:800px" />
+							
+					<!-- description -->
+					<h:outputLabel for="description" value="#{messages.description}:"
+							style="font-weight:bold" title="#{messages.description_help}" />
+					<h:outputText id="description"
+							value="#{showMediumForm.description}" style="width:800px" />
+
+					<!-- price -->
+					<h:outputLabel for="price" value="#{messages.price} (in €) :"
+							style="font-weight:bold" title="#{messages.price_help}" />
+					<h:outputText  id="price"
+							value="#{showMediumForm.price}" style="width:800px"/>
+		
+					<!--  dateOfPublication -->
+					<h:outputLabel for="dateOfPublication"
+							value="#{messages.dateOfPublication}:" style="font-weight:bold"
+							title="#{messages.dateOfPublication_help}" />
+					<h:outputText  id="dateOfPublication"
+							value="#{showMediumForm.dateOfPublication}"	style="width:800px" />
+
+					<!-- imageURL -->
+					<h:outputLabel for="imageURL" value="#{messages.imageURL}:"
+								style="font-weight:bold" title="#{messages.imageURL_help}" />
+					<h:outputText readonly="true" id="imageURL"
+								value="#{showMediumForm.imageURL}" style="width:800px" />
+					
+					<!-- rating -->
+					<h:outputLabel for="rating" value="#{messages.rating}:"
+								style="font-weight:bold" title="#{messages.rating_help}" />	
+					
+					<h:outputText id="rating" value="#{showMediumForm.rating}"
+					size="#{showMediumForm.rating}" required="true" />
+					
+					<h:outputLabel for="ownrating" value="Eigene Bewertung: " 	style="font-weight:bold" rendered="#{authBackingBean.isRole('USER')}"/> <br></br>
+					
+					</h:panelGrid>
+					<h:inputText  id="ratingOwn" value="#{addRatingForm.rating}" rendered="#{authBackingBean.isRole('USER')}" />
+								
+					<p:commandButton value="Abschicken" id="submitval" action="#{addRatingForm.save()}" immediate="true" rendered="#{authBackingBean.isRole('USER')}" />
+					<p:commandButton icon="ui-icon-circle-plus-e"
+					action="#{addReservationForm.setExemplarSave(showMediumForm.id)}"
+					 value="Vormerken"
+					rendered="#{authBackingBean.isRole('USER')}"/>
+				</h:form>
+				<p> <p:button value="Kommentare"  href="../commentary/commentaryTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"/>    </p>
+				<p> <p:button value="Exemplare Anzeigen" href="exemplarTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"/>    </p>
+  				</pm:content>
+  			
+  				
+		</pm:view>
+		
+	</pm:page>
+	</f:view>
+	
+</html>

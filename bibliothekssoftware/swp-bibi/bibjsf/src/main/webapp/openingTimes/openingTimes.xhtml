@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.bib}</title>
+</h:head>
+<body>
+	<f:view>
+		<p:growl id="messages" showDetail="true" />
+
+		<ui:include src="/mainmenu.xhtml" />
+
+		<h:form>
+			<p:panel header="#{messages.openingTimes}"
+				style="width: 1200px; margin: 0 auto;">
+				
+				<p:dataList value="#{openingTimeTable.getOpeningTimes()}" 
+					var="opening">
+					<p
+						style="font-family: Verdana, Arial, sans-serif; white-space: pre-wrap">#{opening}</p>
+
+				</p:dataList>
+				
+				<br/>
+					
+				<p:dataList value="#{closedTimeTable.getClosedTimes(14)}"  emptyMessage="In den nächsten 14 Tagen sind keine Schließungen der Bibliothek vorgesehen."
+					var="opening">
+					<p
+						style="font-family: Verdana, Arial, sans-serif; white-space: pre-wrap">#{opening}</p>
+						
+						<f:facet name="header">
+							<p:outputLabel value="Geschlossene Zeiträume"/>
+							</f:facet>
+					
+				</p:dataList>
+				
+
+
+
+			</p:panel>
+		</h:form>
+	</f:view>
+</body>
+</html>

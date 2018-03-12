@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+	<h:body>
+	<h:head>
+	
+	<script type="text/javascript">
+	
+		function start(){
+			#{lendingTable.getModel().reset()};
+			#{lendingTable.getModel().addInitiallyFilter('readerID',authBackingBean.getUserID(),'=')};
+			#{showReaderForm.setReaderByID(authBackingBean.getUserID())};
+			#{changeReaderForm.edit(authBackingBean.getReaderByID(authBackingBean.getUserID()))};
+			#{reservationTable.getModel().reset()};
+			#{reservationTable.getModel().addInitiallyFilter('readerID',authBackingBean.getUserID(),'=')};
+		}
+	</script>
+	
+	</h:head>
+	<f:view renderKitId="PRIMEFACES_MOBILE">
+
+	<pm:page title="Mein Profil">
+		<pm:view id="profilemain">
+			<pm:header title="Mein Profil">
+				<f:facet name="left">
+					<p:button value="Menu" icon="home" href="../indexMain.xhtml"></p:button>
+				</f:facet>
+				
+				<f:facet name="right">
+					<p:button value="Einstellungen" icon="gear" href="../settings/settingsTemp.xhtml"></p:button>
+				</f:facet>
+				
+				
+				
+				<pm:navBar>
+						<p:button value="Meine Daten" icon="info" href="#profilemain" styleClass="ui-btn-active ui-state-persist"> </p:button>
+						<p:button value="Ausleihen" icon="home" href="#lendings"> </p:button>
+						<p:button value="Vormerkungen" icon="search" href="#reservations"> </p:button>
+				</pm:navBar>
+			</pm:header>
+			<h:form>
+				<pm:content>
+						<h:panelGrid columns="2" cellpadding="5">
+						
+								<h:outputLabel value="#{messages.firstname}: "/>
+								<h:outputText value="#{showReaderForm.firstName}"/>
+								
+								<h:outputLabel value="#{messages.lastname}: "/>
+								<h:outputText value="#{showReaderForm.lastName}"/>
+								
+								<h:outputLabel value="#{messages.birthday}: "/>
+								<h:outputText value="#{showReaderForm.birthday}"/>
+								
+								<h:outputLabel value="#{messages.street}: "/>
+								<h:outputText value="#{showReaderForm.street}"/>
+								
+								<h:outputLabel value="#{messages.zipcode}: "/>
+								<h:outputText value="#{showReaderForm.zipcode}"/>
+								
+								<h:outputLabel value="#{messages.city}: "/>
+								<h:outputText value="#{showReaderForm.city}"/>
+								
+								<h:outputLabel value="#{messages.phone}: "/>
+								<h:outputText value="#{showReaderForm.phone}"/>
+								
+								<h:outputLabel value="#{messages.username}: "/>
+								<h:outputText value="#{showReaderForm.userName}"/>
+								
+								<h:outputLabel value="#{messages.email}: "/>
+								<h:outputText value="#{showReaderForm.email}"/>
+								
+								<h:outputLabel value="#{messages.status}: "/>
+								<h:outputText value="#{showReaderForm.status}"/>
+								
+								<h:outputLabel value="#{messages.entryDate}: "/>
+								<h:outputText value="#{showReaderForm.entryDate}"/>
+							</h:panelGrid>
+				
+			
+  				</pm:content>
+  			</h:form>
+		</pm:view>
+		
+		<pm:view id="lendings">
+			<pm:header title="Mein Profil">
+				<f:facet name="left">
+					<p:button value="Menu" icon="home" href="../indexMain.xhtml"></p:button>
+				</f:facet>
+				
+				<f:facet name="right">
+					<p:button value="Einstellungen" icon="gear" href="../settings/mobileSettings.xhtml"></p:button>
+				</f:facet>
+				
+				<pm:navBar>
+						<p:button value="Meine Daten" icon="info" href="#profilemain"> </p:button>
+						<p:button value="Ausleihen" icon="home" href="#lendings" styleClass="ui-btn-active ui-state-persist"> </p:button>
+						<p:button value="Vormerkungen" icon="search" href="#reservations"> </p:button>
+				</pm:navBar>
+			</pm:header>
+			<h:form>
+				<pm:content>
+						<p:dataList value="#{lendingTable.model}" var="lending">
+						<f:facet name="header">  
+             			  Ausleihen
+         		  		</f:facet>  
+						<f:attribute name="filter" value="true"></f:attribute>
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputLabel value="ExemplarID"/>
+								<h:outputText value="#{lending.exemplarID}"/>	
+								
+								<h:outputLabel value="Startdatum"/>
+								<h:outputText value="#{lending.start}"/>	
+								
+								<h:outputLabel value="Enddatum"/>
+								<h:outputText value="#{lending.till}"/>
+								
+								<h:outputLabel value="Mahngebühr"/>
+								<h:outputText value="#{lending.fee}"/>
+								
+								<h:outputLabel value="Zurückgegeben"/>
+								<h:outputText value="#{lending.hasReturned()}"/>
+								
+								<h:outputLabel value="Bezahlstatus"/>
+								<h:outputText value="#{lending.isPaid()}"/>
+							</h:panelGrid>
+							<h:commandButton value="Verlängern"  action="#{changeLendingForm.extend(lending)}" ajax="false" icon="ui-icon-circle-triangle-e"/>
+						</p:dataList>
+				
+			
+  				</pm:content>
+  			</h:form>
+		</pm:view>
+			<pm:view id="reservations">
+			<pm:header title="Mein Profil">
+				<f:facet name="left">
+					<p:button value="Menu" icon="home" href="../indexMain.xhtml"></p:button>
+				</f:facet>
+				
+				<f:facet name="right">
+					<p:button value="Einstellungen" icon="gear" href="../settings/mobileSettings.xhtml"></p:button>
+				</f:facet>
+				
+				<pm:navBar>
+						<p:button value="Meine Daten" icon="info" href="#profilemain"> </p:button>
+						<p:button value="Ausleihen" icon="home" href="#lendings"> </p:button>
+						<p:button value="Vormerkungen" icon="search" href="#reservations" styleClass="ui-btn-active ui-state-persist"> </p:button>
+				</pm:navBar>
+			</pm:header>
+			
+			<h:form>
+				<pm:content>
+						<p:dataList value="#{reservationTable.model}" var="reservation" 
+						paginator="true" rows="10">
+					 	 
+					 	<f:facet name="header">  
+             			  Vormerkungen 
+         		  		</f:facet>  
+         		  		
+						<f:attribute name="filter" value="true"></f:attribute>
+						<f:attribute name="paginatorText" value="Mehr..."></f:attribute>
+							<h:panelGrid columns="2" cellpadding="3">
+								
+								<h:outputLabel value="Titel"/>
+								<h:outputText value="#{reservationTable.getTitle(reservation.mediumID)}"/>
+								
+								<h:outputLabel value="Datum"/>
+								<h:outputText value="#{reservation.reservationDate}"/>	
+								
+								<h:outputLabel value="Status"/>
+								<h:outputText value="#{reservationTable.getReservationStatus(reservation)}"/>
+							
+							</h:panelGrid>
+						
+						</p:dataList>
+							
+  				</pm:content>
+  			</h:form>
+		</pm:view>
+	
+	</pm:page>
+	</f:view>
+	</h:body>
+</html>

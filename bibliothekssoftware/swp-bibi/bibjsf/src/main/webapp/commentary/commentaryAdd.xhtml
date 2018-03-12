@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<!-- Addition of a Medium -->
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.comments}</title>
+	<script type="text/javascript">
+		function start(){
+			#{addCommentaryForm.setReaderID(authBackingBean.getUserID())}; 
+			#{addCommentaryForm.setMediumID(showMediumForm.getId())};
+			
+		}
+	</script>
+</h:head>
+
+<h:body onload="reset(); start()">
+
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel id="panel" style="margin: 0 auto; width:1200px"
+			header="Rezension zu #{showMediumForm.getTitle()} verfassen">
+
+			<h:form id="form">
+				<p:growl id="messages" showDetail="true" />
+
+				<p:inputTextarea id="text" value="#{addCommentaryForm.text}"
+					maxlength="2000" style="width:1100px" counter="counter"
+					cols="#{addCommentaryForm.textWidth}" required="true" 
+					requiredMessage="#{messages.comment} #{messages.required}"/>
+				
+				<br/>
+
+				<h:outputLabel for="counter" value="#{messages.remainingLetters}: " />
+				<h:outputText id="counter" />
+
+				<br />
+
+				<p:commandButton id="saveButton" value="#{messages.save}"
+					action="#{addCommentaryForm.save}" ajax="false"
+					icon="ui-icon-check" validateClient="true"
+					title="#{messages.save_help}" />
+				<p:commandButton id="cancelButton" value="#{messages.cancel}"
+					action="#{addCommentaryForm.cancel}" immediate="true"
+					icon="ui-icon-closethick" title="#{messages.cancel_help} " />
+				<p:defaultCommand target="saveButton" />
+			</h:form>
+		</p:panel>
+
+	</f:view>
+</h:body>
+</html>

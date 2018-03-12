@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+	
+	<f:view renderKitId="PRIMEFACES_MOBILE">
+<head>
+
+
+</head>
+	<pm:page title="Mainmenu">
+		<pm:view id="main">
+			<pm:header title="Login">
+				<f:facet name="left">
+					<p:button value="Zurück" icon="back" href="../indexMain.xhtml"></p:button>
+				</f:facet>
+				
+				<f:facet name="right">
+					<p:button value="Einstellungen" icon="gear" href="../settings/settingsTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"></p:button>
+				</f:facet>
+				
+					<pm:navBar>
+						<p:button  value="Startseite" icon="home" href="../indexMain.xhtml"> </p:button>
+						<p:button  value="Medien" icon="search" href="../media/mediumTemp.xhtml" styleClass="ui-btn-active"> </p:button>
+						<p:button  value="Mein Profil" icon="info" href="../user/profileTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"> </p:button>
+				
+				
+					</pm:navBar>
+					
+			</pm:header>
+			<h:form>
+				<pm:content>
+			
+				<p:dataList value="#{mediumTable.model}" var="medium">
+				<f:attribute name="filter" value="true"></f:attribute>
+				<p:column>
+					 <h:commandLink value="#{medium.title} - #{medium.subtitle}" action="#{showMediumForm.setMedium(medium.id)}">   
+						<br></br>
+					<p>	#{mediumTable.getType(medium)} </p>
+						<p>Sprache: #{medium.language}</p>
+						<p>Verfügbare Exemplare: #{mediumTable.getAvailable(medium.id)}</p>
+						<h:outputText styleClass="ui-li-count" value="#{medium.rating}" > </h:outputText>  </h:commandLink>
+				
+				</p:column>
+				</p:dataList>
+  			</pm:content>
+  			</h:form>
+		</pm:view>
+	</pm:page>
+	</f:view>
+</html>

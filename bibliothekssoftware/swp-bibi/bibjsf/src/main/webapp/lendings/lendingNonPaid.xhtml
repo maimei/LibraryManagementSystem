@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<!-- http://www.primefaces.org/showcase/ui/datatableCellEditing.jsf -->
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<title>#{messages.lendinglisttitle}</title>
+	<script type="text/javascript">
+	 function start(){
+	#{lendingTable.reset()};
+	#{lendingTable.getModel().addInitiallyFilter('returned','true','=')}; 
+	#{lendingTable.getModel().addInitiallyFilter('paid','false','=')};
+	 }
+	</script>
+
+</h:head>
+<h:body onload="start();">
+
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.manageFees}"
+			style="margin: 0 auto; width:1200px">
+			<p:panel>
+				<p:commandButton value="#{messages.back}"
+					icon="ui-icon-arrowreturnthick-1-w"
+					onclick="window.location.href = '/bibjsf/lendings/lendings.xhtml';" />
+			</p:panel>
+			<br />
+			<h:form id="form">
+
+
+
+				<p:dataTable id="lendingTable" value="#{lendingTable.model}"
+					var="lending" lazy="true" sortMode="multiple"
+					editable="#{lendingTable.modifiable}" style="text-align:center"
+					filteredValue="#{lendingTable.filteredElements}"
+					emptyMessage="#{messages.noFeeLendingsFound}"
+					resizableColumns="true" liveResize="true" paginator="true"
+					rows="25" rowsPerPageTemplate="10,25,50,100">
+
+
+
+					<!-- Reader ID -->
+					<p:column id="readerIDColumn" sortBy="#{lending.readerID}"
+						resizable="false" width="25%" filterBy="#{lending.readerID}"
+						headerText="#{messages.readerid}" filterMatchMode="contains"
+						filterStyle="width: 60px">
+						<h:outputText value="#{lending.readerID}" />
+					</p:column>
+
+					<!-- Exemplar ID -->
+					<p:column id="exemplarIDColumn" sortBy="#{lending.exemplarID}"
+						resizable="false" width="25%" filterBy="#{lending.exemplarID}"
+						headerText="#{messages.mediumid}" filterMatchMode="startsWith"
+						filterStyle="width: 60px">
+						<h:outputText value="#{lending.exemplarID}" />
+					</p:column>
+
+
+					<!-- Fee -->
+					<p:column id="fee" sortBy="#{lending.fee}" width="20%"
+						resizable="false" headerText="#{messages.fee}">
+						<h:outputText value="#{lending.fee}" />
+					</p:column>
+
+
+					<!-- Bezahlen-->
+					<p:column id="button" width="30%" resizable="false"
+						headerText="Mahngebühren bezahlen">
+						<p:growl id="messages" showDetail="true" />
+						<p:commandButton icon="ui-icon-check"
+							action="#{returnLendingForm.payLending(lending)}"
+							update="messages lendingTable" style="height:30px; width:30px">
+							<p:confirm header="#{messages.confirmation}"
+								message="Wurden die Mahngebühren für die ausgewählte Leihe bezahlt ? "
+								icon="ui-icon-alert" />
+						</p:commandButton>
+
+					</p:column>
+
+
+
+
+				</p:dataTable>
+
+
+
+
+				<p:confirmDialog global="true">
+
+					<p:commandButton value="Ja" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Nein" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+				</p:confirmDialog>
+
+			</h:form>
+		</p:panel>
+	</f:view>
+</h:body>
+</html>

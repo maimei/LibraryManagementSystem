@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<!-- Form for file upload -->
+<!-- http://www.primefaces.org/showcase/ui/datatableCellEditing.jsf -->
+<h:head>
+	<link rel="shortcut icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.readerlisttitle}</title>
+	<script type="text/javascript">
+		function start(){
+			#{readerTable.reset()};
+			#{readerTable.getModel().addInitiallyFilter('groupid','USER','=')};
+			#{readerTable.getModel().addInitiallyFilter('status','blocked',' &lt;&gt;')};
+			#{readerTable.getModel().addInitiallyFilter('lastUse', readerTable.getDeletable(), '&gt;')};
+		}
+	</script>
+</h:head>
+<h:body onload="start()">
+	
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.manageReaders}"
+		style="margin: 0 auto; width:1200px"> 
+		<div style="height: 100px">
+			<p:panel style="text-align:center">
+				<h:panelGrid columns="4" style="width:100%">
+					<p:commandButton id="newReader" value="#{messages.newReader}"
+						icon="ui-icon-circle-plus" action="add" />
+					<p:commandButton value="#{messages.onlineregistrations}" icon="ui-icon-notice"
+						onclick="window.location.href = '/bibjsf/user/new/newIndex.xhtml';" title="#{messages.onlineregistrations_help}"/>
+					<p:commandButton value="#{messages.deleteSuggestions}" icon="ui-icon-trash"
+						onclick="window.location.href = '/bibjsf/user/reader/inactive.xhtml';" title="#{messages.toBeDeletedReaders_help}" />
+					<p:commandButton value="#{messages.blockedReaders}" icon="ui-icon-cancel"
+						onclick="window.location.href = '/bibjsf/user/reader/blocked.xhtml';" title="#{messages.blockedReaders_help}"/>					
+				</h:panelGrid>
+			</p:panel>	
+		</div>
+			
+		<h:form id="form">
+		
+			<p:dataTable id="readerTable" value="#{readerTable.model}" 
+				var="reader" lazy="true" sortMode="multiple"
+				editable="#{readerTable.modifiable}" 
+				filteredValue="#{readerTable.filteredElements}"
+				emptyMessage="#{messages.noReadersFound}"
+				selection="#{readerTable.selectedElements}" resizableColumns="true"
+				liveResize="true" paginator="true" rows="25"
+				rowsPerPageTemplate="10,25,50,100">
+
+
+				<p:column selectionMode="multiple" style="width:20px" />
+
+				<!-- ID -->
+				<p:column id="IDColumn" sortBy="#{reader.id}" style="width: 70px;"
+					filterBy="#{reader.id}" headerText="#{messages.id}"
+					filterMatchMode="startsWith" filterStyle="width: 60px">
+					<h:outputText value="#{reader.id}" id="id"/>
+				</p:column>
+
+				<!-- Last Name -->
+				<p:column id="lastNameColumn" sortBy="#{reader.lastName}"
+					filterBy="#{reader.lastName}" headerText="#{messages.lastname}"
+					filterMatchMode="contains">
+					<h:outputText value="#{reader.lastName}"  />
+				</p:column>
+
+				<!-- First Name -->
+				<p:column id="firstNameColumn" sortBy="#{reader.firstName}"
+					filterBy="#{reader.firstName}" headerText="#{messages.firstname}"
+					filterMatchMode="contains">
+					<h:outputText value="#{reader.firstName}" />
+				</p:column>
+
+				<!-- Birthday -->
+				<p:column id="birthdayColumn" sortBy="#{reader.birthday}" style="width: 110px"
+					headerText="#{messages.birthday}"  >
+					<h:outputText value="#{reader.birthday}">
+						<f:convertDateTime pattern="dd.MM.yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<!-- Detailseite -->
+				<p:column style="width:40px" id="button"  >
+					<p:commandButton action="#{showReaderForm.setReaderByID(reader.id)}" 
+					 ajax="false" icon="ui-icon-circle-triangle-e" 
+						style="height:30px; width:30px" title="#{messages.clickToView}"/>
+				</p:column>
+
+			
+				<f:facet name="footer">
+					<p:growl id="messages" showDetail="true" />
+					<p:commandButton id="printButton" value="#{messages.print}"
+						title="#{messages.printIDCard_help}" update="@parent" ajax="false"
+						icon="ui-icon-print">
+						<p:fileDownload value="#{readerTable.getReaderPDF()}" />
+					</p:commandButton>
+					<p:commandButton value="#{messages.delete}"
+						title="#{messages.clickToDeleteReaders}"
+						action="#{readerTable.deleteSelected}"
+						update="readerTable messages" icon="ui-icon-circle-minus">
+						<p:confirm header="#{messages.confirmation}"
+							message="#{messages.reallyDeleteSelectedReaders}"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+				</f:facet>
+			</p:dataTable>
+			
+
+			<p:confirmDialog global="true" width="600px">
+				<p:commandButton value="#{messages.yes}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{messages.no}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+		</p:panel>
+	</f:view>
+</h:body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+    <title>#{messages.exemplarDetails}</title>
+</h:head>
+<h:body>
+    <h:outputStylesheet name="css/bib.css" />
+    <f:view>
+ <ui:include src="/mainmenu.xhtml" />
+    <p:growl id="messages" showDetail="true" />
+    <h:form id="form" >
+    
+    <p:panel id="panel" header="#{messages.exemplar} #{showExemplarForm.id} betrachten"
+    style="margin: 0 auto; width:1200px">  
+        <h:panelGrid columns="3" cellpadding="5">  
+            
+            <ui:include src="exemplarDetailAttributes.xhtml">
+                <ui:param name="exemplarForm" value="#{showExemplarForm}"/>
+            </ui:include>
+            </h:panelGrid>  
+            <!-- buttons in footer  -->
+			<f:facet name="footer">
+			  <h:panelGroup>
+			  <p:commandButton id="button" value="#{messages.edit}" action="#{changeExemplarForm.edit(showExemplarForm.getExemplar())}" 
+			      ajax="false" icon="ui-icon-wrench" validateClient="true" title="#{messages.save_help}" />
+			  <p:commandButton value="#{messages.back}" icon="ui-icon-arrowreturnthick-1-w" 
+				onclick="window.location.href = '/bibjsf/media/medium/bib_admin/mediumDetails.xhtml';" />
+              </h:panelGroup>
+             </f:facet>                
+        
+    </p:panel>  
+
+ </h:form>
+</f:view>
+</h:body>
+</html>

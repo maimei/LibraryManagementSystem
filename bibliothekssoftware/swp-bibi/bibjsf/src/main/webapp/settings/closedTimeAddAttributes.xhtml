@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+</h:head>
+<body>
+	<ui:composition>
+
+		<!-- Startdatum -->
+		<h:outputLabel for="start" value="#{messages.from}: "
+			style="font-weight:bold" />
+		<p:calendar id="start" value="#{addClosedTimeForm.start}"
+			showOn="button" required="true" locale="de"
+			requiredMessage="#{messages.from} #{messages.required}">
+		</p:calendar>
+
+		<!-- Enddatum -->
+		<h:outputLabel for="till" value="#{messages.till}: "
+			style="font-weight:bold" />		
+		<p:calendar id="till" value="#{addClosedTimeForm.till}"
+			showOn="button" required="true" locale="de"
+			requiredMessage="#{messages.till} #{messages.required}">
+		</p:calendar>
+
+		<!-- Anlass -->
+		<h:outputLabel for="occasion" value="#{messages.occasion}: "
+			style="font-weight:bold" />
+		<p:inputText id="occasion" value="#{addClosedTimeForm.occasion}"
+			required="true" style="width:242px" 
+			requiredMessage="#{messages.occasion} #{messages.required}"/>
+
+	</ui:composition>
+</body>
+</html>

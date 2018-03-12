@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+</h:head>
+<body>
+	<ui:composition>
+
+		<!-- first name -->
+		<h:outputLabel for="firstname" value="#{messages.firstname}:* "
+			style="font-weight:bold" />
+		<p:inputText maxlength="250" id="firstname"
+			value="#{addReaderForm.firstName}" required="true"
+			requiredMessage="#{messages.firstnamereq}" style="width:800px" />
+
+		<!--  last name -->
+		<h:outputLabel for="lastname" value="#{messages.lastname}:* "
+			style="font-weight:bold" />
+		<p:inputText maxlength="250" id="lastname"
+			value="#{addReaderForm.lastName}" required="true"
+			requiredMessage="#{messages.lastnamereq}" style="width:800px" />
+
+
+		<!--  birthday -->
+		<h:outputLabel for="birthday" value="#{messages.birthday}:* "
+			style="font-weight:bold" />
+		<p:inputMask id="birthday" value="#{addReaderForm.birthday}"
+			mask="99.99.9999" required="true"
+			requiredMessage="#{messages.birthdayreq}" style="width:800px">
+			<f:convertDateTime type="date" pattern="dd.MM.yyyy" timeZone="CET" />
+		</p:inputMask>
+
+		<!-- street -->
+		<h:outputLabel for="street" value="#{messages.street}:*"
+			style="font-weight:bold" />
+		<p:inputText maxlength="250" id="street" required="true"
+			value="#{addReaderForm.street}" style="width:800px" 
+			requiredMessage="#{messages.street} #{messages.required}"/>
+
+		<!-- zipcode -->
+		<h:outputLabel for="zipcode" value="#{messages.zipcode}:*"
+			style="font-weight:bold" />
+		<p:inputText maxlength="250" id="zipcode" required="true"
+			value="#{addReaderForm.zipcode}" style="width:800px"
+			requiredMessage="#{messages.zipcode}  #{messages.required}" />
+
+		<!-- city -->
+		<h:outputLabel for="city" value="#{messages.city}:*"
+			style="font-weight:bold" />
+		<p:inputText maxlength="250" id="city" required="true"
+			value="#{addReaderForm.city}" style="width:800px" 
+			requiredMessage="#{messages.city} #{messages.required}"/>
+
+		<!-- phone -->
+		<h:outputLabel for="phone" value="#{messages.phone}:*"
+			style="font-weight:bold" />
+		<p:inputText maxlength="250" id="phone" required="true"
+			value="#{addReaderForm.phone}" style="width:800px"
+			requiredMessage="#{messages.phone} #{messages.required}" />
+
+		<!--  email -->
+		<h:outputLabel for="email" value="#{messages.email}:*"
+			style="font-weight:bold" />
+		<p:inputText maxlength="250" id="email" required="true"
+			value="#{addReaderForm.email}"
+			validatorMessage="#{messages.invalidEmail}" style="width:800px"
+			requiredMessage="#{messages.email} #{messages.required}">
+			<!-- <f:validator validatorId="custom.emailValidator" /> -->
+			<f:validateRegex pattern="(.+@.+\..+)|" />
+		</p:inputText>
+
+	</ui:composition>
+</body>
+</html>

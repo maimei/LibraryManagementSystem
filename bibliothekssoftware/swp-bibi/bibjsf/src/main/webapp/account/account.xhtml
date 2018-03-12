@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<!-- Form for file upload -->
+<!-- http://www.primefaces.org/showcase/ui/datatableCellEditing.jsf -->
+<h:head>
+	<script type="text/javascript">
+			if (screen.width &lt; 1025) {
+					document.location = "../mobile/user/profile.xhtml";
+	}
+	</script>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<title>#{messages.myaccount}</title>
+	<script type="text/javascript">
+		function start(){
+			#{lendingTable.reset()};
+			#{reservationTable.reset()};
+			#{lendingTable.getModel().addInitiallyFilter('readerID',authBackingBean.getUserID(),'=')};
+			#{showReaderForm.setReaderByID(authBackingBean.getUserID())};
+			#{reservationTable.getModel().addInitiallyFilter('readerID',authBackingBean.getUserID(),'=')};
+		}
+	</script>
+</h:head>
+
+<h:body onload="start()">
+	<h:outputStylesheet name="css/bib.css" />
+
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.myaccount}"
+			style="margin: 0 auto; width:1200px">
+			<h:form id="form">
+				<p:growl id="messages" showDetail="true" />
+				<p:panel style="text-align:center">
+					<h:panelGrid columns="4" style="width:100%">
+						<p:commandButton id="setting" value="#{messages.changePassword}"
+							icon="ui-icon-gear"
+							onclick="window.location.href = '/bibjsf/account/changePassword.xhtml';" />
+						<p:commandButton id="data" value="#{messages.changeMyData}"
+							icon="ui-icon-wrench"
+							onclick="window.location.href = '/bibjsf/account/changeData.xhtml';"
+							rendered="#{authBackingBean.isRole('BIB')}" />
+						<p:commandButton id="setting2" value="#{messages.settings}"
+							icon="ui-icon-gear"
+							onclick="window.location.href = '/bibjsf/account/accountSettings.xhtml';" />
+					</h:panelGrid>
+				</p:panel>
+				<br />
+
+				<p:tabView>
+
+					<!-- Meine Daten -->
+					<p:tab title="#{messages.mydata}">
+						<h:panelGrid columns="2" cellpadding="5">
+							<ui:include src="personalData.xhtml" />
+						</h:panelGrid>
+					</p:tab>
+
+					<!-- Ausleihen -->
+					<p:tab title="#{messages.lendings}">
+						<h:form>
+							<p:dataTable id="lendingTable" value="#{lendingTable.model}"
+								var="lending" lazy="true" sortMode="multiple"
+								filteredValue="#{lendingTable.filteredElements}"
+								emptyMessage="#{messages.noLendingsFound}"
+								style="text-align:center" resizableColumns="true"
+								paginatorPosition="top" liveResize="true" paginator="true"
+								rows="25" rowsPerPageTemplate="10,25,50,100">
+
+								<!-- Titel des Mediums -->
+								<p:column id="title" style="width: 250px;"
+									headerText="#{messages.title}" resizable="false">
+									<h:outputText
+										value="#{lendingTable.getMediumTitle(lending.exemplarID)}"
+										style="width:auto; white-space: pre-wrap" />
+								</p:column>
+
+								<!-- ID -->
+								<p:column id="exemplarIDColumn" sortBy="#{lending.exemplarID}"
+									style="width: 70px;" headerText="#{messages.id}"
+									filterStyle="width: 60px" resizable="false">
+									<h:outputText value="#{lending.exemplarID}" />
+								</p:column>
+
+								<!-- Till -->
+								<p:column id="till" sortBy="#{lending.till}"
+									style="width: 120px" headerText="#{messages.till}"
+									resizable="false">
+									<h:outputText value="#{lending.till}">
+										<f:convertDateTime pattern="dd.MM.yyyy" />
+									</h:outputText>
+								</p:column>
+
+								<!-- Fee -->
+								<p:column id="feeColumn" style="width: 150px;"
+									headerText="#{messages.fees}" resizable="false">
+									<h:outputText value="#{lendingTable.getFee(lending)}" />
+								</p:column>
+
+								<!-- Returned -->
+								<p:column id="returnedColumn" sortBy="#{lending.returned}"
+									style="width: 145px;" headerText="#{messages.returned}"
+									resizable="false">
+									<p:outputPanel rendered="#{lending.hasReturned()}">
+										<span class="ui-icon ui-icon-check" />
+									</p:outputPanel>
+									<p:outputPanel rendered="#{!lending.hasReturned()}">
+										<span class="ui-icon ui-icon-closethick" />
+									</p:outputPanel>
+								</p:column>
+
+								<!-- Paid -->
+								<p:column id="paidColumn" sortBy="#{lending.paid}"
+									style="width: 120px;" headerText="#{messages.paid}"
+									resizable="false">
+									<p:outputPanel rendered="#{lending.isPaid()}">
+										<span class="ui-icon ui-icon-check" />
+									</p:outputPanel>
+									<p:outputPanel rendered="#{!lending.isPaid()}">
+										<span class="ui-icon ui-icon-closethick" />
+									</p:outputPanel>
+								</p:column>
+
+								<!-- Verlängern -->
+								<p:column id="extensionColumn" headerText="#{messages.extend}"
+									resizable="false">
+									<p:commandButton action="#{changeLendingForm.extend(lending)}"
+										ajax="false" icon="ui-icon-circle-triangle-e"
+										title="#{messages.clickToExtend}"
+										style="height:30px; width:30px;"
+										disabled="#{lending.hasReturned() or extensionTable.hasExtension(lending.readerID,lending.exemplarID) or authBackingBean.isBlocked(authBackingBean.getUserID())}" />
+								</p:column>
+							</p:dataTable>
+						</h:form>
+					</p:tab>
+
+					<!--  Vormerkungen -->
+
+					<p:tab title="#{messages.reservations}">
+
+						<p:dataTable id="reservationTable"
+							value="#{reservationTable.model}" var="reservation" lazy="true"
+							sortMode="multiple" style="text-align:center"
+							filteredValue="#{reservationTable.filteredElements}"
+							emptyMessage="#{messages.noReservationsFound}"
+							resizableColumns="true" liveResize="true" paginator="true"
+							rows="25" paginatorPosition="top"
+							rowsPerPageTemplate="10,25,50,100">
+
+
+							<!-- Title -->
+							<p:column id="title" headerText="#{messages.title}" width="40%"
+								resizable="false">
+								<h:outputText
+									value="#{reservationTable.getTitle(reservation.mediumID)}" />
+							</p:column>
+
+							<!-- date -->
+							<p:column id="date" sortBy="#{reservation.reservationDate}"
+								resizable="false" width="10%" headerText="Datum">
+								<h:outputText value="#{reservation.reservationDate}">
+									<f:convertDateTime pattern="dd.MM.yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<!-- status -->
+							<p:column id="status" headerText="Status " width="25%"
+								resizable="false">
+								<h:outputText
+									value="#{reservationTable.getReservationStatus(reservation)}" />
+							</p:column>
+
+							<!-- other -->
+							<p:column id="other" headerText="frühere Vormerkungen "
+								width="25%" resizable="false">
+								<h:outputText
+									value="#{reservationTable.getEarlierReservationCount(reservation)}" />
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+
+
+				</p:tabView>
+
+				<p:confirmDialog global="true">
+					<p:commandButton value="#{messages.yes}" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="#{messages.no}" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+			</h:form>
+		</p:panel>
+	</f:view>
+</h:body>
+</html>

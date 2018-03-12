@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+	
+	<body  onload="#{commentaryTable.getModel().addInitiallyFilter('active','true','=')}">
+	<f:view renderKitId="PRIMEFACES_MOBILE">
+
+	<pm:page title="Kommentare">
+		<pm:view id="commentary">
+			<pm:header title="Kommentare">
+				<f:facet name="left">
+					<p:button value="Zurück" icon="back" href="../media/mediumDetails.xhtml"></p:button>
+				</f:facet>
+				
+				<f:facet name="right">
+					<p:button value="Einstellungen" icon="gear" href="../settings/settingsTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"></p:button>
+				</f:facet>
+				
+					<pm:navBar>
+						<p:button value="Startseite" icon="home" href="../indexMain.xhtml"> </p:button>
+						<p:button value="Medien" icon="search" href="../media/mediumTemp.xhtml" styleClass="ui-btn-active"> </p:button>
+						<p:button value="Mein Profil" icon="info" href="../user/profileTemp.xhtml" rendered="#{authBackingBean.isRole('USER')}"> </p:button>
+				
+				
+					</pm:navBar>
+					
+			</pm:header>
+			<h:form>
+				<pm:content>
+			
+				<p:dataList value="#{commentaryTable.model}" var="commentary">
+				<f:attribute name="filter" value="true"></f:attribute>
+				<p:column>
+						<p>#{commentary.readerID}</p>
+						<p>#{commentary.dateOfPublication}</p>
+						<p>#{commentary.commentary}</p>
+				
+				</p:column>
+				</p:dataList>
+				
+				</pm:content>
+				</h:form>
+				<p:button value="Kommentar hinzufügen" href="commentaryAdd.xhtml" rendered="#{authBackingBean.isRole('USER')}"> </p:button>
+		</pm:view>
+
+	</pm:page>
+	</f:view>
+	</body>
+</html>

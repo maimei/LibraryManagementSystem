@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+</h:head>
+<body>
+<!-- attribute input fields for reader attributes shared by reader/add.xhtml and reader/change.xhtml -->
+<ui:composition>
+            
+            <!-- first name -->
+            <p:outputLabel style="font-weight:bold" for="firstname" value="#{messages.firstname}: " />
+            <p:inputText readonly="true" style="width:800px" 
+            id="firstname" value="#{showReaderForm.firstName}"   />
+            
+            <!--  last name -->
+            <p:outputLabel style="font-weight:bold" for="lastname" value="#{messages.lastname}: "  />
+              <p:inputText readonly="true" style="width:800px" 
+              id="lastname" value="#{showReaderForm.lastName}"   />
+                        
+            <!--  birthday -->
+            <p:outputLabel style="font-weight:bold" for="birthday" value="#{messages.birthday}: "  />
+             <p:inputMask id="birthday" value="#{showReaderForm.birthday}"
+			mask="99.99.9999" readonly="true"
+			requiredMessage="#{messages.birthdayreq}"
+			style="width:800px">
+			<f:convertDateTime type="date" pattern="dd.MM.yyyy" timeZone="CET" />
+			</p:inputMask>
+            
+            <!-- street -->
+            <p:outputLabel style="font-weight:bold" for="street" value="#{messages.street}:"  />
+              <p:inputText readonly="true" style="width:800px"  id="street" value="#{showReaderForm.street}"   />
+            
+            <!-- zipcode -->
+            <p:outputLabel style="font-weight:bold" for="zipcode" value="#{messages.zipcode}:"  />
+            <p:inputText readonly="true" style="width:800px"  id="zipcode" value="#{showReaderForm.zipcode}"   />
+             
+            <!-- city -->
+            <p:outputLabel style="font-weight:bold" for="city" value="#{messages.city}:"  />
+             <p:inputText readonly="true" style="width:800px"  id="city" value="#{showReaderForm.city}" />
+            
+            <!-- phone -->
+            <p:outputLabel style="font-weight:bold" for="phone" value="#{messages.phone}:"  />
+             <p:inputText readonly="true" style="width:800px"  
+             id="phone" value="#{showReaderForm.phone}"   />
+            
+            <!-- user name -->
+            <p:outputLabel style="font-weight:bold" for="username" value="#{messages.username}:"  />
+          	  <p:inputText readonly="true" style="width:800px"  
+          	  id="username" value="#{showReaderForm.userName}" />
+            
+            <!--  email -->
+            <p:outputLabel style="font-weight:bold" for="email" value="#{messages.email}:"  />
+          	  <p:inputText readonly="true" style="width:800px"  
+          	  id="email" value="#{showReaderForm.email}"   />
+            
+            <!-- status -->
+            <p:outputLabel style="font-weight:bold" for="status2" 
+            value="#{messages.status}:"  />
+          	<p:inputText readonly="true" style="width:800px"  
+          	id="status2" value="#{showReaderForm.status}"   />  
+              
+            <!-- entryDate -->
+			<p:outputLabel for="entryDate" value="#{messages.entryDate}: "
+				style="font-weight:bold" />
+			<p:inputMask id="entryDate" value="#{showReaderForm.entryDate}"
+				mask="99.99.9999" readonly="true"
+				requiredMessage="#{messages.entryDate_req}"
+				style="width:800px" >
+				<f:convertDateTime type="date" pattern="dd.MM.yyyy" timeZone="CET" />
+			</p:inputMask>        
+		
+</ui:composition>
+</body>
+</html>   

@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<title>#{messages.mediatyplisttitle}</title>
+</h:head>
+
+<body onload="#{mediumTypeTable.reset()}">
+	<f:view>
+		<ui:include src="/mainmenu.xhtml" />
+		<p:panel header="#{messages.manageMediaTypes}"
+			style="margin: 0 auto; width:1200px">
+			<h:form>
+				<br />
+
+				<p:dataTable id="mediumTypeTable" value="#{mediumTypeTable.model}"
+					var="mediumType" lazy="true" sortMode="multiple"
+					editable="#{mediumTypeTable.modifiable}"
+					filteredValue="#{mediumTypeTable.filteredElements}"
+					emptyMessage="#{messages.noMediaTypesFound}"
+					selection="#{mediumTypeTable.selectedElements}"
+					resizableColumns="true" liveResize="true" paginator="true"
+					rows="25" rowsPerPageTemplate="10,25,50,100">
+
+					<p:column selectionMode="multiple" style="width: 20px;"
+						resizable="false" />
+
+
+					<!-- name -->
+					<p:column id="name" sortBy="#{mediumType.name}"
+						filterBy="#{mediumType.name}" headerText="#{messages.name}"
+						resizable="false" filterStyle="width:200px"
+						filterMatchMode="contains" style="width:auto">
+						<h:outputText value="#{mediumType.name}"
+							style="width:auto; white-space: pre-wrap" />
+					</p:column>
+
+					<!-- fee -->
+					<p:column id="fee" sortBy="#{mediumType.fee}"
+						filterBy="#{mediumType.fee}" headerText="#{messages.fee}"
+						style="text-align:center; width:120px" resizable="false"
+						filterStyle="width:50px" filterMatchMode="contains">
+						<h:outputText value="#{mediumType.fee}" />
+					</p:column>
+
+					<!--  lendingTime -->
+					<p:column id="lendingTime" sortBy="#{mediumType.lendingTime}"
+						headerText="#{messages.lendingTime}"
+						style="text-align:center; width:120px" resizable="false"
+						filterStyle="width:50px" filterBy="#{mediumType.lendingTime}"
+						filterMatchMode="contains">
+						<h:outputText value="#{mediumType.lendingTime}" />
+					</p:column>
+
+					<!-- extensions -->
+					<p:column id="extensions" sortBy="#{mediumType.extensions}"
+						filterBy="#{mediumType.extensions}"
+						style="text-align:center; width:190px" resizable="false"
+						filterStyle="width:50px" headerText="#{messages.extensions}"
+						filterMatchMode="contains">
+						<h:outputText value="#{mediumType.extensions}" />
+					</p:column>
+
+					<!-- extensionTime -->
+					<p:column id="extensionTime" sortBy="#{mediumType.extensionTime}"
+						filterBy="#{mediumType.extensionTime}"
+						style="text-align:center; width:170px" resizable="false"
+						filterStyle="width:50px" headerText="#{messages.extensionTime}"
+						filterMatchMode="contains">
+						<h:outputText value="#{mediumType.extensionTime}" />
+					</p:column>
+
+					<p:column style="width:40px" id="button">
+						<p:commandButton
+							action="#{showMediumTypeForm.setMediumTypeShow(mediumType.id)}"
+							ajax="false" icon="ui-icon-circle-triangle-e" title="#{messages.clickToView}"
+							style="height:30px; width:30px" />
+					</p:column>
+
+
+					<f:facet name="footer">
+						<p:growl id="messages" showDetail="true" />
+						<p:commandButton value="Hinzufügen" icon="ui-icon-circle-plus"
+							onclick="window.location.href = '/bibjsf/media/mediumType/mediumTypeAdd.xhtml';" />
+						<p:commandButton value="#{messages.delete}" 
+							title="#{messages.deleteSelectedMedia}"
+							action="#{mediumTypeTable.deleteSelected}" update="mediumTypeTable messages"
+							icon="ui-icon-circle-minus">
+							<p:confirm header="#{messages.confirmation}" 
+								message="#{messages.reallyDeleteSelectedMediaTypes}" 
+								icon="ui-icon-alert"/>
+						</p:commandButton>
+					</f:facet>
+				</p:dataTable>
+
+				<p:confirmDialog global="true" width="600px">
+					<p:commandButton value="#{messages.yes}" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="#{messages.no}" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			
+			</h:form>
+		</p:panel>
+			
+			
+	</f:view>
+
+
+</body>
+</html>

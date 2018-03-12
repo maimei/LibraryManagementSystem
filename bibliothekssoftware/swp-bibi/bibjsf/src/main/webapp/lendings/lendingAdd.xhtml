@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+<!-- Addition of a lending -->
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+    <title>#{messages.lendings}</title>
+</h:head>
+<h:body onload="#{addLendingForm.reset()}">
+    <h:outputStylesheet name="css/bib.css" />
+    <f:view>
+    <ui:include src="/mainmenu.xhtml" />
+    <h:form id="form" >
+    <p:growl id="messages" showDetail="true" />
+			  
+			 
+    
+    <p:panel id="panel" header="#{messages.addlending}" style="width: 1200px;margin: 0 auto;">  
+        <h:panelGrid columns="2" cellpadding="5">  
+           
+            <ui:include src="lendingAttributes.xhtml">
+                <ui:param name="lendingForm" value="#{addLendingForm}"/>
+            </ui:include>
+            
+             </h:panelGrid>  
+    		<f:facet name="footer">
+			  <h:panelGroup>  
+			 <p:commandButton value="#{messages.validateData}" id="validate" icon="ui-icon-check"
+			  action="#{addLendingForm.validate()}" ajax="false" /> 
+             <p:commandButton value="#{messages.back}" icon="ui-icon-arrowreturnthick-1-w"
+               	onclick="window.location.href = '/bibjsf/lendings/lendings.xhtml';" />
+						
+              </h:panelGroup>
+             </f:facet>
+      
+    </p:panel>  
+
+
+    <p:defaultCommand target="validate"/>
+ </h:form>
+</f:view>
+</h:body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="../resources/favicons/favicon.ico" type="image/x-icon"/>
+</h:head>
+<body>
+	<!-- attribute input fields for reader attributes shared by lendings/lendingAdd.xhtml -->
+	<ui:composition>
+
+		<!-- ExemplarID -->
+		<h:outputLabel for="exemplarID" value="#{messages.exemplarid}: "
+			style="font-weight:bold" />
+		<p:inputText id="exemplarID" value="#{lendingForm.exemplarID}"
+			required="true" requiredMessage="#{messages.exemplarid} #{messages.required}"
+			style="width:800px" maxlength="250"  />
+
+		<!--  ReaderID -->
+		<h:outputLabel for="readerID" value="#{messages.readerid}: "
+			style="font-weight:bold" />
+		<p:inputText id="readerID" value="#{lendingForm.readerID}"
+			required="true" requiredMessage="#{messages.readerid} #{messages.required}"
+			style="width:800px" maxlength="250"/>
+
+	</ui:composition>
+</body>
+</html>

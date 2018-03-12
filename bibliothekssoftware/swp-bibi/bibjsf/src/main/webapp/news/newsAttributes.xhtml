@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="shortcut icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+	<link rel="icon" href="../resources/favicons/favicon.ico"
+		type="image/x-icon" />
+</h:head>
+<body>
+	<ui:composition>
+
+		<!-- title -->
+		<h:outputLabel for="title" value="#{messages.title}:"
+			style="font-weight:bold" title="#{messages.title_help}" />
+		<p:inputText id="title" value="#{newsForm.title}" style="width:800px"
+			required="true" maxlength="250"
+			requiredMessage="#{messages.title} #{messages.required}" />
+
+		<!-- dateOfPublication -->
+		<h:outputLabel for="dateOfPublication"
+			value="#{messages.dateOfPublication}:" style="font-weight:bold" />
+		<p:inputMask id="dateOfPublication"
+			value="#{newsForm.dateOfPublication}" mask="99.99.9999"
+			style="width:800px"
+			requiredMessage="#{messages.dateOfPublication} #{messages.required}" >
+		<f:convertDateTime type="date" pattern="dd.MM.yyyy" timeZone="CET" />
+		</p:inputMask>
+
+		<!-- content -->
+		<h:outputLabel for="content" value="#{messages.contents}:"
+			style="font-weight:bold" />
+		<p:inputTextarea id="content" value="#{newsForm.content}"
+			style="width:800px" required="true" counter="counter"
+			maxlength="30000"
+			requiredMessage="#{messages.contents} #{messages.required}" />
+
+		<div />
+		<h:panelGroup>
+			<h:outputLabel for="counter" value="#{messages.remainingLetters}: " />
+			<h:outputText id="counter" />
+		</h:panelGroup>
+
+
+
+
+	</ui:composition>
+</body>
+</html>
